@@ -124,7 +124,7 @@ export default function AboutSection() {
           <div className="max-w-4xl mx-auto px-8 lg:px-16 py-0">
             {/* About Section */}
             <motion.div
-              ref={(el) => (sectionRefs.current[0] = el)}
+              ref={(el) => { sectionRefs.current[0] = el; }}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -156,7 +156,7 @@ export default function AboutSection() {
 
             {/* Our Story */}
             <motion.div
-              ref={(el) => (sectionRefs.current[1] = el)}
+              ref={(el) => { sectionRefs.current[1] = el; }}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -207,7 +207,7 @@ export default function AboutSection() {
 
             {/* Our Values */}
             <motion.div
-              ref={(el) => (sectionRefs.current[2] = el)}
+              ref={(el) => { sectionRefs.current[2] = el; }}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -279,7 +279,7 @@ export default function AboutSection() {
 
             {/* Our Approach */}
             <motion.div
-              ref={(el) => (sectionRefs.current[3] = el)}
+              ref={(el) => { sectionRefs.current[3] = el; }}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -319,7 +319,7 @@ export default function AboutSection() {
 
             {/* Why Choose Us */}
             <motion.div
-              ref={(el) => (sectionRefs.current[4] = el)}
+              ref={(el) => { sectionRefs.current[4] = el; }}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
