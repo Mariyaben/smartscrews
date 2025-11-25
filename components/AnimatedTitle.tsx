@@ -127,12 +127,12 @@ export default function AnimatedTitle() {
            <motion.span
              key={`bottom-${letter}-${index}`}
              className="text-6xl sm:text-7xl lg:text-8xl xl:text-[9rem] 2xl:text-[11rem] font-black leading-none inline-block whitespace-nowrap"
-             style={index === bottomLetters.length - 1 ? { paddingRight: '2rem' } : {}}
-             initial={{ opacity: 1 }}
              style={{
+               ...(index === bottomLetters.length - 1 ? { paddingRight: '2rem' } : {}),
                color: bottomColor,
                transition: 'color 2s ease-in-out',
              }}
+             initial={{ opacity: 1 }}
              animate={{
                color: bottomColor,
              }}
