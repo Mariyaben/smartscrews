@@ -66,69 +66,14 @@ export default function AnimatedTitle() {
         ))}
       </div>
 
-      {/* Bottom Line - SCREWS with screw icon before it */}
-      <div className="flex items-center justify-start gap-2 sm:gap-3 lg:gap-4 overflow-visible flex-nowrap -ml-2 sm:-ml-3 lg:-ml-6" style={{ width: 'fit-content', maxWidth: 'none' }}>
-        {/* Screw icon before SCREWS */}
-        <motion.div
-          className="relative w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 xl:w-40 xl:h-40 2xl:w-48 2xl:h-48 inline-block flex-shrink-0 self-center"
-          initial={{ scale: 0.8, rotate: -180 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-                <svg
-                  viewBox="0 0 100 100"
-                  className="w-full h-full"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <defs>
-                    <linearGradient id="screwGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#0e7888" />
-                      <stop offset="50%" stopColor="#2f5a65" />
-                      <stop offset="100%" stopColor="#213f51" />
-                    </linearGradient>
-                  </defs>
-                  
-                  {/* Screw head - hexagonal */}
-                  <polygon
-                    points="50,20 65,30 65,50 50,60 35,50 35,30"
-                    fill="url(#screwGradient)"
-                    stroke="#fffffe"
-                    strokeWidth="2"
-                  />
-                  
-                  {/* Screw body */}
-                  <rect x="47" y="60" width="6" height="50" fill="url(#screwGradient)" rx="3" />
-                  
-                  {/* Screw threads */}
-                  {Array.from({ length: 4 }).map((_, i) => (
-                    <line
-                      key={i}
-                      x1="45"
-                      y1={65 + i * 10}
-                      x2="55"
-                      y2={65 + i * 10}
-                      stroke="#fffffe"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                  ))}
-                  
-                  {/* Screw tip */}
-                  <polygon
-                    points="47,110 50,100 53,110"
-                    fill="url(#screwGradient)"
-                  />
-                </svg>
-              </motion.div>
-
+      {/* Bottom Line - SCREWS */}
+      <div className="flex items-center justify-start gap-2 sm:gap-3 lg:gap-4 overflow-visible flex-nowrap" style={{ width: 'fit-content', maxWidth: 'none' }}>
          {/* SCREWS text - all letters visible */}
          {bottomLetters.map((letter, index) => (
            <motion.span
              key={`bottom-${letter}-${index}`}
              className="text-6xl sm:text-7xl lg:text-8xl xl:text-[9rem] 2xl:text-[11rem] font-black leading-none inline-block whitespace-nowrap"
              style={{
-               ...(index === bottomLetters.length - 1 ? { paddingRight: '2rem' } : {}),
                color: bottomColor,
                transition: 'color 2s ease-in-out',
              }}

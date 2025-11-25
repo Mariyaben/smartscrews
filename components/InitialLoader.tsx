@@ -63,7 +63,7 @@ export default function InitialLoader({ children }: { children: React.ReactNode 
         {isLoading && (
           <motion.div
             key="initial-loader"
-            className="fixed inset-0 z-[9999] bg-[#fffffe] flex items-center justify-center overflow-hidden"
+            className="fixed inset-0 z-[9999] bg-[#faf9f6] flex items-center justify-center overflow-hidden"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6 }}

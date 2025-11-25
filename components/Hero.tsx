@@ -1,49 +1,136 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import AnimatedTitle from './AnimatedTitle';
+import { useState, useEffect, useRef } from 'react';
 
 export default function Hero() {
-  return (
-    <section className="relative overflow-visible">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#fffffe] via-[#fffffe] to-[#fefbf7] opacity-50" />
-      
-      {/* Decorative elements */}
-      <div className="absolute top-20 right-10 w-72 h-72 bg-[#0e7888] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob" />
-      <div className="absolute top-40 left-10 w-72 h-72 bg-[#2f5a65] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000" />
-      <div className="absolute -bottom-8 left-20 w-72 h-72 bg-[#213f51] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-4000" />
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-40 relative z-10 overflow-visible">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center min-h-[90vh] overflow-visible" style={{ overflow: 'visible' }}>
-          {/* Text Content - Title Only */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="w-full overflow-visible flex items-center"
-            style={{ minWidth: 0 }}
-          >
-            <div className="w-full overflow-visible pr-8 lg:pr-12 -ml-2 lg:-ml-6" style={{ width: 'calc(100% + 2rem)' }}>
-              <AnimatedTitle />
-            </div>
-          </motion.div>
+  const [showVideo, setShowVideo] = useState(false);
+  const [showContent, setShowContent] = useState(true);
+  const [isInitialShow, setIsInitialShow] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-          {/* Enhanced Visual */}
+  // Show content first, then transition to video after a delay
+  useEffect(() => {
+    if (!isInitialShow) return;
+
+    const timer = setTimeout(() => {
+      // Sweep out initial content
+      setShowContent(false);
+      // After sweep out completes (0.6s), sweep in video
+      setTimeout(() => {
+        setShowVideo(true);
+        setIsInitialShow(false);
+      }, 600);
+    }, 4000); // Show content for 4 seconds before transitioning to video
+
+    return () => clearTimeout(timer);
+  }, [isInitialShow]);
+
+  // Handle video end
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !showVideo) return;
+
+    const handleVideoEnd = () => {
+      // Start sweeping out video
+      setShowVideo(false);
+      // After sweep out completes (0.6s), sweep in content
+      setTimeout(() => {
+        setShowContent(true);
+      }, 600);
+    };
+
+    video.addEventListener('ended', handleVideoEnd);
+
+    return () => {
+      video.removeEventListener('ended', handleVideoEnd);
+    };
+  }, [showVideo]);
+
+  return (
+    <section id="hero" className="relative overflow-hidden min-h-[90vh]">
+      {/* Smooth transition gradient at top - blends with header */}
+      <div 
+        className="absolute inset-x-0 top-0 h-32 z-30 pointer-events-none"
+        style={{
+          background: 'linear-gradient(to bottom, rgba(20, 40, 50, 0.9) 0%, rgba(20, 40, 50, 0.7) 20%, rgba(20, 40, 50, 0.5) 40%, rgba(20, 40, 50, 0.3) 60%, rgba(20, 40, 50, 0.1) 80%, transparent 100%)',
+        }}
+      />
+      
+      {/* Video Background */}
+      <AnimatePresence>
+        {showVideo && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
-            className="relative flex items-center justify-center ml-4 lg:ml-8"
+            initial={{ x: '100%', opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: '-100%', opacity: 0 }}
+            transition={{ duration: 0.6, ease: 'easeInOut' }}
+            className="absolute inset-0 z-20 flex items-center justify-center bg-black"
           >
-            <div className="relative">
-              {/* Glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#0e7888] to-[#2f5a65] rounded-3xl blur-2xl opacity-30 animate-pulse" />
-              
-              {/* Main visual container */}
-              <div className="relative bg-gradient-to-br from-white to-[#fffffe] rounded-3xl p-4 lg:p-6 shadow-2xl border border-[#2f5a65]/10">
-                <div className="relative w-full aspect-square max-w-sm mx-auto">
+            <video
+              ref={videoRef}
+              autoPlay
+              muted
+              playsInline
+              loop={false}
+              className="w-full h-full object-cover"
+            >
+              <source src="/Untitled video - Made with Clipchamp (1).mp4" type="video/mp4" />
+            </video>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Hero Content */}
+      <AnimatePresence mode="wait">
+        {showContent && (
+          <motion.div
+            key="hero-content"
+            initial={isInitialShow ? { x: 0, opacity: 1 } : { x: '100%', opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: '-100%', opacity: 0 }}
+            transition={{ duration: 0.6, ease: 'easeInOut' }}
+            className="absolute inset-0 w-full"
+          >
+            {/* Background gradient */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#fffffe] via-[#fffffe] to-[#fefbf7] opacity-50" />
+            
+            {/* Decorative elements */}
+            <div className="absolute top-20 right-10 w-72 h-72 bg-[#0e7888] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob" />
+            <div className="absolute top-40 left-10 w-72 h-72 bg-[#2f5a65] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000" />
+            <div className="absolute -bottom-8 left-20 w-72 h-72 bg-[#213f51] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-4000" />
+            
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-40 relative z-10 overflow-visible">
+              <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 xl:gap-32 items-center min-h-[90vh] overflow-visible" style={{ overflow: 'visible' }}>
+                {/* Text Content - Title Only */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, ease: 'easeOut' }}
+                  className="w-full overflow-visible flex items-center"
+                  style={{ minWidth: 0 }}
+                >
+                  <div className="w-full overflow-visible pr-8 lg:pr-12 -ml-2 lg:-ml-6" style={{ width: 'calc(100% + 2rem)' }}>
+                    <AnimatedTitle />
+                  </div>
+                </motion.div>
+
+                {/* Enhanced Visual */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                  transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
+                  className="relative flex items-center justify-center ml-8 lg:ml-16 xl:ml-24"
+                >
+                  <div className="relative">
+                    {/* Glow effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0e7888] to-[#2f5a65] rounded-3xl blur-2xl opacity-30 animate-pulse" />
+                    
+                    {/* Main visual container */}
+                    <div className="relative bg-gradient-to-br from-white to-[#fffffe] rounded-3xl p-4 lg:p-6 shadow-2xl border border-[#2f5a65]/10">
+                      <div className="relative w-full aspect-square max-w-sm mx-auto">
                   <svg
                     viewBox="0 0 400 400"
                     className="w-full h-full"
@@ -274,12 +361,15 @@ export default function Hero() {
                       }}
                     />
                   </svg>
-                </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
             </div>
           </motion.div>
-        </div>
-      </div>
+        )}
+      </AnimatePresence>
       
       <style jsx>{`
         @keyframes blob {

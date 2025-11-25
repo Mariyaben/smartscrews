@@ -2,7 +2,7 @@
 
 :root {
   /* Brand Colors */
-  --color-primary-background: #fffffe;
+  --color-primary-background: #faf9f6;
   --color-accent: #2f5a65;
   --color-deep: #213f51;
   --color-cta: #0e7888;
@@ -182,4 +182,12 @@ button:disabled {
 /* Hide scrollbar for About section right content */
 [data-right-section]::-webkit-scrollbar {
   display: none;
+}
+
+/* Contact form input placeholder styling */
+input::placeholder,
+textarea::placeholder,
+select::placeholder {
+  color: rgba(250, 249, 246, 0.5);
+  opacity: 1;
 }

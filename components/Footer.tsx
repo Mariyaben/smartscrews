@@ -1,147 +1,532 @@
+'use client';
+
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { 
+  Mail, Linkedin, Twitter, Github, Globe, 
+  MessageSquare, Star, Heart, Shield, Zap, Settings, Hammer, Wrench, Palette
+} from 'lucide-react';
+import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 
 export default function Footer() {
-  const serviceLinks = [
-    { href: '/services#carpentry-wood-flooring', label: 'Carpentry & Flooring' },
-    { href: '/services#building-cleaning', label: 'Cleaning Services' },
-    { href: '/services#floor-wall-tiling', label: 'Tiling Works' },
-    { href: '/services#painting', label: 'Painting' },
-    { href: '/services#plumbing-sanitary', label: 'Plumbing' },
-    { href: '/services#air-conditioning', label: 'HVAC' },
-  ];
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
 
-  const companyLinks = [
-    { href: '/about', label: 'About Us' },
-    { href: '/projects', label: 'Projects' },
-    { href: '/contact', label: 'Contact' },
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.8, 0]);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const [email, setEmail] = useState('');
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    
+    setIsSubscribing(true);
+    
+    // Simulate subscription
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    setIsSubscribing(false);
+    setIsSubscribed(true);
+    setEmail('');
+    
+    // Reset after 3 seconds
+    setTimeout(() => setIsSubscribed(false), 3000);
+  };
+
+  const footerLinks = {
+    services: [
+      { name: "Construction", href: "/#services", icon: Hammer, delay: 0.1 },
+      { name: "Maintenance", href: "/#services", icon: Wrench, delay: 0.2 },
+      { name: "Decorative", href: "/#services", icon: Palette, delay: 0.3 },
+      { name: "All Services", href: "/#services", icon: Settings, delay: 0.4 }
+    ],
+    company: [
+      { name: "About Us", href: "/#about", icon: Star, delay: 0.5 },
+      { name: "Contact", href: "/#contact", icon: MessageSquare, delay: 0.6 },
+      { name: "Services", href: "/#services", icon: Globe, delay: 0.7 }
+    ],
+  };
+
+  const handleFooterLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('/#')) {
+      const hash = href.split('#')[1];
+      if (window.location.pathname === '/') {
+        e.preventDefault();
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }
+  };
+
+  const socialLinks = [
+    { icon: Linkedin, href: "#", label: "LinkedIn", color: "#0077B5", delay: 0.1 },
+    { icon: Twitter, href: "#", label: "Twitter", color: "#1DA1F2", delay: 0.2 },
+    { icon: Github, href: "#", label: "GitHub", color: "#333", delay: 0.3 },
+    { icon: Mail, href: "mailto:info@smartscrews.com", label: "Email", color: "#0e7888", delay: 0.4 }
   ];
 
   return (
-    <footer className="bg-[#213f51] text-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+    <footer 
+      ref={containerRef}
+      style={{
+        position: 'relative',
+        borderTop: '1px solid rgba(14, 120, 136, 0.3)',
+        background: '#213f51',
+        overflow: 'hidden'
+      }}
+    >
+      {/* Animated background elements */}
+      <motion.div
+        style={{ 
+          y, 
+          opacity,
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          width: '800px',
+          height: '800px',
+          transform: 'translate(-50%, -50%)',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(14, 120, 136, 0.05) 0%, transparent 70%)',
+          filter: 'blur(60px)',
+          zIndex: 1
+        }}
+      />
+
+      {/* Floating elements */}
+      <motion.div
+        animate={{ 
+          rotate: [0, 360],
+          scale: [1, 1.1, 1]
+        }}
+        transition={{ 
+          duration: 30, 
+          repeat: Infinity, 
+          ease: "linear" 
+        }}
+        style={{
+          position: 'absolute',
+          top: '100px',
+          right: '100px',
+          width: '80px',
+          height: '80px',
+          border: '2px solid rgba(14, 120, 136, 0.08)',
+          borderRadius: '50%',
+          zIndex: 1
+        }}
+      />
+
+      <motion.div
+        animate={{ 
+          rotate: [360, 0],
+          y: [-10, 10, -10]
+        }}
+        transition={{ 
+          duration: 25, 
+          repeat: Infinity, 
+          ease: "easeInOut" 
+        }}
+        style={{
+          position: 'absolute',
+          bottom: '100px',
+          left: '80px',
+          width: '60px',
+          height: '60px',
+          border: '2px solid rgba(14, 120, 136, 0.06)',
+          transform: 'rotate(45deg)',
+          zIndex: 1
+        }}
+      />
+
+      {/* Main Footer Content */}
+      <div style={{
+        position: 'relative',
+        padding: isMobile ? '60px 16px' : '80px 24px',
+        zIndex: 10
+      }}>
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto'
+        }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))',
+            gap: isMobile ? '32px' : '48px',
+            paddingLeft: isMobile ? '40px' : '0'
+          }}>
           {/* Company Info */}
-          <div>
-            <h3 className="text-2xl font-bold mb-4">Smartscrews</h3>
-            <p className="text-white/80 mb-4">
-              Professional building and maintenance services you can trust.
-            </p>
-            <div className="flex gap-4">
-              <a
-                href="#"
-                className="text-white/80 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#213f51] rounded"
-                aria-label="Facebook"
+            <div style={{ gridColumn: isMobile ? 'span 1' : 'span 2' }}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
               >
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                </svg>
-              </a>
-              <a
-                href="#"
-                className="text-white/80 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#213f51] rounded"
-                aria-label="LinkedIn"
-              >
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                </svg>
-              </a>
+                <h3 style={{
+                  fontSize: isMobile ? 'clamp(1.5rem, 6vw, 2.5rem)' : 'clamp(2rem, 4vw, 3rem)',
+                  fontWeight: 300,
+                  fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+                  marginBottom: '24px',
+                  color: '#faf9f6',
+                  letterSpacing: '-0.02em'
+                }}>
+                  Smartscrews
+                </h3>
+                <p style={{
+                  color: 'rgba(250, 249, 246, 0.8)',
+                  marginBottom: '32px',
+                  lineHeight: 1.6,
+                  fontSize: isMobile ? '14px' : '16px',
+                  fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+                  fontWeight: 300
+                }}>
+                  Professional building and maintenance services you can trust. 
+                  From construction to maintenance, we deliver quality solutions 
+                  with expertise and precision.
+                </p>
+                <div style={{
+                  display: 'flex',
+                  gap: '16px'
+                }}>
+                  {socialLinks.map((social, index) => (
+                    <motion.a
+                      key={index}
+                      href={social.href}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.6, delay: social.delay }}
+                      viewport={{ once: true }}
+                      whileHover={{ scale: 1.1, y: -8 }}
+                      style={{
+                        width: isMobile ? '40px' : '48px',
+                        height: isMobile ? '40px' : '48px',
+                        background: 'rgba(14, 120, 136, 0.1)',
+                        borderRadius: '16px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#0e7888',
+                        textDecoration: 'none',
+                        transition: 'all 0.3s ease',
+                        border: '1px solid rgba(14, 120, 136, 0.2)'
+                      }}
+                      aria-label={social.label}
+                    >
+                      <social.icon style={{ width: isMobile ? '18px' : '20px', height: isMobile ? '18px' : '20px' }} />
+                    </motion.a>
+                  ))}
             </div>
+              </motion.div>
           </div>
 
-          {/* Services */}
-          <div>
-            <h4 className="font-bold mb-4">Services</h4>
-            <ul className="space-y-2">
-              {serviceLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
+            {/* Footer Links */}
+            {Object.entries(footerLinks).map(([category, links], categoryIndex) => (
+              <motion.div
+                key={category}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
+                viewport={{ once: true }}
+                style={{
+                  paddingLeft: isMobile ? '32px' : '0'
+                }}
+              >
+                <h4 style={{
+                  fontSize: isMobile ? '16px' : '18px',
+                  fontWeight: 400,
+                  color: '#faf9f6',
+                  marginBottom: '24px',
+                  textTransform: 'capitalize',
+                  fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif'
+                }}>
+                  {category}
+                </h4>
+                <ul style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '16px'
+                }}>
+                  {links.map((link, linkIndex) => (
+                    <li key={linkIndex}>
+                      <motion.a
                     href={link.href}
-                    className="text-white/80 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#213f51] rounded px-1"
-                  >
-                    {link.label}
-                  </Link>
+                        onClick={(e) => handleFooterLinkClick(e, link.href)}
+                        initial={{ opacity: 0, x: 20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6, delay: link.delay }}
+                        viewport={{ once: true }}
+                        whileHover={{ x: 8 }}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '12px',
+                          color: 'rgba(250, 249, 246, 0.8)',
+                          textDecoration: 'none',
+                          fontSize: isMobile ? '13px' : '14px',
+                          transition: 'all 0.3s ease',
+                          padding: '8px 0',
+                          fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+                          fontWeight: 300
+                        }}
+                      >
+                        <link.icon style={{ 
+                          width: '16px', 
+                          height: '16px',
+                          opacity: 0.7,
+                          color: '#0e7888'
+                        }} />
+                        {link.name}
+                      </motion.a>
                 </li>
               ))}
             </ul>
+              </motion.div>
+            ))}
           </div>
-
-          {/* Company */}
-          <div>
-            <h4 className="font-bold mb-4">Company</h4>
-            <ul className="space-y-2">
-              {companyLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-white/80 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#213f51] rounded px-1"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h4 className="font-bold mb-4">Get in Touch</h4>
-            <ul className="space-y-3 text-white/80">
-              <li>
-                <a
-                  href="tel:+1234567890"
-                  className="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#213f51] rounded px-1"
-                >
-                  +1 (234) 567-890
-                </a>
-              </li>
-              <li>
-                <a
-                  href="mailto:info@smartscrews.com"
-                  className="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#213f51] rounded px-1"
-                >
-                  info@smartscrews.com
-                </a>
-              </li>
-            </ul>
-            <Link
-              href="/contact"
-              className="mt-4 inline-block px-6 py-2 bg-[#0e7888] text-white rounded-lg font-medium hover:bg-[#2f5a65] transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#213f51]"
-            >
-              Request Quote
-            </Link>
           </div>
         </div>
 
-        {/* Newsletter */}
-        <div className="mt-12 pt-8 border-t border-white/20">
-          <div className="max-w-md">
-            <h4 className="font-bold mb-2">Newsletter</h4>
-            <p className="text-white/80 text-sm mb-4">
-              Stay updated with our latest projects and tips.
+      {/* Newsletter Signup */}
+      <div style={{
+        borderTop: '1px solid rgba(14, 120, 136, 0.2)',
+        padding: isMobile ? '32px 16px' : '48px 24px',
+        position: 'relative',
+        zIndex: 10
+      }}>
+        <div style={{
+          maxWidth: '800px',
+          margin: '0 auto',
+          textAlign: 'center'
+        }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h4 style={{
+              fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+              fontWeight: 300,
+              color: '#faf9f6',
+              marginBottom: '16px',
+              fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+              letterSpacing: '-0.02em'
+            }}>
+              Stay Updated with Latest Updates
+            </h4>
+            <p style={{
+              color: 'rgba(250, 249, 246, 0.8)',
+              marginBottom: '32px',
+              fontSize: '16px',
+              lineHeight: 1.6,
+              fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+              fontWeight: 300
+            }}>
+              Get the latest updates on our services, projects, and maintenance tips 
+              delivered directly to your inbox.
             </p>
-            <form className="flex gap-2">
+            
+            {isSubscribed ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                style={{
+                  padding: '24px',
+                  background: 'rgba(14, 120, 136, 0.1)',
+                  border: '1px solid rgba(14, 120, 136, 0.3)',
+                  borderRadius: '16px',
+                  color: '#0e7888',
+                  fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+                  fontWeight: 400
+                }}
+              >
+                <Star style={{ 
+                  width: '24px', 
+                  height: '24px', 
+                  margin: '0 auto 12px',
+                  display: 'block'
+                }} />
+                <div>
+                  Successfully subscribed! Welcome to the Smartscrews community.
+                </div>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubscribe} style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '16px',
+                maxWidth: '500px',
+                margin: '0 auto'
+              }}>
+                <div style={{
+                  display: 'flex',
+                  gap: '16px',
+                  flexWrap: 'wrap'
+                }}>
               <input
                 type="email"
-                placeholder="Your email"
-                className="flex-1 px-4 py-2 rounded-lg text-[#213f51] focus:outline-none focus:ring-2 focus:ring-[#0e7888] focus:ring-offset-2 focus:ring-offset-[#213f51]"
-                aria-label="Email address"
-              />
-              <button
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email"
+                    required
+                    style={{
+                      flex: '1',
+                      minWidth: '250px',
+                      padding: '16px',
+                      background: 'rgba(250, 249, 246, 0.1)',
+                      border: '1px solid rgba(14, 120, 136, 0.3)',
+                      borderRadius: '12px',
+                      color: '#faf9f6',
+                      fontSize: '16px',
+                      transition: 'all 0.3s ease',
+                      fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif'
+                    }}
+                  />
+                  <motion.button
+                    whileHover={{ scale: 1.05, boxShadow: '0 15px 35px rgba(14, 120, 136, 0.3)' }}
+                    whileTap={{ scale: 0.95 }}
                 type="submit"
-                className="px-6 py-2 bg-[#0e7888] text-white rounded-lg font-medium hover:bg-[#2f5a65] transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#213f51]"
-              >
-                Subscribe
-              </button>
+                    disabled={isSubscribing}
+                    style={{
+                      padding: '16px 32px',
+                      background: 'linear-gradient(to right, #0e7888, #2f5a65)',
+                      color: '#faf9f6',
+                      fontWeight: 400,
+                      fontSize: '16px',
+                      borderRadius: '12px',
+                      border: 'none',
+                      cursor: isSubscribing ? 'not-allowed' : 'pointer',
+                      transition: 'all 0.3s ease',
+                      whiteSpace: 'nowrap',
+                      opacity: isSubscribing ? 0.7 : 1,
+                      fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif'
+                    }}
+                  >
+                    {isSubscribing ? (
+                      <>
+                        <motion.div
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          style={{ display: 'inline-block', marginRight: '8px' }}
+                        >
+                          <Star style={{ width: '16px', height: '16px' }} />
+                        </motion.div>
+                        Subscribing...
+                      </>
+                    ) : (
+                      'Subscribe'
+                    )}
+                  </motion.button>
+                </div>
             </form>
-          </div>
-        </div>
-
-        {/* Copyright */}
-        <div className="mt-8 pt-8 border-t border-white/20 text-center text-white/60 text-sm">
-          <p>&copy; {new Date().getFullYear()} Smartscrews. All rights reserved.</p>
+            )}
+          </motion.div>
         </div>
       </div>
+
+      {/* Bottom Footer */}
+      <div style={{
+        borderTop: '1px solid rgba(14, 120, 136, 0.2)',
+        padding: '32px 24px',
+        position: 'relative',
+        zIndex: 10
+      }}>
+        <div style={{
+          maxWidth: '1400px',
+          margin: '0 auto',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '24px',
+          alignItems: 'center',
+          textAlign: 'center'
+        }}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            style={{
+              color: 'rgba(250, 249, 246, 0.6)',
+              fontSize: '14px',
+              fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+              fontWeight: 300,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '8px'
+            }}
+          >
+            <div>
+              © {new Date().getFullYear()} Smart Screws Technical Services L.L.C. All rights reserved.
+            </div>
+            <div style={{ fontSize: '13px', color: 'rgba(250, 249, 246, 0.5)' }}>
+              Building excellence, one project at a time.
+            </div>
+            <div style={{ fontSize: '12px', color: 'rgba(250, 249, 246, 0.4)', marginTop: '4px' }}>
+              Licensed by Department of Economy & Tourism, Dubai | License valid until 17/11/2026
+            </div>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '32px',
+              fontSize: '14px',
+              color: 'rgba(250, 249, 246, 0.6)',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+              fontWeight: 300
+            }}
+          >
+            <a href="#" style={{
+              color: 'rgba(250, 249, 246, 0.6)',
+              textDecoration: 'none',
+              transition: 'color 0.3s ease'
+            }} onMouseEnter={(e) => e.currentTarget.style.color = '#0e7888'} onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(250, 249, 246, 0.6)'}>
+              Privacy
+            </a>
+            <a href="#" style={{
+              color: 'rgba(250, 249, 246, 0.6)',
+              textDecoration: 'none',
+              transition: 'color 0.3s ease'
+            }} onMouseEnter={(e) => e.currentTarget.style.color = '#0e7888'} onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(250, 249, 246, 0.6)'}>
+              Terms
+            </a>
+            <a href="#" style={{
+              color: 'rgba(250, 249, 246, 0.6)',
+              textDecoration: 'none',
+              transition: 'color 0.3s ease'
+            }} onMouseEnter={(e) => e.currentTarget.style.color = '#0e7888'} onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(250, 249, 246, 0.6)'}>
+              Cookies
+            </a>
+          </motion.div>
+        </div>
+      </div>
+
     </footer>
   );
 }
-

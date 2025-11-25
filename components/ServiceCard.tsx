@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import type { Service } from '@/lib/data';
 
@@ -50,10 +49,7 @@ export default function ServiceCard({ service, index = 0 }: ServiceCardProps) {
         </span>
       </div>
 
-      <Link
-        href={`/services/${service.id}`}
-        className="block focus:outline-none focus:ring-2 focus:ring-[#0e7888] focus:ring-offset-2 rounded-2xl relative z-10"
-      >
+      <div className="block rounded-2xl relative z-10">
         {/* Enhanced Animation Container */}
         <div className={`relative h-56 ${colors.bg} overflow-hidden`}>
           {/* Animated background pattern */}
@@ -119,34 +115,8 @@ export default function ServiceCard({ service, index = 0 }: ServiceCardProps) {
             </ul>
           </motion.div>
 
-          {/* Enhanced CTA */}
-          <div className="flex items-center justify-between pt-2 border-t border-[#2f5a65]/10">
-            <span className="text-[#0e7888] font-semibold group-hover:text-[#2f5a65] transition-colors duration-300 inline-flex items-center">
-              Learn more
-              <motion.svg
-                className="w-5 h-5 ml-2"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                animate={{
-                  x: isHovered ? 4 : 0,
-                }}
-                transition={{ duration: 0.3 }}
-              >
-                <path d="M9 5l7 7-7 7" />
-              </motion.svg>
-            </span>
-            <div className={`w-10 h-10 rounded-full bg-gradient-to-r ${colors.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </div>
-          </div>
         </div>
-      </Link>
+      </div>
     </motion.div>
   );
 }
