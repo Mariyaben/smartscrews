@@ -1,7 +1,6 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
 import AnimatedTitle from './AnimatedTitle';
 import { useState, useEffect, useRef } from 'react';
 
@@ -9,7 +8,10 @@ export default function Hero() {
   const [showVideo, setShowVideo] = useState(false);
   const [showContent, setShowContent] = useState(true);
   const [isInitialShow, setIsInitialShow] = useState(true);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  
+  // YouTube video ID
+  const YOUTUBE_VIDEO_ID = '6P96LchYwwk';
 
   // Show content first, then transition to video after a delay
   useEffect(() => {
@@ -28,26 +30,9 @@ export default function Hero() {
     return () => clearTimeout(timer);
   }, [isInitialShow]);
 
-  // Handle video end
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || !showVideo) return;
-
-    const handleVideoEnd = () => {
-      // Start sweeping out video
-      setShowVideo(false);
-      // After sweep out completes (0.6s), sweep in content
-      setTimeout(() => {
-        setShowContent(true);
-      }, 600);
-    };
-
-    video.addEventListener('ended', handleVideoEnd);
-
-    return () => {
-      video.removeEventListener('ended', handleVideoEnd);
-    };
-  }, [showVideo]);
+  // Note: YouTube iframe doesn't support 'ended' event directly
+  // The video will loop automatically based on the embed parameters
+  // If you want to hide the video after it plays, you can add a timer here
 
   return (
     <section id="hero" className="relative overflow-hidden min-h-[90vh]">
@@ -69,16 +54,20 @@ export default function Hero() {
             transition={{ duration: 0.6, ease: 'easeInOut' }}
             className="absolute inset-0 z-20 flex items-center justify-center bg-black"
           >
-            <video
-              ref={videoRef}
-              autoPlay
-              muted
-              playsInline
-              loop={false}
-              className="w-full h-full object-cover"
-            >
-              <source src="/Untitled video - Made with Clipchamp (1).mp4" type="video/mp4" />
-            </video>
+            <iframe
+              ref={iframeRef}
+              src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`}
+              className="absolute top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2"
+              style={{
+                width: '100vw',
+                height: '56.25vw', // 16:9 aspect ratio
+                minHeight: '100vh',
+                minWidth: '177.77vh', // 16:9 aspect ratio
+              }}
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              title="Hero Video"
+            />
           </motion.div>
         )}
       </AnimatePresence>
