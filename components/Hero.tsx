@@ -4,6 +4,34 @@ import { motion, AnimatePresence } from 'framer-motion';
 import AnimatedTitle from './AnimatedTitle';
 import { useState, useEffect, useRef } from 'react';
 
+// YouTube IFrame API types
+declare global {
+  interface Window {
+    YT: {
+      Player: new (element: HTMLElement | string, config: {
+        events?: {
+          onStateChange?: (event: { data: number }) => void;
+        };
+      }) => {
+        getCurrentTime: () => number;
+        getDuration: () => number;
+        playVideo: () => void;
+        pauseVideo: () => void;
+        stopVideo: () => void;
+        destroy: () => void;
+      };
+      PlayerState: {
+        ENDED: number;
+        PLAYING: number;
+        PAUSED: number;
+        BUFFERING: number;
+        CUED: number;
+      };
+    };
+    onYouTubeIframeAPIReady?: () => void;
+  }
+}
+
 export default function Hero() {
   const [showVideo, setShowVideo] = useState(false);
   const [showContent, setShowContent] = useState(true);
@@ -30,9 +58,55 @@ export default function Hero() {
     return () => clearTimeout(timer);
   }, [isInitialShow]);
 
-  // Note: YouTube iframe doesn't support 'ended' event directly
-  // The video will loop automatically based on the embed parameters
-  // If you want to hide the video after it plays, you can add a timer here
+  // Handle YouTube video end using IFrame API
+  useEffect(() => {
+    if (!showVideo || !iframeRef.current) return;
+
+    const iframe = iframeRef.current;
+    let player: InstanceType<typeof window.YT.Player> | null = null;
+    
+    // Load YouTube IFrame API
+    const loadYouTubeAPI = () => {
+      if (window.YT && window.YT.Player) {
+        player = new window.YT.Player(iframe, {
+          events: {
+            onStateChange: (event: { data: number }) => {
+              // State 0 = ENDED
+              if (event.data === window.YT.PlayerState.ENDED) {
+                setShowVideo(false);
+                setTimeout(() => {
+                  setShowContent(true);
+                }, 600);
+              }
+            }
+          }
+        });
+      }
+    };
+
+    // Check if API is already loaded
+    if (window.YT && window.YT.Player) {
+      loadYouTubeAPI();
+    } else {
+      // Load the IFrame API script
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+      
+      // Wait for API to load
+      window.onYouTubeIframeAPIReady = () => {
+        loadYouTubeAPI();
+      };
+    }
+
+    return () => {
+      // Cleanup
+      if (player && player.destroy) {
+        player.destroy();
+      }
+    };
+  }, [showVideo]);
 
   return (
     <section id="hero" className="relative overflow-hidden min-h-[90vh]">
@@ -56,7 +130,7 @@ export default function Hero() {
           >
             <iframe
               ref={iframeRef}
-              src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`}
+              src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`}
               className="absolute top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2"
               style={{
                 width: '100vw',
