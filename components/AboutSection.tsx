@@ -6,7 +6,7 @@ import { Axe, Award, Shield, Users } from 'lucide-react'
 
 export default function AboutSection() {
   const [activeSection, setActiveSection] = useState(0)
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
+  const sectionRefs = useRef([])
   const lockRef = useRef(false)
 
   const sections = [
@@ -229,7 +229,7 @@ export default function AboutSection() {
 
             {/* About */}
             <motion.div
-              ref={el => { sectionRefs.current[0] = el; }}
+              ref={el => (sectionRefs.current[0] = el)}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -288,7 +288,7 @@ export default function AboutSection() {
 
             {/* Our Story */}
             <motion.div
-              ref={el => { sectionRefs.current[1] = el; }}
+              ref={el => (sectionRefs.current[1] = el)}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -348,7 +348,7 @@ export default function AboutSection() {
 
             {/* Our Values */}
             <motion.div
-              ref={el => { sectionRefs.current[2] = el; }}
+              ref={el => (sectionRefs.current[2] = el)}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -443,7 +443,7 @@ export default function AboutSection() {
 
             {/* Our Approach */}
             <motion.div
-              ref={el => { sectionRefs.current[3] = el; }}
+              ref={el => (sectionRefs.current[3] = el)}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -494,7 +494,7 @@ export default function AboutSection() {
 
             {/* Why Choose Us */}
             <motion.div
-              ref={el => { sectionRefs.current[4] = el; }}
+              ref={el => (sectionRefs.current[4] = el)}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
