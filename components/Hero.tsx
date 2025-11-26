@@ -77,7 +77,7 @@ export default function Hero() {
               loop={false}
               className="w-full h-full object-cover"
             >
-              <source src="/Untitled video - Made with Clipchamp (1).mp4" type="video/mp4" />
+              <source src="/hero-video.mp4" type="video/mp4" />
             </video>
           </motion.div>
         )}
