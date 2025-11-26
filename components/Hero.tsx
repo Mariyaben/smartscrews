@@ -10,6 +10,7 @@ declare global {
     YT: {
       Player: new (element: HTMLElement | string, config: {
         events?: {
+          onReady?: () => void;
           onStateChange?: (event: { data: number }) => void;
         };
       }) => {
@@ -35,28 +36,21 @@ declare global {
 export default function Hero() {
   const [showVideo, setShowVideo] = useState(false);
   const [showContent, setShowContent] = useState(true);
-  const [isInitialShow, setIsInitialShow] = useState(true);
+  const [videoReady, setVideoReady] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   
   // YouTube video ID
   const YOUTUBE_VIDEO_ID = '6P96LchYwwk';
 
-  // Show content first, then transition to video after a delay
+  // Show content first, then start loading video after a short delay
   useEffect(() => {
-    if (!isInitialShow) return;
-
     const timer = setTimeout(() => {
-      // Sweep out initial content
-      setShowContent(false);
-      // After sweep out completes (0.6s), sweep in video
-      setTimeout(() => {
-        setShowVideo(true);
-        setIsInitialShow(false);
-      }, 600);
-    }, 4000); // Show content for 4 seconds before transitioning to video
+      // Start loading video but keep content visible
+      setShowVideo(true);
+    }, 2000); // Show title for 2 seconds
 
     return () => clearTimeout(timer);
-  }, [isInitialShow]);
+  }, []);
 
   // Handle YouTube video end using IFrame API
   useEffect(() => {
@@ -70,10 +64,19 @@ export default function Hero() {
       if (window.YT && window.YT.Player) {
         player = new window.YT.Player(iframe, {
           events: {
+            onReady: () => {
+              // Video is ready, now we can hide content and show video
+              setVideoReady(true);
+              // Small delay to ensure smooth transition
+              setTimeout(() => {
+                setShowContent(false);
+              }, 300);
+            },
             onStateChange: (event: { data: number }) => {
               // State 0 = ENDED
               if (event.data === window.YT.PlayerState.ENDED) {
                 setShowVideo(false);
+                setVideoReady(false);
                 setTimeout(() => {
                   setShowContent(true);
                 }, 600);
@@ -118,44 +121,60 @@ export default function Hero() {
         }}
       />
       
-      {/* Video Background */}
-      <AnimatePresence>
-        {showVideo && (
-          <motion.div
-            initial={{ x: '100%', opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: '-100%', opacity: 0 }}
-            transition={{ duration: 0.6, ease: 'easeInOut' }}
-            className="absolute inset-0 z-20 flex items-center justify-center bg-black"
-          >
-            <iframe
-              ref={iframeRef}
-              src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`}
-              className="absolute top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2"
-              style={{
-                width: '100vw',
-                height: '56.25vw', // 16:9 aspect ratio
-                minHeight: '100vh',
-                minWidth: '177.77vh', // 16:9 aspect ratio
-              }}
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-              title="Hero Video"
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Preload video in background (hidden) */}
+      <iframe
+        src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=0&mute=1&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`}
+        className="absolute opacity-0 pointer-events-none"
+        style={{
+          width: '1px',
+          height: '1px',
+          top: '-9999px',
+        }}
+        title="Preload Video"
+        aria-hidden="true"
+      />
+      
+      {/* Video Background - Hidden until ready */}
+      {showVideo && (
+        <div
+          className="absolute inset-0 z-10 flex items-center justify-center"
+          style={{ 
+            backgroundColor: 'transparent',
+            opacity: videoReady ? 1 : 0,
+            transition: 'opacity 0.5s ease-in-out'
+          }}
+        >
+          <iframe
+            ref={iframeRef}
+            src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`}
+            className="absolute top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2"
+            style={{
+              width: '100vw',
+              height: '56.25vw', // 16:9 aspect ratio
+              minHeight: '100vh',
+              minWidth: '177.77vh', // 16:9 aspect ratio
+            }}
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+            title="Hero Video"
+          />
+        </div>
+      )}
 
-      {/* Hero Content */}
+      {/* Hero Content - Stays on top until video is ready */}
       <AnimatePresence mode="wait">
         {showContent && (
           <motion.div
             key="hero-content"
-            initial={isInitialShow ? { x: 0, opacity: 1 } : { x: '100%', opacity: 0 }}
+            initial={{ x: '100%', opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: '-100%', opacity: 0 }}
             transition={{ duration: 0.6, ease: 'easeInOut' }}
-            className="absolute inset-0 w-full"
+            className="absolute inset-0 w-full z-30"
+            style={{
+              opacity: showContent ? 1 : 0,
+              transition: 'opacity 0.5s ease-in-out'
+            }}
           >
             {/* Background gradient */}
             <div className="absolute inset-0 bg-gradient-to-br from-[#fffffe] via-[#fffffe] to-[#fefbf7] opacity-50" />
