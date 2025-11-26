@@ -76,8 +76,10 @@ export default function Hero() {
               playsInline
               loop={false}
               className="w-full h-full object-cover"
+              preload="auto"
             >
               <source src="/hero-video.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
             </video>
           </motion.div>
         )}
