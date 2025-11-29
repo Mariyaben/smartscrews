@@ -275,12 +275,12 @@ export default function Hero() {
       {/* Desktop Navigation Bar - Top Right Corner */}
       <nav className="hidden md:flex absolute top-0 right-0 z-[60] mt-4 mr-4 sm:mr-6 lg:mr-8 items-center" style={{ direction: 'ltr', left: 'auto' }}>
         <div 
-          className="flex items-center gap-4 sm:gap-6 lg:gap-8 xl:gap-12"
+          className="flex items-center gap-8 sm:gap-12 lg:gap-16"
           style={{ 
             backgroundColor: '#0e7888',
             color: '#ffffff',
-            paddingLeft: 'clamp(2rem, 6vw, 6rem)',
-            paddingRight: 'clamp(1.5rem, 4vw, 4rem)',
+            paddingLeft: 'clamp(4rem, 10vw, 8rem)',
+            paddingRight: 'clamp(2rem, 6vw, 5rem)',
             paddingTop: 'clamp(0.5rem, 1vw, 1rem)',
             paddingBottom: 'clamp(0.5rem, 1vw, 1rem)',
             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5), 0 0 60px rgba(42, 42, 42, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
@@ -289,7 +289,7 @@ export default function Hero() {
         >
           <a 
             href="#about" 
-            className="text-xs sm:text-sm lg:text-base xl:text-lg hover:opacity-80 transition-opacity whitespace-nowrap ml-2 sm:ml-4 lg:ml-6"
+            className="text-sm sm:text-base lg:text-lg hover:opacity-80 transition-opacity whitespace-nowrap ml-4 sm:ml-6 lg:ml-8"
             style={{ 
               color: '#ffffff',
               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
@@ -309,7 +309,7 @@ export default function Hero() {
           </a>
           <a 
             href="#services" 
-            className="text-xs sm:text-sm lg:text-base xl:text-lg hover:opacity-80 transition-opacity whitespace-nowrap"
+            className="text-sm sm:text-base lg:text-lg hover:opacity-80 transition-opacity whitespace-nowrap"
             style={{ 
               color: '#ffffff',
               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
@@ -329,7 +329,7 @@ export default function Hero() {
           </a>
           <a 
             href="#contact" 
-            className="text-xs sm:text-sm lg:text-base xl:text-lg hover:opacity-80 transition-opacity whitespace-nowrap"
+            className="text-sm sm:text-base lg:text-lg hover:opacity-80 transition-opacity whitespace-nowrap"
             style={{ 
               color: '#ffffff',
               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
@@ -349,20 +349,20 @@ export default function Hero() {
           </a>
           <button
             onClick={toggleLanguage}
-            className="text-white hover:text-white/80 transition-all p-1.5 sm:p-2 rounded-md hover:bg-white/20 flex items-center justify-center ml-1 sm:ml-2 lg:ml-4"
+            className="text-white hover:text-white/80 transition-all p-2 rounded-md hover:bg-white/20 flex items-center justify-center ml-2 sm:ml-4"
             aria-label={language === 'en' ? 'Switch to Arabic' : 'Switch to English'}
             title={language === 'en' ? 'Switch to Arabic' : 'Switch to English'}
             style={{ 
-              minWidth: '32px', 
-              minHeight: '28px', 
+              minWidth: '40px', 
+              minHeight: '32px', 
               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif', 
               fontWeight: 500 
             }}
           >
             {language === 'en' ? (
-              <span style={{ fontSize: '16px', direction: 'rtl' }}>ع</span>
+              <span style={{ fontSize: '18px', direction: 'rtl' }}>ع</span>
             ) : (
-              <span style={{ fontSize: '12px' }}>EN</span>
+              <span style={{ fontSize: '14px' }}>EN</span>
             )}
           </button>
         </div>
@@ -381,7 +381,7 @@ export default function Hero() {
             fontWeight: 300,
             letterSpacing: '-0.02em',
             lineHeight: 1.2,
-            marginTop: 'clamp(20px, 4vw, 60px)',
+            marginTop: 'clamp(40px, 6vw, 80px)',
             direction: isRTL ? 'rtl' : 'ltr'
           }}
         >
