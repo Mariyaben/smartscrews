@@ -28,7 +28,7 @@ export const services: Service[] = [
     shortDescription: 'Expert carpentry and premium wood flooring installation and restoration services.',
     longDescription: 'Our skilled carpenters deliver precision craftsmanship in custom woodwork, cabinetry, and flooring. We work with a variety of wood species and finishes to create beautiful, durable solutions that enhance your space.',
     animationPath: '/assets/animations/carpentry.json',
-    imagePath: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=1600&h=900&fit=crop&q=80',
+    imagePath: '/carpentry.png',
     serviceCategory: 'Construction',
     processSteps: [
       'Initial consultation and material selection',
@@ -53,7 +53,7 @@ export const services: Service[] = [
     shortDescription: 'Comprehensive cleaning solutions for residential and commercial properties.',
     longDescription: 'Professional cleaning services tailored to your needs. From regular maintenance to deep cleaning, we ensure your property maintains a pristine appearance.',
     animationPath: '/assets/animations/cleaning.json',
-    imagePath: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1600&h=900&fit=crop&q=80',
+    imagePath: '/cleaning.png',
     serviceCategory: 'Maintenance',
     processSteps: [
       'Assessment of cleaning requirements',
@@ -72,7 +72,7 @@ export const services: Service[] = [
     shortDescription: 'Professional tile installation for floors and walls with expert grouting and finishing.',
     longDescription: 'Transform your spaces with our expert tiling services. We handle everything from design consultation to final grouting, ensuring perfect alignment and lasting results.',
     animationPath: '/assets/animations/tiling.json',
-    imagePath: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1600&h=900&fit=crop&q=80',
+    imagePath: '/floor_tiling.png',
     serviceCategory: 'Construction',
     processSteps: [
       'Surface preparation and leveling',
