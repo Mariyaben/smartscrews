@@ -6,8 +6,10 @@ import {
   MessageSquare, Globe, Zap, Star, CheckCircle
 } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function ContactSection() {
+  const { t, isRTL } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const { scrollYProgress } = useScroll({
@@ -93,33 +95,33 @@ export default function ContactSection() {
   const contactInfo = [
     {
       icon: Mail,
-      title: "Email",
+      title: t.contact.contactInfo.email,
       value: "hello@smartscrews.ae",
       link: "mailto:info@smartscrews.com",
-      description: "Send us a message anytime",
+      description: t.contact.contactInfo.emailDesc,
       delay: 0.1
     },
     {
       icon: Phone,
-      title: "Phone",
+      title: t.contact.contactInfo.phone,
       value: "+971-52-2917742",
       link: "tel:+971522917742",
-      description: "Call us directly",
+      description: t.contact.contactInfo.phoneDesc,
       delay: 0.2
     },
     {
       icon: MapPin,
-      title: "Location",
+      title: t.contact.contactInfo.location,
       value: "P.O. Box 531-501, Dubai, UAE",
       link: "#",
       delay: 0.3
     },
     {
       icon: Clock,
-      title: "Support",
+      title: t.contact.contactInfo.support,
       value: "24/7 Available",
       link: "#",
-      description: "Always here for you",
+      description: t.contact.contactInfo.supportDesc,
       delay: 0.4
     }
   ];
@@ -132,11 +134,11 @@ export default function ContactSection() {
   ];
 
   const projectTypes = [
-    { value: "construction", label: "Construction", icon: Zap },
-    { value: "maintenance", label: "Maintenance", icon: MessageSquare },
-    { value: "decorative", label: "Decorative", icon: Globe },
-    { value: "consulting", label: "Consulting", icon: Star },
-    { value: "other", label: "Other", icon: Star }
+    { value: "construction", label: t.contact.projectTypes.construction, icon: Zap },
+    { value: "maintenance", label: t.contact.projectTypes.maintenance, icon: MessageSquare },
+    { value: "decorative", label: t.contact.projectTypes.decorative, icon: Globe },
+    { value: "consulting", label: t.contact.projectTypes.consulting, icon: Star },
+    { value: "other", label: t.contact.projectTypes.other, icon: Star }
   ];
 
   return (
@@ -244,10 +246,11 @@ export default function ContactSection() {
               lineHeight: 1.2,
               color: '#faf9f6',
               textAlign: 'center',
-              width: '100%'
+              width: '100%',
+              direction: isRTL ? 'rtl' : 'ltr'
             }}
           >
-            Ready to Transform?
+            {t.contact.title}
           </motion.h2>
           
           <motion.p
@@ -262,11 +265,11 @@ export default function ContactSection() {
               margin: '0 auto',
               lineHeight: 1.8,
               fontWeight: 300,
-              fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif'
+              fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+              direction: isRTL ? 'rtl' : 'ltr'
             }}
           >
-            Let&apos;s discuss how Smartscrews can help you achieve your building and maintenance goals.
-            Get in touch and let&apos;s build something amazing together.
+            {t.contact.description}
           </motion.p>
         </motion.div>
 
@@ -324,9 +327,10 @@ export default function ContactSection() {
               color: '#faf9f6',
               textAlign: 'center',
               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-              letterSpacing: '-0.02em'
+              letterSpacing: '-0.02em',
+              direction: isRTL ? 'rtl' : 'ltr'
             }}>
-              Get In Touch
+              {t.contact.getInTouch}
             </h3>
 
             {isSubmitted ? (
@@ -349,17 +353,19 @@ export default function ContactSection() {
                   fontWeight: 300,
                   color: '#faf9f6',
                   marginBottom: '16px',
-                  fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif'
+                  fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+                  direction: isRTL ? 'rtl' : 'ltr'
                 }}>
-                  Message Sent Successfully!
+                  {t.contact.messageSent}
                 </h4>
                 <p style={{
                   color: 'rgba(250, 249, 246, 0.8)',
                   fontSize: '16px',
                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                  fontWeight: 300
+                  fontWeight: 300,
+                  direction: isRTL ? 'rtl' : 'ltr'
                 }}>
-                  We&apos;ll get back to you within 2-4 hours.
+                  {t.contact.messageSentDesc}
                 </p>
               </motion.div>
             ) : (
@@ -377,9 +383,10 @@ export default function ContactSection() {
                       fontWeight: 400,
                       color: 'rgba(250, 249, 246, 0.9)',
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                      marginBottom: '8px'
+                      marginBottom: '8px',
+                      direction: isRTL ? 'rtl' : 'ltr'
                     }}>
-                      First Name *
+                      {t.contact.firstName}
                     </label>
                     <input
                       type="text"
@@ -409,9 +416,10 @@ export default function ContactSection() {
                       fontWeight: 400,
                       color: 'rgba(250, 249, 246, 0.9)',
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                      marginBottom: '8px'
+                      marginBottom: '8px',
+                      direction: isRTL ? 'rtl' : 'ltr'
                     }}>
-                      Last Name *
+                      {t.contact.lastName}
                     </label>
                     <input
                       type="text"
@@ -449,9 +457,10 @@ export default function ContactSection() {
                       fontWeight: 400,
                       color: 'rgba(250, 249, 246, 0.9)',
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                      marginBottom: '8px'
+                      marginBottom: '8px',
+                      direction: isRTL ? 'rtl' : 'ltr'
                     }}>
-                      Email *
+                      {t.contact.email}
                     </label>
                     <input
                       type="email"
@@ -481,9 +490,10 @@ export default function ContactSection() {
                       fontWeight: 400,
                       color: 'rgba(250, 249, 246, 0.9)',
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                      marginBottom: '8px'
+                      marginBottom: '8px',
+                      direction: isRTL ? 'rtl' : 'ltr'
                     }}>
-                      Phone
+                      {t.contact.phone}
                     </label>
                     <input
                       type="tel"
@@ -513,9 +523,10 @@ export default function ContactSection() {
                     fontSize: '14px',
                     fontWeight: '500',
                     color: '#D8CFBC',
-                    marginBottom: '8px'
+                    marginBottom: '8px',
+                    direction: isRTL ? 'rtl' : 'ltr'
                   }}>
-                    Company
+                    {t.contact.company}
                   </label>
                   <input
                     type="text"
@@ -543,9 +554,10 @@ export default function ContactSection() {
                     fontSize: '14px',
                     fontWeight: '500',
                     color: '#D8CFBC',
-                    marginBottom: '8px'
+                    marginBottom: '8px',
+                    direction: isRTL ? 'rtl' : 'ltr'
                   }}>
-                    Project Type *
+                    {t.contact.projectType}
                   </label>
                   <select
                     name="projectType"
@@ -564,7 +576,7 @@ export default function ContactSection() {
                       transition: 'all 0.3s ease'
                     }}
                   >
-                    <option value="">Select a project type</option>
+                    <option value="">{t.contact.selectProjectType}</option>
                     {projectTypes.map((type) => (
                       <option key={type.value} value={type.value}>
                         {type.label}
@@ -579,9 +591,10 @@ export default function ContactSection() {
                     fontSize: '14px',
                     fontWeight: '500',
                     color: '#D8CFBC',
-                    marginBottom: '8px'
+                    marginBottom: '8px',
+                    direction: isRTL ? 'rtl' : 'ltr'
                   }}>
-                    Message *
+                    {t.contact.message}
                   </label>
                   <textarea
                     name="message"
@@ -638,12 +651,12 @@ export default function ContactSection() {
                       >
                         <Send style={{ width: '20px', height: '20px' }} />
                       </motion.div>
-                      Sending...
+                      {t.contact.sending}
                     </>
                   ) : (
                     <>
                       <Send style={{ width: '20px', height: '20px' }} />
-                      Send Message
+                      {t.contact.sendMessage}
                     </>
                   )}
                 </motion.button>
@@ -677,9 +690,10 @@ export default function ContactSection() {
                 marginBottom: '24px',
                 color: '#faf9f6',
                 fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                letterSpacing: '-0.02em'
+                letterSpacing: '-0.02em',
+                direction: isRTL ? 'rtl' : 'ltr'
               }}>
-                Contact Information
+                {t.contact.contactInformation}
               </h3>
               <div style={{
                 display: 'flex',
@@ -765,18 +779,20 @@ export default function ContactSection() {
                 marginBottom: '16px',
                 color: '#faf9f6',
                 fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                letterSpacing: '-0.02em'
+                letterSpacing: '-0.02em',
+                direction: isRTL ? 'rtl' : 'ltr'
               }}>
-                Connect With Us
+                {t.contact.connectWithUs}
               </h3>
               <p style={{
                 color: 'rgba(250, 249, 246, 0.8)',
                 marginBottom: '24px',
                 lineHeight: 1.6,
                 fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                fontWeight: 300
+                fontWeight: 300,
+                direction: isRTL ? 'rtl' : 'ltr'
               }}>
-                Follow us on social media for the latest updates and insights.
+                {t.contact.connectDescription}
               </p>
               <div style={{
                 display: 'flex',
@@ -830,18 +846,20 @@ export default function ContactSection() {
                 marginBottom: '16px',
                 color: '#faf9f6',
                 fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                letterSpacing: '-0.02em'
+                letterSpacing: '-0.02em',
+                direction: isRTL ? 'rtl' : 'ltr'
               }}>
-                Quick Response
+                {t.contact.quickResponse}
               </h3>
               <p style={{
                 color: 'rgba(250, 249, 246, 0.8)',
                 marginBottom: '20px',
                 lineHeight: 1.6,
                 fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                fontWeight: 300
+                fontWeight: 300,
+                direction: isRTL ? 'rtl' : 'ltr'
               }}>
-                We typically respond within 2-4 hours during business hours.
+                {t.contact.quickResponseDesc}
               </p>
               <div style={{
                 display: 'flex',
@@ -862,7 +880,7 @@ export default function ContactSection() {
                     borderRadius: '50%'
                   }}
                 />
-                <span style={{ fontSize: '14px' }}>Online now</span>
+                <span style={{ fontSize: '14px' }}>{t.contact.onlineNow}</span>
               </div>
             </div>
           </motion.div>

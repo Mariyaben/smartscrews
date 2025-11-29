@@ -1,14 +1,18 @@
 'use client';
 
+import { useLanguage } from '@/contexts/LanguageContext';
+
 export default function ScrollingBanner() {
+  const { t } = useLanguage();
+  
   const badges = [
-    'CERTIFIED PROFESSIONALS',
-    'LICENSED & INSURED',
-    'QUALITY GUARANTEED',
-    'FREE QUOTES',
-    '24/7 SERVICE',
-    'SATISFACTION GUARANTEED',
-    'EXPERT CRAFTSMANSHIP',
+    t.banner.certifiedProfessionals,
+    t.banner.licensedInsured,
+    t.banner.qualityGuaranteed,
+    t.banner.freeQuotes,
+    t.banner.service24_7,
+    t.banner.satisfactionGuaranteed,
+    t.banner.expertCraftsmanship,
   ];
 
   // Duplicate badges for seamless loop

@@ -179,13 +179,38 @@ button:disabled {
   }
 }
 
+@keyframes scroll-horizontal-rtl {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
 .animate-scroll-horizontal {
   animation: scroll-horizontal 25s linear infinite;
   will-change: transform;
 }
 
+[dir="rtl"] .animate-scroll-horizontal {
+  animation: scroll-horizontal-rtl 25s linear infinite;
+}
+
 .animate-scroll-horizontal:hover {
   animation-play-state: paused;
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] input,
+[dir="rtl"] textarea,
+[dir="rtl"] select {
+  text-align: right;
 }
 
 /* Hide scrollbar for About section right content */

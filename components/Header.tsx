@@ -4,15 +4,21 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { t, language, setLanguage } = useLanguage();
 
   const navLinks = [
-    { href: '/#about', label: 'About' },
-    { href: '/#services', label: 'Services' },
-    { href: '/#services', label: 'Projects' },
+    { href: '/#about', label: t.nav.about },
+    { href: '/#services', label: t.nav.services },
+    { href: '/#services', label: t.nav.projects },
   ];
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'ar' : 'en');
+  };
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('/#')) {
@@ -31,14 +37,15 @@ export default function Header() {
   };
 
   return (
-    <header className="absolute top-0 left-0 right-0 z-50 w-full bg-transparent">
+    <header className="absolute top-0 left-0 right-0 z-50 w-full bg-transparent" style={{ direction: 'ltr' }}>
       <div className="w-full px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16" style={{ direction: 'ltr' }}>
           {/* Logo - Left corner */}
           <Link
             href="/#hero"
             onClick={(e) => handleNavClick(e, '/#hero')}
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+            style={{ direction: 'ltr' }}
           >
             <Image
               src="/NEWNEWLOGO.svg"
@@ -51,7 +58,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation - Right corner with Green background bar */}
-          <div className="hidden md:flex items-center">
+          <div className="hidden md:flex items-center" style={{ direction: 'ltr' }}>
             <nav className="bg-[#0e7888] px-6 py-2 rounded-lg flex items-center gap-6">
               {navLinks.map((link) => (
                 <Link
@@ -64,12 +71,17 @@ export default function Header() {
                 </Link>
               ))}
               <button
-                className="text-white hover:text-white/80 transition-colors"
-                aria-label="Search"
+                onClick={toggleLanguage}
+                className="text-white hover:text-white/80 transition-all p-2 rounded-md hover:bg-white/20 flex items-center justify-center"
+                aria-label={language === 'en' ? 'Switch to Arabic' : 'Switch to English'}
+                title={language === 'en' ? 'Switch to Arabic' : 'Switch to English'}
+                style={{ minWidth: '40px', minHeight: '32px', fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif', fontWeight: 500 }}
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
+                {language === 'en' ? (
+                  <span style={{ fontSize: '18px', direction: 'rtl' }}>ع</span>
+                ) : (
+                  <span style={{ fontSize: '14px' }}>EN</span>
+                )}
               </button>
             </nav>
           </div>
@@ -131,8 +143,23 @@ export default function Header() {
                 }}
                 className="block px-4 py-2 text-sm font-normal text-[#213f51] border border-gray-300 rounded-lg hover:border-[#0e7888] hover:text-[#0e7888] transition-colors text-center"
               >
-                Contact Us
+                {t.nav.contactUs}
               </Link>
+              <button
+                onClick={() => {
+                  toggleLanguage();
+                  setIsMobileMenuOpen(false);
+                }}
+                className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-normal text-[#213f51] border border-gray-300 rounded-lg hover:border-[#0e7888] hover:text-[#0e7888] transition-colors"
+                aria-label={language === 'en' ? 'Switch to Arabic' : 'Switch to English'}
+              >
+                {language === 'en' ? (
+                  <span style={{ fontSize: '16px', direction: 'rtl', fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif', fontWeight: 500 }}>ع</span>
+                ) : (
+                  <span style={{ fontSize: '14px', fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif', fontWeight: 500 }}>EN</span>
+                )}
+                <span>{language === 'en' ? 'العربية' : 'English'}</span>
+              </button>
             </div>
           </motion.nav>
         )}

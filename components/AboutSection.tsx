@@ -4,8 +4,10 @@ import { motion } from 'framer-motion'
 import { useState, useEffect, useRef } from 'react'
 import { Axe, Award, Shield, Users } from 'lucide-react'
 import Image from 'next/image'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function AboutSection() {
+  const { t, isRTL } = useLanguage()
   const [activeSection, setActiveSection] = useState(0)
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
   const lockRef = useRef(false)
@@ -13,11 +15,11 @@ export default function AboutSection() {
   const aboutSectionRef = useRef<HTMLElement>(null)
 
   const sections = [
-    { id: 'about', label: 'ABOUT' },
-    { id: 'story', label: 'OUR STORY' },
-    { id: 'values', label: 'OUR VALUES' },
-    { id: 'approach', label: 'OUR APPROACH' },
-    { id: 'why-choose', label: 'WHY CHOOSE US' },
+    { id: 'about', label: t.about.about },
+    { id: 'story', label: t.about.ourStory },
+    { id: 'values', label: t.about.ourValues },
+    { id: 'approach', label: t.about.ourApproach },
+    { id: 'why-choose', label: t.about.whyChooseUs },
   ]
 
   // Detect when About section is in view to enable internal scrolling
@@ -337,13 +339,14 @@ export default function AboutSection() {
                     fontWeight: 300,
                     letterSpacing: '-0.02em',
                     lineHeight: 1.2,
+                    direction: isRTL ? 'rtl' : 'ltr'
                   }}
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8 }}
                 >
-                  About Smartscrews
+                  {t.about.aboutTitle}
                 </motion.h2>
 
                 <div className="space-y-6">
@@ -353,13 +356,14 @@ export default function AboutSection() {
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                       fontWeight: 300,
                       lineHeight: 1.8,
+                      direction: isRTL ? 'rtl' : 'ltr'
                     }}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.2 }}
                   >
-                    We are a leading provider of professional building and maintenance services, committed to delivering exceptional craftsmanship and outstanding customer service.
+                    {t.about.aboutDescription1}
                   </motion.p>
                   <motion.p
                     className="text-lg text-[rgba(33,63,81,0.75)] leading-relaxed"
@@ -367,13 +371,14 @@ export default function AboutSection() {
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                       fontWeight: 300,
                       lineHeight: 1.8,
+                      direction: isRTL ? 'rtl' : 'ltr'
                     }}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.4 }}
                   >
-                    With a team of certified professionals and a commitment to excellence, we bring expertise and reliability to every project, ensuring results that exceed expectations.
+                    {t.about.aboutDescription2}
                   </motion.p>
                 </div>
               </div>
@@ -396,13 +401,14 @@ export default function AboutSection() {
                     fontWeight: 300,
                     letterSpacing: '-0.02em',
                     lineHeight: 1.2,
+                    direction: isRTL ? 'rtl' : 'ltr'
                   }}
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
                 >
-                    Our Story
+                  {t.about.storyTitle}
                 </motion.h3>
 
                 <div className="space-y-6">
@@ -412,13 +418,14 @@ export default function AboutSection() {
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                       fontWeight: 300,
                       lineHeight: 1.8,
+                      direction: isRTL ? 'rtl' : 'ltr'
                     }}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                   >
-                    Smartscrews was founded with a simple purpose: to deliver trustworthy building and maintenance services through exceptional skill and unwavering integrity.
+                    {t.about.storyDescription1}
                   </motion.p>
 
                   <motion.p
@@ -427,13 +434,14 @@ export default function AboutSection() {
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                       fontWeight: 300,
                       lineHeight: 1.8,
+                      direction: isRTL ? 'rtl' : 'ltr'
                     }}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.2 }}
                   >
-                    What began as a small crew of dedicated craftsmen has grown into a comprehensive service provider, yet our commitment to quality and attention to detail remains unchanged.
+                    {t.about.storyDescription2}
                   </motion.p>
                 </div>
               </div>
@@ -456,20 +464,21 @@ export default function AboutSection() {
                     fontWeight: 300,
                     letterSpacing: '-0.02em',
                     lineHeight: 1.2,
+                    direction: isRTL ? 'rtl' : 'ltr'
                   }}
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
                 >
-                    Our Values
+                  {t.about.valuesTitle}
                 </motion.h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
                   {[
-                    { title: 'Quality First', description: 'Meticulously selected materials and attention to detail for lasting results.', icon: Award },
-                    { title: 'Integrity', description: 'Transparent communication and honest practices in everything we do.', icon: Shield },
-                    { title: 'Customer Focus', description: 'We listen and collaborate to bring your vision to life with precision.', icon: Users },
+                    { title: t.about.qualityFirst, description: t.about.qualityFirstDesc, icon: Award },
+                    { title: t.about.integrity, description: t.about.integrityDesc, icon: Shield },
+                    { title: t.about.customerFocus, description: t.about.customerFocusDesc, icon: Users },
                   ].map((value, index) => {
                     const IconComponent = value.icon
                     return (
@@ -511,6 +520,7 @@ export default function AboutSection() {
                               fontWeight: 600,
                               letterSpacing: '-0.01em',
                               lineHeight: 1.3,
+                              direction: isRTL ? 'rtl' : 'ltr'
                             }}
                           >
                             {value.title}
@@ -522,6 +532,7 @@ export default function AboutSection() {
                               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                               fontWeight: 300,
                               lineHeight: 1.7,
+                              direction: isRTL ? 'rtl' : 'ltr'
                             }}
                           >
                             {value.description}
@@ -551,13 +562,14 @@ export default function AboutSection() {
                     fontWeight: 300,
                     letterSpacing: '-0.02em',
                     lineHeight: 1.2,
+                    direction: isRTL ? 'rtl' : 'ltr'
                   }}
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
                 >
-                    Our Approach
+                  {t.about.approachTitle}
                 </motion.h3>
 
                 <div className="space-y-6">
@@ -567,9 +579,10 @@ export default function AboutSection() {
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                       fontWeight: 300,
                       lineHeight: 1.8,
+                      direction: isRTL ? 'rtl' : 'ltr'
                     }}
                   >
-                    &ldquo;We believe in hiring people based on who they are, not just what they have done.&rdquo;
+                    &ldquo;{t.about.approachQuote}&rdquo;
                   </p>
                   <p
                     className="text-lg text-[rgba(33,63,81,0.75)] leading-relaxed"
@@ -577,9 +590,10 @@ export default function AboutSection() {
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                       fontWeight: 300,
                       lineHeight: 1.8,
+                      direction: isRTL ? 'rtl' : 'ltr'
                     }}
                   >
-                    Training someone in our methods is easier than teaching someone to uphold our values. Our team is friendly, committed, and takes genuine pride in producing work that reflects our high standards.
+                    {t.about.approachDescription}
                   </p>
                 </div>
               </div>
@@ -602,13 +616,14 @@ export default function AboutSection() {
                     fontWeight: 300,
                     letterSpacing: '-0.02em',
                     lineHeight: 1.2,
+                    direction: isRTL ? 'rtl' : 'ltr'
                   }}
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
                 >
-                    Why Choose Us
+                  {t.about.whyChooseTitle}
                 </motion.h3>
 
                 <motion.p
@@ -617,13 +632,14 @@ export default function AboutSection() {
                     fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                     fontWeight: 300,
                     lineHeight: 1.6,
+                    direction: isRTL ? 'rtl' : 'ltr'
                   }}
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  Clients choose Smart Screws because we combine expert craftsmanship with precision, modern techniques, and a client-first approach. From installation to maintenance, we make construction simple, reliable, and centered around your needs.
+                  {t.about.whyChooseDescription}
                 </motion.p>
 
                 {/* Central Icon with Feature Boxes */}
@@ -633,8 +649,8 @@ export default function AboutSection() {
                     {[
                       {
                         position: 'top-left',
-                        title: 'Modern Facilities & Technology',
-                        description: 'Latest tools and techniques for precision work.',
+                        title: t.about.modernFacilities,
+                        description: t.about.modernFacilitiesDesc,
                         icon: (
                           <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
@@ -643,8 +659,8 @@ export default function AboutSection() {
                       },
                       {
                         position: 'top-right',
-                        title: 'Transparent & Affordable',
-                        description: 'Quality work without hidden costs.',
+                        title: t.about.transparentAffordable,
+                        description: t.about.transparentAffordableDesc,
                         icon: (
                           <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
@@ -653,8 +669,8 @@ export default function AboutSection() {
                       },
                       {
                         position: 'bottom-left',
-                        title: 'Expert Team of Specialists',
-                        description: 'Skilled professionals committed to excellence.',
+                        title: t.about.expertTeam,
+                        description: t.about.expertTeamDesc,
                         icon: (
                           <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
@@ -663,8 +679,8 @@ export default function AboutSection() {
                       },
                       {
                         position: 'bottom-right',
-                        title: '24/7 Client Support',
-                        description: "Because construction needs don't wait for office hours.",
+                        title: t.about.clientSupport,
+                        description: t.about.clientSupportDesc,
                         icon: (
                           <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
@@ -698,6 +714,7 @@ export default function AboutSection() {
                                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                                   fontWeight: 600,
                                   letterSpacing: '-0.01em',
+                                  direction: isRTL ? 'rtl' : 'ltr'
                                 }}
                               >
                                 {item.title}
@@ -708,6 +725,7 @@ export default function AboutSection() {
                                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                                   fontWeight: 300,
                                   lineHeight: 1.6,
+                                  direction: isRTL ? 'rtl' : 'ltr'
                                 }}
                               >
                                 {item.description}
@@ -792,8 +810,8 @@ export default function AboutSection() {
                   {[
                     {
                       position: 'top-left',
-                      title: 'Modern Facilities & Technology',
-                      description: 'Latest tools and techniques for precision work.',
+                      title: t.about.modernFacilities,
+                      description: t.about.modernFacilitiesDesc,
                       icon: (
                         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
@@ -802,8 +820,8 @@ export default function AboutSection() {
                     },
                     {
                       position: 'top-right',
-                      title: 'Transparent & Affordable',
-                      description: 'Quality work without hidden costs.',
+                      title: t.about.transparentAffordable,
+                      description: t.about.transparentAffordableDesc,
                       icon: (
                         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
@@ -812,8 +830,8 @@ export default function AboutSection() {
                     },
                     {
                       position: 'bottom-left',
-                      title: 'Expert Team of Specialists',
-                      description: 'Skilled professionals committed to excellence.',
+                      title: t.about.expertTeam,
+                      description: t.about.expertTeamDesc,
                       icon: (
                         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
@@ -822,8 +840,8 @@ export default function AboutSection() {
                     },
                     {
                       position: 'bottom-right',
-                      title: '24/7 Client Support',
-                      description: "Because construction needs don't wait for office hours.",
+                      title: t.about.clientSupport,
+                      description: t.about.clientSupportDesc,
                       icon: (
                         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
@@ -867,6 +885,7 @@ export default function AboutSection() {
                                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                                   fontWeight: 600,
                                   letterSpacing: '-0.01em',
+                                  direction: isRTL ? 'rtl' : 'ltr'
                                 }}
                               >
                                 {item.title}
@@ -877,6 +896,7 @@ export default function AboutSection() {
                                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                                   fontWeight: 300,
                                   lineHeight: 1.6,
+                                  direction: isRTL ? 'rtl' : 'ltr'
                                 }}
                               >
                         {item.description}

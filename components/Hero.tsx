@@ -2,8 +2,14 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Hero() {
+  const { t, isRTL, language, setLanguage } = useLanguage();
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'ar' : 'en');
+  };
   return (
     <section id="hero" className="relative min-h-screen flex items-center overflow-hidden pt-0">
       {/* Full Background Image - extends to top */}
@@ -29,7 +35,7 @@ export default function Hero() {
       />
 
       {/* Logo - Top Left Corner */}
-      <div className="absolute left-0 z-[100] ml-4 sm:ml-6 lg:ml-8 flex items-center" style={{ top: 'clamp(8px, 1vw, 16px)' }}>
+      <div className="absolute left-0 z-[100] ml-4 sm:ml-6 lg:ml-8 flex items-center" style={{ top: 'clamp(8px, 1vw, 16px)', direction: 'ltr', right: 'auto' }}>
         <Image
           src="/NEWNEWLOGO.svg"
           alt="Company Logo"
@@ -62,9 +68,9 @@ export default function Hero() {
       </div>
 
       {/* Navigation Bar - Top Right Corner */}
-      <nav className="absolute top-0 right-0 z-[60] mt-4 mr-4 sm:mr-6 lg:mr-8">
+      <nav className="absolute top-0 right-0 z-[60] mt-4 mr-4 sm:mr-6 lg:mr-8" style={{ direction: 'ltr', left: 'auto' }}>
         <div 
-          className="flex items-center gap-12 sm:gap-20 lg:gap-24"
+          className="flex items-center gap-8 sm:gap-12 lg:gap-16"
           style={{ 
             backgroundColor: '#0e7888',
             color: '#ffffff',
@@ -72,7 +78,8 @@ export default function Hero() {
             paddingRight: 'clamp(2rem, 6vw, 5rem)',
             paddingTop: 'clamp(0.5rem, 1vw, 1rem)',
             paddingBottom: 'clamp(0.5rem, 1vw, 1rem)',
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5), 0 0 60px rgba(42, 42, 42, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5), 0 0 60px rgba(42, 42, 42, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+            direction: 'ltr'
           }}
         >
           <a 
@@ -93,7 +100,7 @@ export default function Hero() {
               }
             }}
           >
-            About
+            {t.nav.about}
           </a>
           <a 
             href="#services" 
@@ -113,7 +120,7 @@ export default function Hero() {
               }
             }}
           >
-            Services
+            {t.nav.services}
           </a>
           <a 
             href="#contact" 
@@ -133,8 +140,26 @@ export default function Hero() {
               }
             }}
           >
-            Contact
+            {t.nav.contact}
           </a>
+          <button
+            onClick={toggleLanguage}
+            className="text-white hover:text-white/80 transition-all p-2 rounded-md hover:bg-white/20 flex items-center justify-center ml-2 sm:ml-4"
+            aria-label={language === 'en' ? 'Switch to Arabic' : 'Switch to English'}
+            title={language === 'en' ? 'Switch to Arabic' : 'Switch to English'}
+            style={{ 
+              minWidth: '40px', 
+              minHeight: '32px', 
+              fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif', 
+              fontWeight: 500 
+            }}
+          >
+            {language === 'en' ? (
+              <span style={{ fontSize: '18px', direction: 'rtl' }}>ع</span>
+            ) : (
+              <span style={{ fontSize: '14px' }}>EN</span>
+            )}
+          </button>
         </div>
       </nav>
 
@@ -151,11 +176,12 @@ export default function Hero() {
             fontWeight: 300,
             letterSpacing: '-0.02em',
             lineHeight: 1.2,
-            marginTop: 'clamp(40px, 6vw, 80px)'
+            marginTop: 'clamp(40px, 6vw, 80px)',
+            direction: isRTL ? 'rtl' : 'ltr'
           }}
         >
-          Experience you trust,<br />
-          Quality you deserve
+          {t.hero.headline}<br />
+          {t.hero.subheadline}
         </motion.h1>
 
         {/* Paragraph on the left */}
@@ -169,10 +195,11 @@ export default function Hero() {
               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
               fontWeight: 300,
               letterSpacing: '-0.02em',
-              lineHeight: 1.2
+              lineHeight: 1.2,
+              direction: isRTL ? 'rtl' : 'ltr'
             }}
           >
-            Excellence is the foundation upon which we build. Our construction company stands for unwavering quality and the creation of structures that embody strength and longevity.
+            {t.hero.description}
           </motion.p>
         </div>
 
@@ -214,11 +241,12 @@ export default function Hero() {
               fontSize: 'clamp(1rem, 2vw, 1.25rem)',
               border: '1px solid rgba(255, 255, 255, 0.15)',
               boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 2px 10px rgba(14, 120, 136, 0.3)',
-              padding: 'clamp(0.375rem, 0.75vw, 0.75rem) clamp(0.75rem, 1.5vw, 1.5rem)'
+              padding: 'clamp(0.375rem, 0.75vw, 0.75rem) clamp(0.75rem, 1.5vw, 1.5rem)',
+              direction: isRTL ? 'rtl' : 'ltr'
             }}
           >
-            <div className="leading-tight">Ready to Transform?</div>
-            <div className="leading-tight mt-1" style={{ fontSize: '0.85em', fontWeight: 700 }}>Contact us now!</div>
+            <div className="leading-tight">{t.hero.ctaButton}</div>
+            <div className="leading-tight mt-1" style={{ fontSize: '0.85em', fontWeight: 700 }}>{t.hero.ctaButtonSubtext}</div>
           </motion.button>
         </div>
       </div>

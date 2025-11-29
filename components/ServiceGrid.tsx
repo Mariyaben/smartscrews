@@ -5,6 +5,8 @@ import { Grid3x3, Hammer, Wrench, Palette, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import ServiceSection from './ServiceSection';
 import { services, serviceCategories } from '@/lib/data';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { getTranslatedServices } from '@/lib/serviceTranslations';
 
 const categoryIcons = {
   'All': Grid3x3,
@@ -14,11 +16,13 @@ const categoryIcons = {
 };
 
 export default function ServiceGrid() {
+  const { t, isRTL, language } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
+  const allServices = getTranslatedServices(services, language);
   const filteredServices = selectedCategory === 'All'
-    ? services
-    : services.filter(service => service.serviceCategory === selectedCategory);
+    ? allServices
+    : allServices.filter(service => service.serviceCategory === selectedCategory);
 
   return (
     <section id="services" className="relative w-full overflow-hidden">
@@ -58,9 +62,10 @@ export default function ServiceGrid() {
               lineHeight: 1.2,
               textAlign: 'center',
               width: '100%',
+              direction: isRTL ? 'rtl' : 'ltr'
             }}
           >
-            Our Services
+            {t.services.title}
           </h2>
           <p 
             className="text-lg text-white/90 max-w-3xl leading-relaxed drop-shadow-md"
@@ -69,9 +74,10 @@ export default function ServiceGrid() {
               fontWeight: 300,
               lineHeight: 1.8,
               textAlign: 'center',
+              direction: isRTL ? 'rtl' : 'ltr'
             }}
           >
-            We craft world-class building and maintenance solutions that elevate your property and drive lasting results. From strategy to execution, we bring your vision to life with expertise and precision.
+            {t.services.description}
           </p>
         </div>
       </div>
@@ -82,6 +88,10 @@ export default function ServiceGrid() {
           {serviceCategories.map((category) => {
             const isSelected = selectedCategory === category;
             const IconComponent = categoryIcons[category as keyof typeof categoryIcons] || Grid3x3;
+            const categoryLabel = category === 'All' ? t.services.all :
+                                 category === 'Construction' ? t.services.construction :
+                                 category === 'Maintenance' ? t.services.maintenance :
+                                 t.services.decorative;
 
             return (
               <button
@@ -113,7 +123,7 @@ export default function ServiceGrid() {
                   }`} 
                   strokeWidth={isSelected ? 2.5 : 2}
                 />
-                <span className="text-sm lg:text-base">{category}</span>
+                <span className="text-sm lg:text-base">{categoryLabel}</span>
                 <ChevronDown 
                   className={`w-4 h-4 transition-all duration-300 ${
                     isSelected 

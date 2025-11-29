@@ -2,13 +2,15 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { 
-  Mail, Linkedin, Twitter, Github, Globe, 
+  Mail, Linkedin, Twitter, Globe, 
   MessageSquare, Star, Heart, Shield, Zap, Settings, Hammer, Wrench, Palette
 } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Footer() {
+  const { t, isRTL } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const { scrollYProgress } = useScroll({
@@ -52,15 +54,15 @@ export default function Footer() {
 
   const footerLinks = {
     services: [
-      { name: "Construction", href: "/#services", icon: Hammer, delay: 0.1 },
-      { name: "Maintenance", href: "/#services", icon: Wrench, delay: 0.2 },
-      { name: "Decorative", href: "/#services", icon: Palette, delay: 0.3 },
-      { name: "All Services", href: "/#services", icon: Settings, delay: 0.4 }
+      { name: t.services.construction, href: "/#services", icon: Hammer, delay: 0.1 },
+      { name: t.services.maintenance, href: "/#services", icon: Wrench, delay: 0.2 },
+      { name: t.services.decorative, href: "/#services", icon: Palette, delay: 0.3 },
+      { name: t.footer.allServices, href: "/#services", icon: Settings, delay: 0.4 }
     ],
     company: [
-      { name: "About Us", href: "/#about", icon: Star, delay: 0.5 },
-      { name: "Contact", href: "/#contact", icon: MessageSquare, delay: 0.6 },
-      { name: "Services", href: "/#services", icon: Globe, delay: 0.7 }
+      { name: t.footer.aboutUs, href: "/#about", icon: Star, delay: 0.5 },
+      { name: t.nav.contact, href: "/#contact", icon: MessageSquare, delay: 0.6 },
+      { name: t.nav.services, href: "/#services", icon: Globe, delay: 0.7 }
     ],
   };
 
@@ -80,8 +82,7 @@ export default function Footer() {
   const socialLinks = [
     { icon: Linkedin, href: "#", label: "LinkedIn", color: "#0077B5", delay: 0.1 },
     { icon: Twitter, href: "#", label: "Twitter", color: "#1DA1F2", delay: 0.2 },
-    { icon: Github, href: "#", label: "GitHub", color: "#333", delay: 0.3 },
-    { icon: Mail, href: "mailto:info@smartscrews.com", label: "Email", color: "#0e7888", delay: 0.4 }
+    { icon: Mail, href: "mailto:info@smartscrews.com", label: "Email", color: "#0e7888", delay: 0.3 }
   ];
 
   return (
@@ -197,11 +198,10 @@ export default function Footer() {
                   lineHeight: 1.6,
                   fontSize: isMobile ? '14px' : '16px',
                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                  fontWeight: 300
+                  fontWeight: 300,
+                  direction: isRTL ? 'rtl' : 'ltr'
                 }}>
-                  Professional building and maintenance services you can trust. 
-                  From construction to maintenance, we deliver quality solutions 
-                  with expertise and precision.
+                  {t.footer.brandDescription}
                 </p>
                 <div style={{
                   display: 'flex',
@@ -256,9 +256,10 @@ export default function Footer() {
                   color: '#faf9f6',
                   marginBottom: '24px',
                   textTransform: 'capitalize',
-                  fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif'
+                  fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+                  direction: isRTL ? 'rtl' : 'ltr'
                 }}>
-                  {category}
+                  {category === 'company' ? t.footer.company : t.footer.services}
                 </h4>
                 <ul style={{
                   display: 'flex',
@@ -329,9 +330,10 @@ export default function Footer() {
               color: '#faf9f6',
               marginBottom: '16px',
               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-              letterSpacing: '-0.02em'
+              letterSpacing: '-0.02em',
+              direction: isRTL ? 'rtl' : 'ltr'
             }}>
-              Stay Updated with Latest Updates
+              {t.footer.stayUpdated}
             </h4>
             <p style={{
               color: 'rgba(250, 249, 246, 0.8)',
@@ -339,10 +341,10 @@ export default function Footer() {
               fontSize: '16px',
               lineHeight: 1.6,
               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-              fontWeight: 300
+              fontWeight: 300,
+              direction: isRTL ? 'rtl' : 'ltr'
             }}>
-              Get the latest updates on our services, projects, and maintenance tips 
-              delivered directly to your inbox.
+              {t.footer.subscribe}
             </p>
             
             {isSubscribed ? (
@@ -365,8 +367,8 @@ export default function Footer() {
                   margin: '0 auto 12px',
                   display: 'block'
                 }} />
-                <div>
-                  Successfully subscribed! Welcome to the Smartscrews community.
+                <div style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
+                  {t.footer.subscribed}
                 </div>
               </motion.div>
             ) : (
@@ -386,7 +388,7 @@ export default function Footer() {
                 type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
+                    placeholder={t.footer.subscribePlaceholder}
                     required
                     suppressHydrationWarning
                     style={{
@@ -432,10 +434,10 @@ export default function Footer() {
                         >
                           <Star style={{ width: '16px', height: '16px' }} />
                         </motion.div>
-                        Subscribing...
+                        {t.footer.subscribing}
                       </>
                     ) : (
-                      'Subscribe'
+                      t.footer.subscribeButton
                     )}
                   </motion.button>
                 </div>
@@ -476,17 +478,17 @@ export default function Footer() {
               gap: '8px'
             }}
           >
-            <div>
-              © {new Date().getFullYear()} Smart Screws Technical Services L.L.C. All rights reserved.
+            <div style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
+              {t.footer.copyright}
             </div>
-            <div style={{ fontSize: '13px', color: 'rgba(250, 249, 246, 0.5)' }}>
-              Building excellence, one project at a time.
+            <div style={{ fontSize: '13px', color: 'rgba(250, 249, 246, 0.5)', direction: isRTL ? 'rtl' : 'ltr' }}>
+              {t.footer.tagline}
             </div>
-            <div style={{ fontSize: '12px', color: 'rgba(250, 249, 246, 0.4)', marginTop: '4px' }}>
-              Licensed by Department of Economy & Tourism, Dubai | License valid until 17/11/2026
+            <div style={{ fontSize: '12px', color: 'rgba(250, 249, 246, 0.4)', marginTop: '4px', direction: isRTL ? 'rtl' : 'ltr' }}>
+              {t.footer.license}
             </div>
-            <div style={{ fontSize: '11px', color: 'rgba(250, 249, 246, 0.35)', marginTop: '8px', fontStyle: 'italic' }}>
-              *Images used on this website are AI-generated and are for representative purposes only.
+            <div style={{ fontSize: '11px', color: 'rgba(250, 249, 246, 0.35)', marginTop: '8px', fontStyle: 'italic', direction: isRTL ? 'rtl' : 'ltr' }}>
+              {t.footer.imageDisclaimer}
             </div>
           </motion.div>
           
@@ -510,23 +512,26 @@ export default function Footer() {
             <a href="#" style={{
               color: 'rgba(250, 249, 246, 0.6)',
               textDecoration: 'none',
-              transition: 'color 0.3s ease'
+              transition: 'color 0.3s ease',
+              direction: isRTL ? 'rtl' : 'ltr'
             }} onMouseEnter={(e) => e.currentTarget.style.color = '#0e7888'} onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(250, 249, 246, 0.6)'}>
-              Privacy
+              {t.footer.privacy}
             </a>
             <a href="#" style={{
               color: 'rgba(250, 249, 246, 0.6)',
               textDecoration: 'none',
-              transition: 'color 0.3s ease'
+              transition: 'color 0.3s ease',
+              direction: isRTL ? 'rtl' : 'ltr'
             }} onMouseEnter={(e) => e.currentTarget.style.color = '#0e7888'} onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(250, 249, 246, 0.6)'}>
-              Terms
+              {t.footer.terms}
             </a>
             <a href="#" style={{
               color: 'rgba(250, 249, 246, 0.6)',
               textDecoration: 'none',
-              transition: 'color 0.3s ease'
+              transition: 'color 0.3s ease',
+              direction: isRTL ? 'rtl' : 'ltr'
             }} onMouseEnter={(e) => e.currentTarget.style.color = '#0e7888'} onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(250, 249, 246, 0.6)'}>
-              Cookies
+              {t.footer.cookies}
             </a>
           </motion.div>
         </div>

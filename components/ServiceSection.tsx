@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { ChevronDown } from 'lucide-react';
 import type { Service } from '@/lib/data';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { getTranslatedService } from '@/lib/serviceTranslations';
 
 interface ServiceSectionProps {
   service: Service;
@@ -12,6 +14,8 @@ interface ServiceSectionProps {
 }
 
 export default function ServiceSection({ service, index }: ServiceSectionProps) {
+  const { language, isRTL } = useLanguage();
+  const translatedService = getTranslatedService(service, language);
   const [imageError, setImageError] = useState(false);
   const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set());
   
@@ -95,9 +99,10 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
                   fontWeight: 300,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.2,
+                  direction: isRTL ? 'rtl' : 'ltr'
                 }}
               >
-                {service.title}
+                {translatedService.title}
               </h2>
 
               {/* Description */}
@@ -107,15 +112,16 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                   fontWeight: 300,
                   lineHeight: 1.8,
+                  direction: isRTL ? 'rtl' : 'ltr'
                 }}
               >
-                {service.shortDescription}
+                {translatedService.shortDescription}
               </p>
 
               {/* Expandable Service List */}
-              {service.processSteps && service.processSteps.length > 0 && (
+              {translatedService.processSteps && translatedService.processSteps.length > 0 && (
                 <div className="space-y-3 mb-8">
-                  {service.processSteps.map((step, stepIndex) => {
+                  {translatedService.processSteps.map((step, stepIndex) => {
                     const isExpanded = expandedItems.has(stepIndex);
                     return (
                       <div key={stepIndex} className="border-b border-white/20 last:border-b-0 pb-3 last:pb-0">
@@ -129,6 +135,7 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
                             style={{
                               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                               fontWeight: 300,
+                              direction: isRTL ? 'rtl' : 'ltr'
                             }}
                           >
                             {step}
@@ -159,9 +166,13 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
                                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                                   fontWeight: 300,
                                   lineHeight: 1.7,
+                                  direction: isRTL ? 'rtl' : 'ltr'
                                 }}
                               >
-                                {step} is executed with precision and expertise. We ensure consistency across all touchpoints to create lasting results and build customer trust through quality execution and attention to detail.
+                                {language === 'en' 
+                                  ? `${step} is executed with precision and expertise. We ensure consistency across all touchpoints to create lasting results and build customer trust through quality execution and attention to detail.`
+                                  : `يتم تنفيذ ${step} بدقة وخبرة. نضمن الاتساق عبر جميع نقاط الاتصال لإنشاء نتائج دائمة وبناء ثقة العملاء من خلال التنفيذ عالي الجودة والاهتمام بالتفاصيل.`
+                                }
                               </p>
                             </motion.div>
                           )}
