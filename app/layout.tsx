@@ -19,8 +19,16 @@ export const metadata: Metadata = {
     default: "Smart Screws - Professional Building & Maintenance Services | SmartScrews",
     template: "%s | Smart Screws - SmartScrews",
   },
-  description: "Smart Screws - The best maintenance, electrical, carpentry, plumbing, HVAC, tiling, painting, and construction services in UAE and Dubai. Top-rated professional building and maintenance company offering expert carpentry, plumbing, air conditioning, kitchen renovation, and architectural design. Quality craftsmanship for your home and business. Smart Screws delivers smart solutions for all your construction and maintenance needs.",
+  description: "Smart Screws - Residential and commercial maintenance services in UAE and Dubai. The best maintenance, electrical, carpentry, plumbing, HVAC, tiling, painting, and construction services. Top-rated professional building and maintenance company offering expert carpentry, plumbing, air conditioning, kitchen renovation, and architectural design. Quality craftsmanship for your home and business. Smart Screws delivers smart solutions for all your construction and maintenance needs.",
   keywords: [
+    // Primary service description
+    "residential and commercial maintenance services", "residential maintenance services", "commercial maintenance services",
+    "residential maintenance services uae", "residential maintenance services dubai",
+    "commercial maintenance services uae", "commercial maintenance services dubai",
+    "residential and commercial maintenance uae", "residential and commercial maintenance dubai",
+    "residential building maintenance uae", "commercial building maintenance uae",
+    "residential building maintenance dubai", "commercial building maintenance dubai",
+    
     // Brand keywords - All permutations and variations
     "smart screws", "smart screw", "screws smart", "screw smart",
     "smartscrews", "smartscrew", "screwssmart", "screwsmar",
@@ -248,7 +256,7 @@ export const metadata: Metadata = {
     url: "https://www.smartscrews.ae",
     siteName: "Smart Screws - SmartScrews",
     title: "Smart Screws - Professional Building & Maintenance Services | SmartScrews",
-    description: "Smart Screws - The best maintenance, electrical, carpentry, plumbing, HVAC, tiling, painting, and construction services in UAE and Dubai. Top-rated professional building and maintenance company. Quality craftsmanship for your home and business.",
+    description: "Smart Screws - Residential and commercial maintenance services in UAE and Dubai. The best maintenance, electrical, carpentry, plumbing, HVAC, tiling, painting, and construction services. Top-rated professional building and maintenance company. Quality craftsmanship for your home and business.",
     images: [
       {
         url: "https://www.smartscrews.ae/hero.png",
@@ -315,7 +323,7 @@ export default function RootLayout({
                 "Intelligent Screws Technical Services", "Intelligent Screw Technical Services"
               ],
               "legalName": "Smart Screws Technical Services L.L.C.",
-              "description": "Smart Screws - The best maintenance, electrical, carpentry, plumbing, HVAC, tiling, painting, and construction services in UAE and Dubai. Top-rated professional building and maintenance company offering expert services for residential and commercial properties. Licensed and certified contractors delivering quality craftsmanship.",
+              "description": "Smart Screws - Residential and commercial maintenance services in UAE and Dubai. The best maintenance, electrical, carpentry, plumbing, HVAC, tiling, painting, and construction services. Top-rated professional building and maintenance company offering expert services for residential and commercial properties. Licensed and certified contractors delivering quality craftsmanship.",
               "url": "https://www.smartscrews.ae",
               "logo": "https://www.smartscrews.ae/NEWNEWLOGO.svg",
               "image": "https://www.smartscrews.ae/hero.png",

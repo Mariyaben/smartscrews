@@ -151,7 +151,7 @@ export const translations: Record<Language, Translations> = {
     hero: {
       headline: 'Experience you trust,',
       subheadline: 'Quality you deserve',
-      description: 'Excellence is the foundation upon which we build. Our construction company stands for unwavering quality and the creation of structures that embody strength and longevity.',
+      description: 'Excellence is the foundation upon which we build. Our maintenance services company stands for unwavering quality and the creation of solutions that embody strength and longevity.',
       ctaButton: 'Ready to Transform?',
       ctaButtonSubtext: 'Contact us now!',
     },

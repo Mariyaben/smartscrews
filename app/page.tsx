@@ -7,9 +7,15 @@ import Footer from '@/components/Footer';
 import FloatingActionButton from '@/components/FloatingActionButton';
 
 export const metadata = {
-  title: 'Smart Screws - Professional Building & Maintenance Services | Expert Carpentry, Plumbing, HVAC & More',
-  description: 'Smart Screws - The best maintenance, electrical, carpentry, plumbing, HVAC, tiling, painting, and construction services in UAE and Dubai. Top-rated professional building and maintenance company. Expert carpentry, plumbing, air conditioning, kitchen renovation, and architectural design. Quality craftsmanship for your home and business.',
+  title: 'Smart Screws - Residential and Commercial Maintenance Services | Expert Carpentry, Plumbing, HVAC & More',
+  description: 'Smart Screws - Residential and commercial maintenance services in UAE and Dubai. The best maintenance, electrical, carpentry, plumbing, HVAC, tiling, painting, and construction services. Top-rated professional building and maintenance company. Expert carpentry, plumbing, air conditioning, kitchen renovation, and architectural design. Quality craftsmanship for your home and business.',
   keywords: [
+    // Primary service description
+    'residential and commercial maintenance services', 'residential maintenance services', 'commercial maintenance services',
+    'residential maintenance services uae', 'residential maintenance services dubai',
+    'commercial maintenance services uae', 'commercial maintenance services dubai',
+    'residential and commercial maintenance uae', 'residential and commercial maintenance dubai',
+    
     // Brand keywords - All permutations
     'smart screws', 'smart screw', 'screws smart', 'screw smart',
     'smartscrews', 'smartscrew', 'screwssmart', 'screwsmar',
