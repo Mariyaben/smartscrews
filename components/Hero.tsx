@@ -1,480 +1,224 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
-import AnimatedTitle from './AnimatedTitle';
-import { useState, useEffect, useRef } from 'react';
-
-// YouTube IFrame API types
-declare global {
-  interface Window {
-    YT: {
-      Player: new (element: HTMLElement | string, config: {
-        events?: {
-          onReady?: () => void;
-          onStateChange?: (event: { data: number }) => void;
-        };
-      }) => {
-        getCurrentTime: () => number;
-        getDuration: () => number;
-        playVideo: () => void;
-        pauseVideo: () => void;
-        stopVideo: () => void;
-        destroy: () => void;
-      };
-      PlayerState: {
-        ENDED: number;
-        PLAYING: number;
-        PAUSED: number;
-        BUFFERING: number;
-        CUED: number;
-      };
-    };
-    onYouTubeIframeAPIReady?: () => void;
-  }
-}
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 export default function Hero() {
-  const [showVideo, setShowVideo] = useState(false);
-  const [showContent, setShowContent] = useState(true);
-  const [videoReady, setVideoReady] = useState(false);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  
-  // YouTube video ID
-  const YOUTUBE_VIDEO_ID = '6P96LchYwwk';
-
-  // Show content first, then start loading video after a short delay
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      // Start loading video but keep content visible
-      setShowVideo(true);
-    }, 2000); // Show title for 2 seconds
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Handle YouTube video end using IFrame API
-  useEffect(() => {
-    if (!showVideo || !iframeRef.current) return;
-
-    const iframe = iframeRef.current;
-    let player: InstanceType<typeof window.YT.Player> | null = null;
-    
-    // Load YouTube IFrame API
-    const loadYouTubeAPI = () => {
-      if (window.YT && window.YT.Player) {
-        player = new window.YT.Player(iframe, {
-          events: {
-            onReady: () => {
-              // Video is ready, now we can hide content and show video
-              setVideoReady(true);
-              // Small delay to ensure smooth transition
-              setTimeout(() => {
-                setShowContent(false);
-              }, 300);
-            },
-            onStateChange: (event: { data: number }) => {
-              // State 0 = ENDED
-              if (event.data === window.YT.PlayerState.ENDED) {
-                setShowVideo(false);
-                setVideoReady(false);
-                setTimeout(() => {
-                  setShowContent(true);
-                }, 600);
-              }
-            }
-          }
-        });
-      }
-    };
-
-    // Check if API is already loaded
-    if (window.YT && window.YT.Player) {
-      loadYouTubeAPI();
-    } else {
-      // Load the IFrame API script
-      const tag = document.createElement('script');
-      tag.src = 'https://www.youtube.com/iframe_api';
-      const firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
-      
-      // Wait for API to load
-      window.onYouTubeIframeAPIReady = () => {
-        loadYouTubeAPI();
-      };
-    }
-
-    return () => {
-      // Cleanup
-      if (player && player.destroy) {
-        player.destroy();
-      }
-    };
-  }, [showVideo]);
-
   return (
-    <section id="hero" className="relative overflow-hidden min-h-[90vh]">
-      {/* Smooth transition gradient at top - blends with header */}
+    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden pt-0">
+      {/* Full Background Image - extends to top */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/hero.png"
+          alt="Professional workshop with team members"
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
+
+      {/* Shadow gradient overlay from left - dark grey background effect */}
       <div 
-        className="absolute inset-x-0 top-0 h-32 z-30 pointer-events-none"
+        className="absolute inset-0 z-10 pointer-events-none"
         style={{
-          background: 'linear-gradient(to bottom, rgba(20, 40, 50, 0.9) 0%, rgba(20, 40, 50, 0.7) 20%, rgba(20, 40, 50, 0.5) 40%, rgba(20, 40, 50, 0.3) 60%, rgba(20, 40, 50, 0.1) 80%, transparent 100%)',
+          background: 'linear-gradient(to right, rgba(42, 42, 42, 0.95) 0%, rgba(42, 42, 42, 0.85) 30%, rgba(42, 42, 42, 0.5) 50%, rgba(42, 42, 42, 0.2) 70%, transparent 100%)'
         }}
       />
-      
-      {/* Preload video in background (hidden) */}
-      <iframe
-        src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=0&mute=1&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`}
-        className="absolute opacity-0 pointer-events-none"
-        style={{
-          width: '1px',
-          height: '1px',
-          top: '-9999px',
-        }}
-        title="Preload Video"
-        aria-hidden="true"
-      />
-      
-      {/* Video Background - Hidden until ready */}
-      {showVideo && (
-        <div
-          className="absolute inset-0 z-10 flex items-center justify-center"
+
+      {/* Logo - Top Left Corner */}
+      <div className="absolute left-0 z-[100] ml-4 sm:ml-6 lg:ml-8 flex items-center" style={{ top: 'clamp(8px, 1vw, 16px)' }}>
+        <Image
+          src="/NEWNEWLOGO.svg"
+          alt="Company Logo"
+          width={120}
+          height={61}
+          className="w-auto h-auto"
+          style={{
+            height: 'clamp(36px, 5vw, 72px)',
+            width: 'auto',
+            position: 'relative',
+            zIndex: 101
+          }}
+          priority
+        />
+        <Image
+          src="/TEXTLOGO.svg"
+          alt="Company Text"
+          width={600}
+          height={120}
+          className="w-auto h-auto"
+          style={{
+            height: 'clamp(24px, 3vw, 48px)',
+            width: 'auto',
+            marginLeft: '-80px',
+            position: 'relative',
+            zIndex: 101
+          }}
+          priority
+        />
+      </div>
+
+      {/* Navigation Bar - Top Right Corner */}
+      <nav className="absolute top-0 right-0 z-[60] mt-4 mr-4 sm:mr-6 lg:mr-8">
+        <div 
+          className="flex items-center gap-12 sm:gap-20 lg:gap-24"
           style={{ 
-            backgroundColor: 'transparent',
-            opacity: videoReady ? 1 : 0,
-            transition: 'opacity 0.5s ease-in-out'
+            backgroundColor: '#0e7888',
+            color: '#ffffff',
+            paddingLeft: 'clamp(4rem, 10vw, 8rem)',
+            paddingRight: 'clamp(2rem, 6vw, 5rem)',
+            paddingTop: 'clamp(0.5rem, 1vw, 1rem)',
+            paddingBottom: 'clamp(0.5rem, 1vw, 1rem)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5), 0 0 60px rgba(42, 42, 42, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
           }}
         >
-          <iframe
-            ref={iframeRef}
-            src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`}
-            className="absolute top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2"
-            style={{
-              width: '100vw',
-              height: '56.25vw', // 16:9 aspect ratio
-              minHeight: '100vh',
-              minWidth: '177.77vh', // 16:9 aspect ratio
+          <a 
+            href="#about" 
+            className="text-sm sm:text-base lg:text-lg hover:opacity-80 transition-opacity whitespace-nowrap ml-4 sm:ml-6 lg:ml-8"
+            style={{ 
+              color: '#ffffff',
+              fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+              fontWeight: 300,
+              letterSpacing: '-0.02em',
+              lineHeight: 1.2
             }}
-            allow="autoplay; encrypted-media"
-            allowFullScreen
-            title="Hero Video"
-          />
-        </div>
-      )}
-
-      {/* Hero Content - Stays on top until video is ready */}
-      <AnimatePresence mode="wait">
-        {showContent && (
-          <motion.div
-            key="hero-content"
-            initial={{ x: '100%', opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: '-100%', opacity: 0 }}
-            transition={{ duration: 0.6, ease: 'easeInOut' }}
-            className="absolute inset-0 w-full z-30"
-            style={{
-              opacity: showContent ? 1 : 0,
-              transition: 'opacity 0.5s ease-in-out'
+            onClick={(e) => {
+              e.preventDefault();
+              const element = document.getElementById('about');
+              if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
             }}
           >
-            {/* Background gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#fffffe] via-[#fffffe] to-[#fefbf7] opacity-50" />
-            
-            {/* Decorative elements */}
-            <div className="absolute top-20 right-10 w-72 h-72 bg-[#0e7888] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob" />
-            <div className="absolute top-40 left-10 w-72 h-72 bg-[#2f5a65] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000" />
-            <div className="absolute -bottom-8 left-20 w-72 h-72 bg-[#213f51] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-4000" />
-            
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-40 relative z-10 overflow-visible">
-              <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 xl:gap-32 items-center min-h-[90vh] overflow-visible" style={{ overflow: 'visible' }}>
-                {/* Text Content - Title Only */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, ease: 'easeOut' }}
-                  className="w-full overflow-visible flex items-center"
-                  style={{ minWidth: 0 }}
-                >
-                  <div className="w-full overflow-visible pr-8 lg:pr-12 -ml-2 lg:-ml-6" style={{ width: 'calc(100% + 2rem)' }}>
-                    <AnimatedTitle />
-                  </div>
-                </motion.div>
+            About
+          </a>
+          <a 
+            href="#services" 
+            className="text-sm sm:text-base lg:text-lg hover:opacity-80 transition-opacity whitespace-nowrap"
+            style={{ 
+              color: '#ffffff',
+              fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+              fontWeight: 300,
+              letterSpacing: '-0.02em',
+              lineHeight: 1.2
+            }}
+            onClick={(e) => {
+              e.preventDefault();
+              const element = document.getElementById('services');
+              if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }}
+          >
+            Services
+          </a>
+          <a 
+            href="#contact" 
+            className="text-sm sm:text-base lg:text-lg hover:opacity-80 transition-opacity whitespace-nowrap"
+            style={{ 
+              color: '#ffffff',
+              fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+              fontWeight: 300,
+              letterSpacing: '-0.02em',
+              lineHeight: 1.2
+            }}
+            onClick={(e) => {
+              e.preventDefault();
+              const element = document.getElementById('contact');
+              if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }}
+          >
+            Contact
+          </a>
+        </div>
+      </nav>
 
-                {/* Enhanced Visual */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                  transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
-                  className="relative flex items-center justify-center ml-8 lg:ml-16 xl:ml-24"
-                >
-                  <div className="relative">
-                    {/* Glow effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#0e7888] to-[#2f5a65] rounded-3xl blur-2xl opacity-30 animate-pulse" />
-                    
-                    {/* Main visual container */}
-                    <div className="relative bg-gradient-to-br from-white to-[#fffffe] rounded-3xl p-4 lg:p-6 shadow-2xl border border-[#2f5a65]/10">
-                      <div className="relative w-full aspect-square max-w-sm mx-auto">
-                  <svg
-                    viewBox="0 0 400 400"
-                    className="w-full h-full"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    {/* Animated background pattern */}
-                    <defs>
-                      <linearGradient id="buildingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#2f5a65" />
-                        <stop offset="100%" stopColor="#0e7888" />
-                      </linearGradient>
-                      <linearGradient id="windowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#0e7888" />
-                        <stop offset="100%" stopColor="#2f9d7a" />
-                      </linearGradient>
-                    </defs>
-                    
-                    {/* Building with gradient */}
-                    <motion.rect
-                      x="100"
-                      y="120"
-                      width="200"
-                      height="200"
-                      fill="url(#buildingGradient)"
-                      rx="8"
-                      initial={{ scale: 0.8, opacity: 0, y: 20 }}
-                      animate={{ scale: 1, opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8, delay: 0.5 }}
-                    />
-                    
-                    {/* Animated windows */}
-                    {[
-                      { x: 130, y: 150, delay: 0.8 },
-                      { x: 230, y: 150, delay: 1.0 },
-                      { x: 130, y: 230, delay: 1.2 },
-                      { x: 230, y: 230, delay: 1.4 },
-                    ].map((window, i) => (
-                      <motion.rect
-                        key={i}
-                        x={window.x}
-                        y={window.y}
-                        width="40"
-                        height="50"
-                        fill="url(#windowGradient)"
-                        rx="4"
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={{ 
-                          opacity: [0.5, 1, 0.5],
-                          scale: 1,
-                        }}
-                        transition={{ 
-                          duration: 2,
-                          delay: window.delay,
-                          repeat: Infinity,
-                          repeatType: 'reverse',
-                        }}
-                      />
-                    ))}
-                    
-                    {/* Door with animation */}
-                    <motion.rect
-                      x="175"
-                      y="250"
-                      width="50"
-                      height="70"
-                      fill="#213f51"
-                      rx="4"
-                      initial={{ y: 320, opacity: 0 }}
-                      animate={{ y: 250, opacity: 1 }}
-                      transition={{ duration: 0.6, delay: 1 }}
-                    />
-                    <motion.circle
-                      cx="215"
-                      cy="285"
-                      r="4"
-                      fill="#0e7888"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ duration: 0.3, delay: 1.3 }}
-                    />
-                    
-                    {/* Roof with gradient */}
-                    <motion.polygon
-                      points="80,120 200,60 320,120"
-                      fill="#213f51"
-                      initial={{ y: 40, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ duration: 0.6, delay: 0.6 }}
-                    />
-                    
-                    {/* Floating tools */}
-                    <motion.g
-                      initial={{ opacity: 0, scale: 0, rotate: -180 }}
-                      animate={{ 
-                        opacity: 1, 
-                        scale: 1, 
-                        rotate: 0,
-                        y: [0, -10, 0],
-                      }}
-                      transition={{ 
-                        duration: 0.5, 
-                        delay: 1.6,
-                        y: {
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: 'easeInOut',
-                        },
-                      }}
-                    >
-                      <rect x="280" y="280" width="60" height="8" fill="#0e7888" rx="4" />
-                      <rect x="310" y="250" width="8" height="40" fill="#0e7888" rx="4" />
-                      <circle cx="290" cy="284" r="3" fill="#2f9d7a" />
-                    </motion.g>
-                    
-                    {/* Plumbing work - pipes on the right side of the house */}
-                    <motion.g
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ 
-                        opacity: 1, 
-                        scale: 1,
-                      }}
-                      transition={{ 
-                        duration: 0.6, 
-                        delay: 1.8,
-                      }}
-                    >
-                      {/* Vertical pipe */}
-                      <motion.rect
-                        x="305"
-                        y="140"
-                        width="6"
-                        height="60"
-                        fill="#0e7888"
-                        rx="3"
-                        animate={{
-                          opacity: [0.7, 1, 0.7],
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: 'easeInOut',
-                        }}
-                      />
-                      {/* Horizontal pipe */}
-                      <motion.rect
-                        x="305"
-                        y="195"
-                        width="40"
-                        height="6"
-                        fill="#0e7888"
-                        rx="3"
-                        animate={{
-                          opacity: [0.7, 1, 0.7],
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: 'easeInOut',
-                          delay: 0.3,
-                        }}
-                      />
-                      {/* Pipe connection/joint */}
-                      <motion.circle
-                        cx="325"
-                        cy="198"
-                        r="5"
-                        fill="#2f5a65"
-                        animate={{
-                          scale: [1, 1.2, 1],
-                        }}
-                        transition={{
-                          duration: 1.5,
-                          repeat: Infinity,
-                          ease: 'easeInOut',
-                        }}
-                      />
-                      {/* Water drop animation */}
-                      <motion.circle
-                        cx="325"
-                        cy="198"
-                        r="2"
-                        fill="#2f9d7a"
-                        animate={{
-                          y: [198, 210, 198],
-                          opacity: [1, 0.3, 1],
-                        }}
-                        transition={{
-                          duration: 1.5,
-                          repeat: Infinity,
-                          ease: 'easeInOut',
-                          delay: 0.5,
-                        }}
-                      />
-                      {/* Small faucet/valve at the end */}
-                      <motion.rect
-                        x="340"
-                        y="192"
-                        width="8"
-                        height="12"
-                        fill="#213f51"
-                        rx="2"
-                        animate={{
-                          rotate: [0, 15, 0],
-                        }}
-                        transition={{
-                          duration: 3,
-                          repeat: Infinity,
-                          ease: 'easeInOut',
-                        }}
-                      />
-                    </motion.g>
-                    
-                    {/* Decorative elements */}
-                    <motion.circle
-                      cx="80"
-                      cy="100"
-                      r="15"
-                      fill="#0e7888"
-                      opacity="0.3"
-                      animate={{
-                        scale: [1, 1.2, 1],
-                        opacity: [0.3, 0.5, 0.3],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                      }}
-                    />
-                  </svg>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-      
-      <style jsx>{`
-        @keyframes blob {
-          0%, 100% {
-            transform: translate(0, 0) scale(1);
-          }
-          33% {
-            transform: translate(30px, -50px) scale(1.1);
-          }
-          66% {
-            transform: translate(-20px, 20px) scale(0.9);
-          }
-        }
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-      `}</style>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16 lg:pt-40 lg:pb-24 relative z-20">
+        {/* Headline at the top */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl mb-12"
+          style={{ 
+            color: '#ffffff',
+            fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+            fontWeight: 300,
+            letterSpacing: '-0.02em',
+            lineHeight: 1.2,
+            marginTop: 'clamp(40px, 6vw, 80px)'
+          }}
+        >
+          Experience you trust,<br />
+          Quality you deserve
+        </motion.h1>
+
+        {/* Paragraph on the left */}
+        <div className="max-w-2xl">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-lg text-white drop-shadow-lg"
+            style={{
+              fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+              fontWeight: 300,
+              letterSpacing: '-0.02em',
+              lineHeight: 1.2
+            }}
+          >
+            Excellence is the foundation upon which we build. Our construction company stands for unwavering quality and the creation of structures that embody strength and longevity.
+          </motion.p>
+        </div>
+
+        {/* CTA Button */}
+        <div className="relative z-20" style={{ marginTop: 'clamp(24px, 3vw, 48px)' }}>
+          <motion.button
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ 
+              opacity: 1, 
+              y: [0, -8, 0]
+            }}
+            transition={{ 
+              opacity: { duration: 0.6, delay: 0.4 },
+              y: { 
+                duration: 3, 
+                repeat: Infinity, 
+                ease: "easeInOut",
+                delay: 1
+              }
+            }}
+            whileHover={{ 
+              y: -12,
+              scale: 1.02,
+              transition: { duration: 0.2 }
+            }}
+            onClick={(e) => {
+              e.preventDefault();
+              const element = document.getElementById('contact');
+              if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }}
+            className="bg-[#0e7888] rounded-none px-20 py-10 sm:px-24 sm:py-12 lg:px-32 lg:py-16 text-white hover:opacity-90 transition-all duration-300 inline-block text-center"
+            style={{
+              fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+              fontWeight: 300,
+              letterSpacing: '-0.02em',
+              lineHeight: 1.4,
+              fontSize: 'clamp(1rem, 2vw, 1.25rem)',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
+              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 2px 10px rgba(14, 120, 136, 0.3)',
+              padding: 'clamp(0.375rem, 0.75vw, 0.75rem) clamp(0.75rem, 1.5vw, 1.5rem)'
+            }}
+          >
+            <div className="leading-tight">Ready to Transform?</div>
+            <div className="leading-tight mt-1" style={{ fontSize: '0.85em', fontWeight: 700 }}>Contact us now!</div>
+          </motion.button>
+        </div>
+      </div>
     </section>
   );
 }

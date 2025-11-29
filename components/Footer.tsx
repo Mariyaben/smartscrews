@@ -388,6 +388,7 @@ export default function Footer() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
                     required
+                    suppressHydrationWarning
                     style={{
                       flex: '1',
                       minWidth: '250px',
@@ -406,6 +407,7 @@ export default function Footer() {
                     whileTap={{ scale: 0.95 }}
                 type="submit"
                     disabled={isSubscribing}
+                    suppressHydrationWarning
                     style={{
                       padding: '16px 32px',
                       background: 'linear-gradient(to right, #0e7888, #2f5a65)',

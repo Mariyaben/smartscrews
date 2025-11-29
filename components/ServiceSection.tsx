@@ -31,7 +31,7 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
   };
 
   return (
-    <section className="w-full bg-[#faf9f6] pt-32 lg:pt-48 pb-16 lg:pb-24">
+    <div className="w-full pt-32 lg:pt-48 pb-16 lg:pb-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex flex-col ${imageOnLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 lg:gap-12 items-center`}>
           {/* Image Section */}
@@ -89,7 +89,7 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
             >
               {/* Title */}
               <h2 
-                className="text-3xl sm:text-4xl lg:text-5xl font-light text-[#213f51] mb-5"
+                className="text-3xl sm:text-4xl lg:text-5xl font-light text-white mb-5 drop-shadow-lg"
                 style={{
                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                   fontWeight: 300,
@@ -102,7 +102,7 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
 
               {/* Description */}
               <p 
-                className="text-lg text-[rgba(33,63,81,0.75)] mb-8 leading-relaxed"
+                className="text-lg text-white/90 mb-8 leading-relaxed drop-shadow-md"
                 style={{
                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                   fontWeight: 300,
@@ -118,13 +118,14 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
                   {service.processSteps.map((step, stepIndex) => {
                     const isExpanded = expandedItems.has(stepIndex);
                     return (
-                      <div key={stepIndex} className="border-b border-[#213f51]/10 last:border-b-0 pb-3 last:pb-0">
+                      <div key={stepIndex} className="border-b border-white/20 last:border-b-0 pb-3 last:pb-0">
                         <button
                           onClick={() => toggleExpand(stepIndex)}
                           className="w-full flex items-center justify-between text-left group"
+                          suppressHydrationWarning
                         >
                           <span 
-                            className="text-lg text-[#213f51] pr-6"
+                            className="text-lg text-white pr-6 drop-shadow-md"
                             style={{
                               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                               fontWeight: 300,
@@ -138,7 +139,7 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
                             className="flex-shrink-0"
                           >
                             <ChevronDown 
-                              className="w-5 h-5 text-[#213f51]/70 group-hover:text-[#213f51] transition-colors" 
+                              className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" 
                               strokeWidth={2}
                             />
                           </motion.div>
@@ -153,7 +154,7 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
                               className="overflow-hidden"
                             >
                               <p 
-                                className="text-base text-[rgba(33,63,81,0.7)] mt-3 leading-relaxed pt-3 border-t border-[#213f51]/5"
+                                className="text-base text-white/80 mt-3 leading-relaxed pt-3 border-t border-white/10 drop-shadow-sm"
                                 style={{
                                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                                   fontWeight: 300,
@@ -175,6 +176,6 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

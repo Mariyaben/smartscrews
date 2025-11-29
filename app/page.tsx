@@ -3,7 +3,6 @@ import ServiceGrid from '@/components/ServiceGrid';
 import AboutSection from '@/components/AboutSection';
 import ContactSection from '@/components/ContactSection';
 import ScrollingBanner from '@/components/ScrollingBanner';
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export const metadata = {
@@ -14,11 +13,11 @@ export const metadata = {
 export default function Home() {
   return (
     <>
-      <Header />
       <main style={{ overflow: 'visible' }}>
         <Hero />
         <ScrollingBanner />
         <AboutSection />
+        <ScrollingBanner />
         <ServiceGrid />
         <ContactSection />
       </main>

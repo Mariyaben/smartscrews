@@ -21,7 +21,7 @@ export default function ScrollingBanner() {
         background: 'linear-gradient(to right, #fffffe, #fffffd, #fffffc, #fffffb, #fffffa, #fffff9, #fffff8, #fffff9, #fffffa, #fffffb, #fffffc, #fffffd, #fffffe)',
       }}
     >
-      <div className="py-4 lg:py-5">
+      <div className="pt-4 lg:pt-5 pb-24 lg:pb-32">
         <div className="flex animate-scroll-horizontal whitespace-nowrap">
           {duplicatedBadges.map((badge, index) => (
             <div

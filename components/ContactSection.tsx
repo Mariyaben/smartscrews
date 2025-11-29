@@ -387,6 +387,7 @@ export default function ContactSection() {
                       required
                       value={formData.firstName}
                       onChange={handleInputChange}
+                      suppressHydrationWarning
                       style={{
                         width: '100%',
                         padding: '16px',
@@ -418,6 +419,7 @@ export default function ContactSection() {
                       required
                       value={formData.lastName}
                       onChange={handleInputChange}
+                      suppressHydrationWarning
                       style={{
                         width: '100%',
                         padding: '16px',
@@ -457,6 +459,7 @@ export default function ContactSection() {
                       required
                       value={formData.email}
                       onChange={handleInputChange}
+                      suppressHydrationWarning
                       style={{
                         width: '100%',
                         padding: '16px',
@@ -487,6 +490,7 @@ export default function ContactSection() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
+                      suppressHydrationWarning
                       style={{
                         width: '100%',
                         padding: '16px',
@@ -518,6 +522,7 @@ export default function ContactSection() {
                     name="company"
                     value={formData.company}
                     onChange={handleInputChange}
+                    suppressHydrationWarning
                     style={{
                       width: '100%',
                       padding: '16px',
@@ -547,6 +552,7 @@ export default function ContactSection() {
                     required
                     value={formData.projectType}
                     onChange={handleInputChange}
+                    suppressHydrationWarning
                     style={{
                       width: '100%',
                       padding: '16px',
@@ -604,6 +610,7 @@ export default function ContactSection() {
                   whileTap={{ scale: 0.98 }}
                   type="submit"
                   disabled={isSubmitting}
+                  suppressHydrationWarning
                   style={{
                     width: '100%',
                     padding: '20px',

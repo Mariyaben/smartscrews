@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { useState, useEffect, useRef } from 'react'
 import { Axe, Award, Shield, Users } from 'lucide-react'
+import Image from 'next/image'
 
 export default function AboutSection() {
   const [activeSection, setActiveSection] = useState(0)
@@ -40,10 +41,10 @@ export default function AboutSection() {
 
       const scrollTop = el.scrollTop
       const viewportHeight = el.clientHeight
-      const triggerPoint = scrollTop + viewportHeight * 0.35 // 35% from top
+      const viewportMiddle = scrollTop + viewportHeight * 0.4 // 40% from top
 
       let activeIndex = 0
-      let maxVisible = 0
+      let minDistance = Infinity
 
       sectionRefs.current.forEach((ref: HTMLElement | null, index: number) => {
         if (!ref) return
@@ -54,16 +55,17 @@ export default function AboutSection() {
         // Calculate position relative to scroll container
         const sectionTop = scrollTop + (rect.top - containerRect.top)
         const sectionBottom = sectionTop + rect.height
+        const sectionMiddle = sectionTop + (rect.height / 2)
 
-        // Check how much of the section is visible at the trigger point
-        if (triggerPoint >= sectionTop && triggerPoint <= sectionBottom) {
-          // Calculate visible portion
-          const visibleTop = Math.max(sectionTop, triggerPoint - viewportHeight * 0.1)
-          const visibleBottom = Math.min(sectionBottom, triggerPoint + viewportHeight * 0.1)
-          const visibleAmount = visibleBottom - visibleTop
+        // Check if section is visible in viewport
+        const isVisible = sectionBottom > scrollTop && sectionTop < scrollTop + viewportHeight
+        
+        if (isVisible) {
+          // Calculate distance from viewport middle to section middle
+          const distance = Math.abs(viewportMiddle - sectionMiddle)
           
-          if (visibleAmount > maxVisible) {
-            maxVisible = visibleAmount
+          if (distance < minDistance) {
+            minDistance = distance
             activeIndex = index
           }
         }
@@ -77,49 +79,58 @@ export default function AboutSection() {
       setActiveSection(activeIndex)
     }
 
-    // Use Intersection Observer as primary method
+    // Use Intersection Observer as backup method
     const observerOptions = {
       root: el,
-      rootMargin: '-25% 0px -45% 0px', // Trigger when section is in upper-middle portion
-      threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5]
+      rootMargin: '-30% 0px -50% 0px', // Trigger when section is in middle-upper portion
+      threshold: [0, 0.25, 0.5, 0.75, 1.0]
     }
 
     const observer = new IntersectionObserver((entries) => {
       if (lockRef.current) return
 
-      // Track all intersecting sections
-      const intersecting: Array<{ index: number; ratio: number }> = []
-
-      entries.forEach((entry) => {
-        const index = sectionRefs.current.findIndex((ref: HTMLElement | null) => ref === entry.target)
-        if (index !== -1 && entry.isIntersecting && entry.intersectionRatio > 0.1) {
-          intersecting.push({ index, ratio: entry.intersectionRatio })
-        }
-      })
-
-      if (intersecting.length > 0) {
-        // Find the section with the highest intersection ratio
-        const active = intersecting.reduce((prev, current) => 
-          current.ratio > prev.ratio ? current : prev
-        )
-        setActiveSection(active.index)
-      }
+      // Use scroll handler instead - it's more reliable
+      handleScroll()
     }, observerOptions)
 
     // Wait for refs to be set, then observe
     const timeoutId = setTimeout(() => {
-      sectionRefs.current.forEach((ref: HTMLElement | null) => {
-        if (ref) observer.observe(ref)
-      })
-      // Initial check
-      handleScroll()
-    }, 200)
+      // Verify all refs are set
+      const allRefsSet = sectionRefs.current.every(ref => ref !== null)
+      
+      if (allRefsSet) {
+        sectionRefs.current.forEach((ref: HTMLElement | null) => {
+          if (ref) observer.observe(ref)
+        })
+        // Initial check
+        handleScroll()
+      } else {
+        // Retry if refs aren't ready
+        setTimeout(() => {
+          sectionRefs.current.forEach((ref: HTMLElement | null) => {
+            if (ref) observer.observe(ref)
+          })
+          handleScroll()
+        }, 300)
+      }
+    }, 500)
 
-    // Also use scroll handler as fallback
-    el.addEventListener('scroll', handleScroll, { passive: true })
+    // Use scroll handler - throttled for performance
+    let scrollTimeout: NodeJS.Timeout | null = null
+    const throttledScroll = () => {
+      if (scrollTimeout) return
+      scrollTimeout = setTimeout(() => {
+        handleScroll()
+        scrollTimeout = null
+      }, 100) // Check every 100ms
+    }
     
-    // Initial check
-    setTimeout(() => handleScroll(), 300)
+    el.addEventListener('scroll', throttledScroll, { passive: true })
+    
+    // Initial check after refs are set
+    setTimeout(() => {
+      handleScroll()
+    }, 500)
 
     return () => {
       clearTimeout(timeoutId)
@@ -147,21 +158,33 @@ export default function AboutSection() {
   }
 
   return (
-    <section id="about" className="relative w-full bg-[#faf9f6] min-h-screen">
+    <section 
+      id="about" 
+      className="relative w-full min-h-screen"
+      style={{
+        backgroundImage: 'url(/about_bg.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed',
+      }}
+    >
       <div className="flex flex-col lg:flex-row min-h-screen relative z-10">
 
         {/* Left navigation section */}
-      <div className="
+      <div 
+      className="
       lg:sticky lg:top-0 lg:h-screen
       w-full lg:w-1/3
       flex flex-col justify-center
-      bg-[#faf9f6]
-          pl-12 lg:pl-20
-          pr-8 lg:pr-12
+      bg-[#faf9f6]/20
+      pr-8 lg:pr-12
       py-20
-      z-10 relative overflow-hidden self-start
-          space-y-12
-      ">
+      z-10 relative self-start
+      space-y-12
+      "
+      style={{ paddingLeft: '3rem' }}
+      >
           <div className="absolute inset-0 opacity-5">
             <div className="absolute top-20 left-10 w-40 h-40 border-2 border-[#0e7888] rounded-full" />
             <div className="absolute bottom-20 right-10 w-32 h-32 border-2 border-[#2f5a65] rotate-45" />
@@ -180,11 +203,12 @@ export default function AboutSection() {
                   transition={{ duration: 0.4, delay: index * 0.1 }}
                 >
                   <motion.div
-                    className={`absolute left-0 top-0 bottom-0 w-1 rounded-r-full ${
+                    className={`absolute top-0 bottom-0 w-1 rounded-r-full ${
                       activeSection === index
                         ? 'bg-gradient-to-b from-[#0e7888] to-[#2f5a65]'
                         : 'bg-[#2f5a65]/20 group-hover:bg-[#2f5a65]/40'
                     }`}
+                    style={{ left: '-3rem' }}
                     animate={{
                       height: activeSection === index ? '100%' : '60%',
                       opacity: activeSection === index ? 1 : 0.3,
@@ -192,7 +216,13 @@ export default function AboutSection() {
                     transition={{ duration: 0.25 }}
                   />
 
-                  <div className="py-28 lg:py-32 pl-6">
+                  <div 
+                    style={{ 
+                      paddingTop: '1.5rem',
+                      paddingBottom: '1.5rem',
+                      paddingLeft: '1.5rem'
+                    }}
+                  >
                     <span
                       className={`text-2xl lg:text-3xl transition-colors duration-300 ${
                         activeSection === index
@@ -212,7 +242,13 @@ export default function AboutSection() {
                 </motion.button>
 
                 {index < sections.length - 1 && (
-                  <div className="h-px bg-[#2f5a65]/10 my-16 lg:my-20" />
+                  <div 
+                    className="h-px bg-[#2f5a65]/10" 
+                    style={{ 
+                      marginTop: '0.75rem',
+                      marginBottom: '0.75rem'
+                    }}
+                  />
                 )}
               </div>
             ))}
@@ -222,7 +258,7 @@ export default function AboutSection() {
         {/* Right content section */}
         <div
         data-right-section
-        className="w-full lg:w-2/3 lg:ml-[33.333333%] bg-[#faf9f6] relative scroll-smooth"
+        className="w-full lg:w-2/3 lg:ml-[33.333333%] bg-[#faf9f6]/20 relative scroll-smooth overflow-y-auto lg:h-screen"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           <div className="max-w-4xl mx-auto px-8 lg:px-16 py-0">
