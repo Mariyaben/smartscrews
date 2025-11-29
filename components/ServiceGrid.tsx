@@ -26,12 +26,23 @@ export default function ServiceGrid() {
 
   return (
     <section id="services" className="relative w-full overflow-hidden">
-      {/* Full Background Image */}
+      {/* Desktop Background Image */}
       <div 
-        className="absolute inset-0 z-0"
+        className="hidden md:block absolute inset-0 z-0"
         style={{
           backgroundImage: 'url(/about_bg.png)',
           backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'fixed',
+        }}
+      />
+      {/* Mobile Background Image */}
+      <div 
+        className="md:hidden absolute inset-0 z-0"
+        style={{
+          backgroundImage: 'url(/mobile_bg.png)',
+          backgroundSize: 'contain',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           backgroundAttachment: 'fixed',

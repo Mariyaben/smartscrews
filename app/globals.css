@@ -246,3 +246,14 @@ select::placeholder {
   color: rgba(250, 249, 246, 0.5);
   opacity: 1;
 }
+
+/* Mobile text logo spacing - override desktop negative margin */
+@media (max-width: 767px) {
+  .mobile-text-logo-spacing {
+    margin-left: 0.5rem !important; /* 8px spacing on mobile */
+  }
+  
+  .mobile-about-padding {
+    padding-top: clamp(4rem, 10vw, 5rem) !important; /* Top padding for About section on mobile */
+  }
+}

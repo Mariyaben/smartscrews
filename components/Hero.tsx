@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -8,6 +8,34 @@ import { useLanguage } from '@/contexts/LanguageContext';
 export default function Hero() {
   const { t, isRTL, language, setLanguage } = useLanguage();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Prevent body scrolling when mobile menu is open and close menu on desktop resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      // Check if we're on mobile (window width < 768px)
+      if (window.innerWidth < 768) {
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+      }
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [isMobileMenuOpen]);
 
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'ar' : 'en');
@@ -27,11 +55,20 @@ export default function Hero() {
     <section id="hero" className="relative min-h-screen flex items-center overflow-hidden pt-0">
       {/* Full Background Image - extends to top */}
       <div className="absolute inset-0 z-0">
+        {/* Desktop Background Image */}
         <Image
           src="/hero.png"
           alt="Professional workshop with team members"
           fill
-          className="object-cover"
+          className="object-cover hidden md:block"
+          priority
+        />
+        {/* Mobile Background Image */}
+        <Image
+          src="/hero_mobile.png"
+          alt="Professional workshop with team members"
+          fill
+          className="object-cover md:hidden"
           priority
         />
       </div>
@@ -48,7 +85,7 @@ export default function Hero() {
       />
 
       {/* Logo - Top Left Corner */}
-      <div className="flex absolute left-0 z-[100] ml-4 sm:ml-6 lg:ml-8 items-center" style={{ top: 'clamp(8px, 1vw, 16px)', direction: 'ltr', right: 'auto' }}>
+      <div className="flex flex-row absolute left-0 z-[100] ml-4 sm:ml-6 lg:ml-8 items-center" style={{ top: 'clamp(8px, 1vw, 16px)', direction: 'ltr', right: 'auto' }}>
         <Image
           src="/NEWNEWLOGO.svg"
           alt="Company Logo"
@@ -68,7 +105,7 @@ export default function Hero() {
           alt="Company Text"
           width={600}
           height={120}
-          className="w-auto h-auto"
+          className="w-auto h-auto mobile-text-logo-spacing"
           style={{
             height: 'clamp(24px, 3vw, 48px)',
             width: 'auto',
@@ -82,14 +119,16 @@ export default function Hero() {
 
       {/* Mobile Hamburger Menu Button - Top Right Corner */}
       <button
-        className="md:hidden absolute top-0 right-0 z-[100] mt-4 mr-4 p-2 text-white hover:opacity-80 transition-opacity"
+        className="md:hidden fixed top-0 right-0 z-[110] mt-4 mr-4 p-3 text-white hover:opacity-80 transition-opacity touch-manipulation flex items-center justify-center"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         aria-label="Toggle menu"
         aria-expanded={isMobileMenuOpen}
         style={{
-          backgroundColor: isMobileMenuOpen ? 'rgba(14, 120, 136, 0.3)' : 'transparent',
+          backgroundColor: isMobileMenuOpen ? 'rgba(14, 120, 136, 0.5)' : 'rgba(0, 0, 0, 0.3)',
           borderRadius: '8px',
-          transition: 'background-color 0.3s ease'
+          transition: 'background-color 0.3s ease',
+          minWidth: '44px',
+          minHeight: '44px'
         }}
       >
         <motion.div
@@ -101,7 +140,7 @@ export default function Hero() {
             fill="none"
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth="2"
+            strokeWidth="2.5"
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
@@ -124,7 +163,7 @@ export default function Hero() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="md:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[90]"
+              className="md:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
             />
             
             {/* Menu Panel */}
@@ -133,45 +172,21 @@ export default function Hero() {
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: '100%', opacity: 0 }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="md:hidden fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-[#0e7888] shadow-2xl z-[95] overflow-y-auto"
-              style={{ direction: 'ltr' }}
+              className="md:hidden fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-[#0e7888] shadow-2xl z-[105] overflow-y-auto"
+              style={{ direction: 'ltr', WebkitOverflowScrolling: 'touch' }}
             >
               <div className="flex flex-col h-full">
-                {/* Header with Logo and Close Button */}
-                <div className="flex items-start justify-between p-6 pb-4">
-                  {/* Logo */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="flex items-center gap-2"
-                  >
-                    <Image
-                      src="/NEWNEWLOGO.svg"
-                      alt="SmartScrews Logo"
-                      width={40}
-                      height={40}
-                      className="w-auto h-auto"
-                      style={{
-                        height: '32px',
-                        width: 'auto'
-                      }}
-                      priority
-                    />
-                    <div className="flex flex-col">
-                      <span className="text-white font-bold text-sm" style={{ fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif' }}>Smart</span>
-                      <span className="text-white/80 text-xs" style={{ fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif' }}>TECHNICAL SERVICES LLC</span>
-                    </div>
-                  </motion.div>
-                  
+                {/* Header with Close Button */}
+                <div className="flex items-start justify-end p-6 pb-4">
                   {/* Close Button */}
                   <motion.button
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.15 }}
+                    transition={{ delay: 0.1 }}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="w-8 h-8 flex items-center justify-center rounded-full bg-[#213f51] hover:bg-[#2f5a65] transition-colors"
+                    className="w-11 h-11 flex items-center justify-center rounded-full bg-[#213f51] active:bg-[#2f5a65] transition-colors touch-manipulation"
                     aria-label="Close menu"
+                    style={{ minWidth: '44px', minHeight: '44px' }}
                   >
                     <svg
                       className="w-5 h-5 text-white"
@@ -188,45 +203,66 @@ export default function Hero() {
                 </div>
 
                 {/* Navigation Links */}
-                <div className="flex flex-col gap-2 px-6 py-4">
+                <div className="flex flex-col gap-2 px-6 py-6">
                   <motion.a
                     href="#about"
-                    onClick={(e) => handleNavClick(e, '#about')}
+                    onClick={(e) => {
+                      handleNavClick(e, '#about');
+                      setIsMobileMenuOpen(false);
+                    }}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="text-[#7dd3fc] text-lg font-light py-3 px-4 rounded-lg hover:bg-[#0e7888]/80 hover:text-white transition-all"
+                    className="text-white text-lg font-light py-4 px-4 rounded-lg active:bg-[#0e7888]/80 transition-all touch-manipulation"
                     style={{
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                      letterSpacing: '-0.02em'
+                      letterSpacing: '-0.02em',
+                      minHeight: '44px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      color: '#ffffff'
                     }}
                   >
                     {t.nav.about}
                   </motion.a>
                   <motion.a
                     href="#services"
-                    onClick={(e) => handleNavClick(e, '#services')}
+                    onClick={(e) => {
+                      handleNavClick(e, '#services');
+                      setIsMobileMenuOpen(false);
+                    }}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.25 }}
-                    className="text-[#7dd3fc] text-lg font-light py-3 px-4 rounded-lg hover:bg-[#0e7888]/80 hover:text-white transition-all"
+                    className="text-white text-lg font-light py-4 px-4 rounded-lg active:bg-[#0e7888]/80 transition-all touch-manipulation"
                     style={{
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                      letterSpacing: '-0.02em'
+                      letterSpacing: '-0.02em',
+                      minHeight: '44px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      color: '#ffffff'
                     }}
                   >
                     {t.nav.services}
                   </motion.a>
                   <motion.a
                     href="#contact"
-                    onClick={(e) => handleNavClick(e, '#contact')}
+                    onClick={(e) => {
+                      handleNavClick(e, '#contact');
+                      setIsMobileMenuOpen(false);
+                    }}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="text-[#7dd3fc] text-lg font-light py-3 px-4 rounded-lg hover:bg-[#0e7888]/80 hover:text-white transition-all"
+                    className="text-white text-lg font-light py-4 px-4 rounded-lg active:bg-[#0e7888]/80 transition-all touch-manipulation"
                     style={{
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                      letterSpacing: '-0.02em'
+                      letterSpacing: '-0.02em',
+                      minHeight: '44px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      color: '#ffffff'
                     }}
                   >
                     {t.nav.contact}
@@ -245,23 +281,25 @@ export default function Hero() {
                       toggleLanguage();
                       setIsMobileMenuOpen(false);
                     }}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-3 text-white text-base font-medium rounded-lg hover:bg-[#0e7888]/80 transition-all"
+                    className="w-full flex items-center justify-center gap-2 px-4 py-4 text-white text-base font-medium rounded-lg active:bg-[#0e7888]/80 transition-all touch-manipulation"
                     style={{
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                       fontWeight: 400,
-                      backgroundColor: 'rgba(33, 63, 81, 0.3)'
+                      backgroundColor: 'rgba(33, 63, 81, 0.3)',
+                      minHeight: '44px',
+                      color: '#ffffff'
                     }}
                     aria-label={language === 'en' ? 'Switch to Arabic' : 'Switch to English'}
                   >
                     {language === 'en' ? (
                       <>
-                        <span>العربية</span>
-                        <span style={{ fontSize: '18px', direction: 'rtl' }}>ع</span>
+                        <span style={{ color: '#ffffff' }}>العربية</span>
+                        <span style={{ fontSize: '18px', direction: 'rtl', color: '#ffffff' }}>ع</span>
                       </>
                     ) : (
                       <>
-                        <span>English</span>
-                        <span style={{ fontSize: '16px' }}>EN</span>
+                        <span style={{ color: '#ffffff' }}>English</span>
+                        <span style={{ fontSize: '16px', color: '#ffffff' }}>EN</span>
                       </>
                     )}
                   </button>

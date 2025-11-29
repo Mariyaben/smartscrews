@@ -215,14 +215,29 @@ export default function AboutSection() {
       ref={aboutSectionRef}
       id="about" 
       className="relative w-full min-h-screen"
-      style={{
-        backgroundImage: 'url(/about_bg.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed',
-      }}
     >
+      {/* Desktop Background Image */}
+      <div 
+        className="hidden md:block absolute inset-0 z-0"
+        style={{
+          backgroundImage: 'url(/about_bg.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'fixed',
+        }}
+      />
+      {/* Mobile Background Image */}
+      <div 
+        className="md:hidden absolute inset-0 z-0"
+        style={{
+          backgroundImage: 'url(/mobile_bg.png)',
+          backgroundSize: 'contain',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'fixed',
+        }}
+      />
       <div className="flex flex-col lg:flex-row min-h-screen relative z-10">
 
         {/* Left navigation section */}
@@ -321,7 +336,13 @@ export default function AboutSection() {
           maxHeight: enableInternalScroll ? 'none' : 'none'
         }}
         >
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 lg:px-16 py-0">
+          <div 
+            className="max-w-4xl mx-auto md:px-8 lg:px-16 py-0 mobile-about-padding"
+            style={{
+              paddingLeft: 'clamp(1.5rem, 6vw, 2rem)',
+              paddingRight: 'clamp(1.5rem, 6vw, 2rem)'
+            }}
+          >
 
             {/* About */}
             <motion.div
