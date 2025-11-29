@@ -485,6 +485,9 @@ export default function Footer() {
             <div style={{ fontSize: '12px', color: 'rgba(250, 249, 246, 0.4)', marginTop: '4px' }}>
               Licensed by Department of Economy & Tourism, Dubai | License valid until 17/11/2026
             </div>
+            <div style={{ fontSize: '11px', color: 'rgba(250, 249, 246, 0.35)', marginTop: '8px', fontStyle: 'italic' }}>
+              *Images used on this website are AI-generated and are for representative purposes only.
+            </div>
           </motion.div>
           
           <motion.div

@@ -52,7 +52,7 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     onError={() => setImageError(true)}
-                    unoptimized={service.imagePath.startsWith('http')}
+                    unoptimized={service.imagePath.startsWith('http') || service.imagePath.startsWith('/')}
                   />
                 ) : (
                   <div className="absolute inset-0 bg-gradient-to-br from-[#2f5a65] to-[#0e7888] flex items-center justify-center">

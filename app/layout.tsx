@@ -124,13 +124,6 @@ export default function RootLayout({
                     "@type": "Offer",
                     "itemOffered": {
                       "@type": "Service",
-                      "name": "Engraving and Ornamentation Works"
-                    }
-                  },
-                  {
-                    "@type": "Offer",
-                    "itemOffered": {
-                      "@type": "Service",
                       "name": "Wallpaper Fixing Works"
                     }
                   },

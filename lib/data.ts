@@ -91,7 +91,7 @@ export const services: Service[] = [
     shortDescription: 'Modern false ceiling and partition solutions for enhanced space design.',
     longDescription: 'Create elegant spaces with our false ceiling and partition installation services. We offer various materials and designs to match your aesthetic and functional requirements.',
     animationPath: '/assets/animations/ceiling.json',
-    imagePath: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1600&h=900&fit=crop&q=80',
+    imagePath: '/alse.png',
     serviceCategory: 'Construction',
     processSteps: [
       'Design consultation and planning',
@@ -105,31 +105,12 @@ export const services: Service[] = [
     galleryImages: [],
   },
   {
-    id: 'engraving-ornamentation',
-    title: 'Engraving and Ornamentation Works',
-    shortDescription: 'Custom engraving and decorative ornamentation for architectural elements.',
-    longDescription: 'Add artistic flair to your space with our engraving and ornamentation services. We create custom designs that reflect your style and enhance your property\'s character.',
-    animationPath: '/assets/animations/engraving.json',
-    imagePath: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1600&h=900&fit=crop&q=80',
-    serviceCategory: 'Decorative',
-    processSteps: [
-      'Design consultation and concept development',
-      'Material selection',
-      'Template creation',
-      'Precision engraving execution',
-      'Finishing and polishing',
-      'Installation and final touches'
-    ],
-    testimonials: [],
-    galleryImages: [],
-  },
-  {
     id: 'wallpaper-fixing',
     title: 'Wallpaper Fixing Works',
     shortDescription: 'Professional wallpaper installation with pattern matching and seamless application.',
     longDescription: 'Transform your walls with our expert wallpaper installation services. We ensure perfect alignment, smooth application, and lasting results.',
     animationPath: '/assets/animations/wallpaper.json',
-    imagePath: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&h=900&fit=crop&q=80',
+    imagePath: '/wallpaper.png',
     serviceCategory: 'Decorative',
     processSteps: [
       'Wall preparation and priming',

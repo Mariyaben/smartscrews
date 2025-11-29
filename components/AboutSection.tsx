@@ -9,6 +9,8 @@ export default function AboutSection() {
   const [activeSection, setActiveSection] = useState(0)
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
   const lockRef = useRef(false)
+  const [enableInternalScroll, setEnableInternalScroll] = useState(false)
+  const aboutSectionRef = useRef<HTMLElement>(null)
 
   const sections = [
     { id: 'about', label: 'ABOUT' },
@@ -17,6 +19,32 @@ export default function AboutSection() {
     { id: 'approach', label: 'OUR APPROACH' },
     { id: 'why-choose', label: 'WHY CHOOSE US' },
   ]
+
+  // Detect when About section is in view to enable internal scrolling
+  useEffect(() => {
+    if (!aboutSectionRef.current) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // Enable internal scrolling when section is fully visible
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.9) {
+            setEnableInternalScroll(true)
+          }
+        })
+      },
+      {
+        threshold: [0, 0.5, 0.9, 1.0],
+        rootMargin: '0px'
+      }
+    )
+
+    observer.observe(aboutSectionRef.current)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
 
   useEffect(() => {
     const el = document.querySelector('[data-right-section]') as HTMLElement
@@ -39,8 +67,9 @@ export default function AboutSection() {
     const handleScroll = () => {
       if (lockRef.current) return
 
-      const scrollTop = el.scrollTop
-      const viewportHeight = el.clientHeight
+      // Use window scroll when internal scrolling is not enabled, element scroll when it is
+      const scrollTop = enableInternalScroll ? el.scrollTop : window.scrollY
+      const viewportHeight = enableInternalScroll ? el.clientHeight : window.innerHeight
       const viewportMiddle = scrollTop + viewportHeight * 0.4 // 40% from top
 
       let activeIndex = 0
@@ -50,23 +79,35 @@ export default function AboutSection() {
         if (!ref) return
         
         const rect = ref.getBoundingClientRect()
-        const containerRect = el.getBoundingClientRect()
         
-        // Calculate position relative to scroll container
-        const sectionTop = scrollTop + (rect.top - containerRect.top)
-        const sectionBottom = sectionTop + rect.height
-        const sectionMiddle = sectionTop + (rect.height / 2)
-
-        // Check if section is visible in viewport
-        const isVisible = sectionBottom > scrollTop && sectionTop < scrollTop + viewportHeight
-        
-        if (isVisible) {
-          // Calculate distance from viewport middle to section middle
-          const distance = Math.abs(viewportMiddle - sectionMiddle)
+        if (enableInternalScroll) {
+          // When using internal scroll, calculate relative to container
+          const containerRect = el.getBoundingClientRect()
+          const sectionTop = scrollTop + (rect.top - containerRect.top)
+          const sectionBottom = sectionTop + rect.height
+          const sectionMiddle = sectionTop + (rect.height / 2)
+          const isVisible = sectionBottom > scrollTop && sectionTop < scrollTop + viewportHeight
           
-          if (distance < minDistance) {
-            minDistance = distance
-            activeIndex = index
+          if (isVisible) {
+            const distance = Math.abs(viewportMiddle - sectionMiddle)
+            if (distance < minDistance) {
+              minDistance = distance
+              activeIndex = index
+            }
+          }
+        } else {
+          // When using window scroll, use absolute positions
+          const sectionTop = window.scrollY + rect.top
+          const sectionBottom = sectionTop + rect.height
+          const sectionMiddle = sectionTop + (rect.height / 2)
+          const isVisible = rect.top < window.innerHeight && rect.bottom > 0
+          
+          if (isVisible) {
+            const distance = Math.abs((window.scrollY + window.innerHeight * 0.4) - sectionMiddle)
+            if (distance < minDistance) {
+              minDistance = distance
+              activeIndex = index
+            }
           }
         }
       })
@@ -125,7 +166,12 @@ export default function AboutSection() {
       }, 100) // Check every 100ms
     }
     
-    el.addEventListener('scroll', throttledScroll, { passive: true })
+    // Listen to appropriate scroll event
+    if (enableInternalScroll) {
+      el.addEventListener('scroll', throttledScroll, { passive: true })
+    } else {
+      window.addEventListener('scroll', throttledScroll, { passive: true })
+    }
     
     // Initial check after refs are set
     setTimeout(() => {
@@ -134,10 +180,15 @@ export default function AboutSection() {
 
     return () => {
       clearTimeout(timeoutId)
-      el.removeEventListener('scroll', handleScroll)
+      if (scrollTimeout) clearTimeout(scrollTimeout)
+      if (enableInternalScroll) {
+        el.removeEventListener('scroll', throttledScroll)
+      } else {
+        window.removeEventListener('scroll', throttledScroll)
+      }
       observer.disconnect()
     }
-  }, [])
+  }, [enableInternalScroll])
 
   const scrollToSection = (index: number) => {
     const el = document.querySelector('[data-right-section]')
@@ -159,6 +210,7 @@ export default function AboutSection() {
 
   return (
     <section 
+      ref={aboutSectionRef}
       id="about" 
       className="relative w-full min-h-screen"
       style={{
@@ -258,8 +310,13 @@ export default function AboutSection() {
         {/* Right content section */}
         <div
         data-right-section
-        className="w-full lg:w-2/3 lg:ml-[33.333333%] bg-[#faf9f6]/20 relative scroll-smooth overflow-y-auto lg:h-screen"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        className="w-full lg:w-2/3 lg:ml-[33.333333%] bg-[#faf9f6]/20 relative scroll-smooth overflow-y-auto"
+        style={{ 
+          scrollbarWidth: 'none', 
+          msOverflowStyle: 'none',
+          height: enableInternalScroll ? '100vh' : 'auto',
+          maxHeight: enableInternalScroll ? '100vh' : 'none'
+        }}
         >
           <div className="max-w-4xl mx-auto px-8 lg:px-16 py-0">
 
