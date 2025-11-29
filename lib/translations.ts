@@ -149,7 +149,7 @@ export const translations: Record<Language, Translations> = {
       contactUs: 'Contact Us',
     },
     hero: {
-      headline: 'Experience you trust,',
+      headline: 'Experience\n you trust,',
       subheadline: 'Quality you deserve',
       description: 'Excellence is the foundation upon which we build. Our maintenance services company stands for unwavering quality and the creation of solutions that embody strength and longevity.',
       ctaButton: 'Ready to Transform?',

@@ -235,16 +235,26 @@ export default function AboutSection() {
   }, [enableInternalScroll])
 
   const scrollToSection = (index: number) => {
-    const el = document.querySelector('[data-right-section]')
+    const el = document.querySelector('[data-right-section]') as HTMLElement
     const ref = sectionRefs.current[index]
-    if (!el || !ref) return
+    if (!ref) return
 
     // Temporarily lock scroll detection during programmatic scroll
     lockRef.current = true
     setActiveSection(index)
     
-    const pos = (ref as HTMLElement).offsetTop
-    el.scrollTo({ top: pos - 100, behavior: 'smooth' })
+    const isDesktop = window.innerWidth >= 1024
+    
+    if (isDesktop && el && enableInternalScroll) {
+      // Desktop: scroll within the right section container
+      const pos = (ref as HTMLElement).offsetTop
+      el.scrollTo({ top: pos - 100, behavior: 'smooth' })
+    } else {
+      // Mobile: scroll the window to the section
+      const rect = (ref as HTMLElement).getBoundingClientRect()
+      const scrollTop = window.scrollY + rect.top - 100 // 100px offset from top
+      window.scrollTo({ top: scrollTop, behavior: 'smooth' })
+    }
     
     // Unlock after scroll completes
     setTimeout(() => {
@@ -555,7 +565,7 @@ export default function AboutSection() {
                         )}
                         <div className={`w-full ${index > 0 ? 'pl-0 md:pl-16 lg:pl-20' : ''}`}>
                           {/* Icon */}
-                          <div className="mb-6 flex justify-center md:justify-start">
+                          <div className="mb-6 flex justify-center">
                             <div
                               className="w-14 h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center"
                               style={{
@@ -574,7 +584,7 @@ export default function AboutSection() {
                         </div>
                           {/* Title */}
                           <h4
-                            className="text-xl lg:text-2xl font-semibold text-[#213f51] mb-4 text-center md:text-left"
+                            className="text-lg lg:text-xl font-semibold text-[#213f51] mb-4 text-center"
                             style={{
                               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                               fontWeight: 600,
@@ -587,7 +597,7 @@ export default function AboutSection() {
                           </h4>
                           {/* Description */}
                           <p
-                            className="text-sm lg:text-base text-[rgba(33,63,81,0.7)] leading-relaxed text-center md:text-left"
+                            className="text-sm lg:text-base text-[rgba(33,63,81,0.7)] leading-relaxed text-center"
                             style={{
                               ...contentTextStyle,
                               lineHeight: 1.7,
@@ -708,7 +718,7 @@ export default function AboutSection() {
                         title: t.about.modernFacilities,
                         description: t.about.modernFacilitiesDesc,
                         icon: (
-                          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                           </svg>
                         ),
@@ -718,7 +728,7 @@ export default function AboutSection() {
                         title: t.about.transparentAffordable,
                         description: t.about.transparentAffordableDesc,
                         icon: (
-                          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                           </svg>
                         ),
@@ -728,7 +738,7 @@ export default function AboutSection() {
                         title: t.about.expertTeam,
                         description: t.about.expertTeamDesc,
                         icon: (
-                          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
                           </svg>
                         ),
@@ -738,7 +748,7 @@ export default function AboutSection() {
                         title: t.about.clientSupport,
                         description: t.about.clientSupportDesc,
                         icon: (
-                          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                           </svg>
                         ),
@@ -752,20 +762,22 @@ export default function AboutSection() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
                       >
-                        <div className="bg-gray-100 rounded-lg p-6 sm:p-8 shadow-sm">
-                          <div className="flex items-start gap-4">
+                        <div className="bg-gray-100 rounded-lg shadow-sm" style={{ padding: 'clamp(1rem, 2.5vw, 1.5rem)' }}>
+                          <div className="flex items-start gap-3">
                             <div
-                              className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center"
+                              className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
                               style={{
                                 background: 'linear-gradient(135deg, rgba(14, 120, 136, 0.2) 0%, rgba(47, 90, 101, 0.2) 100%)',
                                 color: 'rgba(14, 120, 136, 1)',
                               }}
                             >
-                              {item.icon}
+                              <div className="w-4 h-4 flex items-center justify-center [&>svg]:w-4 [&>svg]:h-4">
+                                {item.icon}
+                              </div>
                             </div>
                             <div className="flex-1 min-w-0">
                               <h4
-                                className="text-lg font-semibold text-[#213f51] mb-2"
+                                className="text-base font-semibold text-[#213f51] mb-1.5"
                                 style={{
                                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                                   fontWeight: 600,
@@ -868,7 +880,7 @@ export default function AboutSection() {
                       title: t.about.modernFacilities,
                       description: t.about.modernFacilitiesDesc,
                       icon: (
-                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                         </svg>
                       ),
@@ -878,7 +890,7 @@ export default function AboutSection() {
                       title: t.about.transparentAffordable,
                       description: t.about.transparentAffordableDesc,
                       icon: (
-                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                         </svg>
                       ),
@@ -888,7 +900,7 @@ export default function AboutSection() {
                       title: t.about.expertTeam,
                       description: t.about.expertTeamDesc,
                       icon: (
-                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
                         </svg>
                       ),
@@ -898,7 +910,7 @@ export default function AboutSection() {
                       title: t.about.clientSupport,
                       description: t.about.clientSupportDesc,
                       icon: (
-                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                         </svg>
                       ),
@@ -920,22 +932,24 @@ export default function AboutSection() {
                       viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
                       >
-                        <div className="bg-gray-100 rounded-lg p-6 shadow-sm">
-                          <div className="flex items-start gap-4">
+                        <div className="bg-gray-100 rounded-lg shadow-sm" style={{ padding: 'clamp(1rem, 2.5vw, 1.5rem)' }}>
+                          <div className="flex items-start gap-3">
                             {/* Icon */}
                             <div
-                              className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center"
+                              className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
                               style={{
                                 background: 'linear-gradient(135deg, rgba(14, 120, 136, 0.2) 0%, rgba(47, 90, 101, 0.2) 100%)',
                                 color: 'rgba(14, 120, 136, 1)',
                               }}
                             >
-                              {item.icon}
+                              <div className="w-4 h-4 flex items-center justify-center [&>svg]:w-4 [&>svg]:h-4">
+                                {item.icon}
+                              </div>
                       </div>
                             {/* Content */}
                             <div className="flex-1 min-w-0">
                               <h4
-                                className="text-lg font-semibold text-[#213f51] mb-2"
+                                className="text-base font-semibold text-[#213f51] mb-1.5"
                                 style={{
                                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                                   fontWeight: 600,

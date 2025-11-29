@@ -156,7 +156,7 @@ export default function ServiceGrid() {
 
         {/* Services Sections - Alternating Image + Card Layout */}
         {filteredServices.map((service, index) => (
-          <div key={service.id} className={index > 0 ? "mt-16 sm:mt-20 lg:mt-24 xl:mt-32" : ""}>
+          <div key={service.id} style={{ marginTop: index > 0 ? 'clamp(3rem, 8vw, 4rem)' : '0' }}>
             <ServiceSection service={service} index={index} />
           </div>
         ))}

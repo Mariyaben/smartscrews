@@ -48,12 +48,22 @@ export default function Header() {
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
             style={{ direction: 'ltr' }}
           >
+            {/* Mobile Logo */}
+            <Image
+              src="/Sidetextlogo.svg"
+              alt="Smart Screws Logo - Residential and Commercial Maintenance Services"
+              width={957}
+              height={223}
+              className="h-6 sm:h-7 md:hidden w-auto ml-2 sm:ml-4"
+              priority
+            />
+            {/* Desktop Logo */}
             <Image
               src="/NEWNEWLOGO.svg"
               alt="Smart Screws Logo - Residential and Commercial Maintenance Services"
               width={120}
               height={61}
-              className="h-6 sm:h-7 md:h-8 w-auto"
+              className="hidden md:block h-7 lg:h-8 w-auto"
               priority
             />
           </Link>

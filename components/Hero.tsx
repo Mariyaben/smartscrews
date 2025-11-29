@@ -11,6 +11,17 @@ export default function Hero() {
   const { t, isRTL, language, setLanguage } = useLanguage();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Prevent body scrolling when mobile menu is open and close menu on desktop resize
   useEffect(() => {
@@ -67,20 +78,25 @@ export default function Hero() {
           priority
         />
         {/* Mobile Background Image */}
-        <Image
-          src="/hero_mobile.png"
-          alt="Smart Screws - Residential and Commercial Maintenance Services - Expert Carpentry, Plumbing, HVAC, Tiling, Painting, and Kitchen Renovation Services"
-          fill
-          className="object-cover md:hidden"
-          priority
-        />
+        <div className="md:hidden absolute inset-0" style={{ top: '-10%', height: '110%' }}>
+          <Image
+            src="/hero_mobile.png"
+            alt="Smart Screws - Residential and Commercial Maintenance Services - Expert Carpentry, Plumbing, HVAC, Tiling, Painting, and Kitchen Renovation Services"
+            fill
+            className="object-cover"
+            style={{ objectPosition: 'center bottom' }}
+            priority
+          />
+        </div>
       </div>
 
       {/* Shadow gradient overlay from left - dark grey background effect */}
       <div 
         className="absolute inset-0 z-10 pointer-events-none"
         style={{
-          background: `
+          background: isMobile ? `
+            linear-gradient(to right, rgba(42, 42, 42, 0.95) 0%, rgba(42, 42, 42, 0.92) 30%, rgba(42, 42, 42, 0.85) 50%, rgba(42, 42, 42, 0.75) 70%, rgba(42, 42, 42, 0.6) 100%)
+          ` : `
             radial-gradient(ellipse 650px 300px at top left, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0.05) 60%, transparent 80%),
             linear-gradient(to right, rgba(42, 42, 42, 0.95) 0%, rgba(42, 42, 42, 0.85) 30%, rgba(42, 42, 42, 0.5) 50%, rgba(42, 42, 42, 0.2) 70%, transparent 100%)
           `
@@ -88,13 +104,29 @@ export default function Hero() {
       />
 
       {/* Logo - Top Left Corner */}
-      <div className="flex flex-row absolute left-0 z-[100] ml-4 sm:ml-6 lg:ml-8 items-center" style={{ top: 'clamp(8px, 1vw, 16px)', direction: 'ltr', right: 'auto' }}>
+      <div className="flex flex-row absolute left-0 z-[100] md:ml-6 lg:ml-8 items-center md:left-0" style={{ top: 'clamp(8px, 1vw, 16px)', direction: 'ltr', right: 'auto', left: '1rem' }}>
+        {/* Mobile Logo */}
+        <Image
+          src="/Sidetextlogo.svg"
+          alt="Smart Screws Logo - Residential and Commercial Maintenance Services"
+          width={957}
+          height={223}
+          className="w-auto h-auto md:hidden"
+          style={{
+            height: 'clamp(40px, 6vw, 80px)',
+            width: 'auto',
+            position: 'relative',
+            zIndex: 101
+          }}
+          priority
+        />
+        {/* Desktop Logos */}
         <Image
           src="/NEWNEWLOGO.svg"
           alt="Smart Screws Logo - Residential and Commercial Maintenance Services"
           width={120}
           height={61}
-          className="w-auto h-auto"
+          className="hidden md:block w-auto h-auto"
           style={{
             height: 'clamp(36px, 5vw, 72px)',
             width: 'auto',
@@ -108,7 +140,7 @@ export default function Hero() {
           alt="Smart Screws - Building & Maintenance Services Company"
           width={600}
           height={120}
-          className="w-auto h-auto mobile-text-logo-spacing"
+          className="hidden md:block w-auto h-auto mobile-text-logo-spacing"
           style={{
             height: 'clamp(24px, 3vw, 48px)',
             width: 'auto',
@@ -122,16 +154,19 @@ export default function Hero() {
 
       {/* Mobile Hamburger Menu Button - Top Right Corner */}
       <button
-        className="md:hidden fixed top-0 right-0 z-[110] mt-4 mr-4 p-3 text-white hover:opacity-80 transition-opacity touch-manipulation flex items-center justify-center"
+        className="md:hidden fixed z-[110] text-white hover:opacity-80 transition-opacity touch-manipulation flex items-center justify-center"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         aria-label="Toggle menu"
         aria-expanded={isMobileMenuOpen}
         style={{
+          top: 'clamp(8px, 1vw, 16px)',
+          right: '1rem',
           backgroundColor: isMobileMenuOpen ? 'rgba(14, 120, 136, 0.5)' : 'rgba(0, 0, 0, 0.3)',
           borderRadius: '8px',
           transition: 'background-color 0.3s ease',
-          minWidth: '44px',
-          minHeight: '44px'
+          padding: '0.5rem',
+          minWidth: '36px',
+          minHeight: '36px'
         }}
       >
         <motion.div
@@ -139,7 +174,7 @@ export default function Hero() {
           transition={{ duration: 0.3 }}
         >
           <svg
-            className="h-6 w-6"
+            className="h-5 w-5"
             fill="none"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -453,7 +488,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-6 sm:mb-8 lg:mb-12"
+          className="mb-6 sm:mb-8 lg:mb-12 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
           style={{ 
             color: '#ffffff',
             fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
@@ -461,11 +496,22 @@ export default function Hero() {
             letterSpacing: '-0.02em',
             lineHeight: 1.2,
             marginTop: 'clamp(40px, 6vw, 80px)',
-            direction: isRTL ? 'rtl' : 'ltr'
+            direction: isRTL ? 'rtl' : 'ltr',
+            ...(isMobile && { fontSize: '2.5rem' })
           }}
         >
-          {t.hero.headline}<br />
-          {t.hero.subheadline}
+          {isMobile ? (
+            <>
+              Experience<br />
+              you trust<br />
+              Quality you deserve
+            </>
+          ) : (
+            <>
+              {t.hero.headline}<br />
+              {t.hero.subheadline}
+            </>
+          )}
         </motion.h1>
 
         {/* Paragraph on the left */}
@@ -513,7 +559,7 @@ export default function Hero() {
               e.preventDefault();
               setIsContactModalOpen(true);
             }}
-            className="bg-[#0e7888] rounded-none px-20 py-10 sm:px-24 sm:py-12 lg:px-32 lg:py-16 text-white hover:opacity-90 transition-all duration-300 inline-block text-center w-full sm:w-auto"
+            className="bg-[#0e7888] rounded-lg px-20 py-10 sm:px-24 sm:py-12 lg:px-32 lg:py-16 text-white hover:opacity-90 transition-all duration-300 inline-block text-center w-full sm:w-auto"
             style={{
               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
               fontWeight: 300,

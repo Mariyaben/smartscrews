@@ -35,7 +35,7 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
   };
 
   return (
-    <div className="w-full pt-16 sm:pt-24 lg:pt-32 xl:pt-48 pb-12 sm:pb-16 lg:pb-24">
+    <div className="w-full pt-16 sm:pt-24 lg:pt-32 xl:pt-48 pb-16 sm:pb-16 lg:pb-24" style={{ marginBottom: 'clamp(3rem, 8vw, 4rem)' }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex flex-col ${imageOnLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-6 sm:gap-8 lg:gap-12 items-center`}>
           {/* Image Section */}
