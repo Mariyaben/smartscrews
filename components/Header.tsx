@@ -213,7 +213,7 @@ export default function Header() {
                   handleNavClick(e, '/#contact');
                   setIsMobileMenuOpen(false);
                 }}
-                className="block px-4 py-3 text-base font-medium text-white bg-[#0e7888] border border-[#0e7888] rounded-lg hover:bg-[#0e7888]/90 hover:border-[#0e7888]/90 transition-colors text-center mt-4"
+                className="block px-8 py-5 text-base font-medium text-white bg-[#0e7888] border border-[#0e7888] rounded-lg hover:bg-[#0e7888]/90 hover:border-[#0e7888]/90 transition-colors text-center mt-4"
               >
                 {t.nav.contactUs}
               </Link>

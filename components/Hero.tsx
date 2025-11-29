@@ -12,11 +12,19 @@ export default function Hero() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [ctaPadding, setCtaPadding] = useState('clamp(0.375rem, 0.75vw, 0.75rem) clamp(0.75rem, 1.5vw, 1.5rem)');
 
   // Check if mobile on mount and resize
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 640);
+      const width = window.innerWidth;
+      setIsMobile(width < 640);
+      // Set CTA padding based on screen size
+      if (width < 640) {
+        setCtaPadding('clamp(1rem, 2.5vw, 1.5rem) clamp(2rem, 5vw, 3rem)');
+      } else {
+        setCtaPadding('clamp(0.375rem, 0.75vw, 0.75rem) clamp(0.75rem, 1.5vw, 1.5rem)');
+      }
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -120,7 +128,7 @@ export default function Hero() {
           height={223}
           className="w-auto h-auto md:hidden"
           style={{
-            height: 'clamp(40px, 6vw, 80px)',
+            height: 'clamp(52px, 7.8vw, 104px)',
             width: 'auto',
             position: 'relative',
             zIndex: 101
@@ -173,9 +181,9 @@ export default function Hero() {
           backgroundColor: isMobileMenuOpen ? 'rgba(14, 120, 136, 0.5)' : 'rgba(0, 0, 0, 0.3)',
           borderRadius: '8px',
           transition: 'background-color 0.3s ease',
-          padding: '0.5rem',
-          minWidth: '36px',
-          minHeight: '36px'
+          padding: '0.65rem',
+          minWidth: '47px',
+          minHeight: '47px'
         }}
       >
         <motion.div
@@ -183,7 +191,7 @@ export default function Hero() {
           transition={{ duration: 0.3 }}
         >
           <svg
-            className="h-5 w-5"
+            style={{ width: '26px', height: '26px' }}
             fill="none"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -219,36 +227,10 @@ export default function Hero() {
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: '100%', opacity: 0 }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="md:hidden fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-[#0e7888] shadow-2xl z-[105] overflow-y-auto"
+              className="md:hidden fixed top-0 right-0 h-full w-full bg-[#0e7888]/30 backdrop-blur-md shadow-2xl z-[105] overflow-y-auto"
               style={{ direction: 'ltr', WebkitOverflowScrolling: 'touch' }}
             >
               <div className="flex flex-col h-full">
-                {/* Header with Close Button */}
-                <div className="flex items-start justify-end p-6 pb-4">
-                  {/* Close Button */}
-                  <motion.button
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.1 }}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="w-11 h-11 flex items-center justify-center rounded-full bg-[#213f51] active:bg-[#2f5a65] transition-colors touch-manipulation"
-                    aria-label="Close menu"
-                    style={{ minWidth: '44px', minHeight: '44px' }}
-                  >
-                    <svg
-                      className="w-5 h-5 text-white"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </motion.button>
-                </div>
-
                 {/* Navigation Links */}
                 <div className="flex flex-col gap-2 px-6 py-6">
                   <motion.a
@@ -260,13 +242,14 @@ export default function Hero() {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="text-white text-lg font-light py-4 px-4 rounded-lg active:bg-[#0e7888]/80 transition-all touch-manipulation"
+                    className="text-white text-lg font-light py-4 px-4 rounded-lg active:bg-[#0e7888]/80 transition-all touch-manipulation text-center"
                     style={{
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                       letterSpacing: '-0.02em',
                       minHeight: '44px',
                       display: 'flex',
                       alignItems: 'center',
+                      justifyContent: 'center',
                       color: '#ffffff'
                     }}
                   >
@@ -281,13 +264,14 @@ export default function Hero() {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.25 }}
-                    className="text-white text-lg font-light py-4 px-4 rounded-lg active:bg-[#0e7888]/80 transition-all touch-manipulation"
+                    className="text-white text-lg font-light py-4 px-4 rounded-lg active:bg-[#0e7888]/80 transition-all touch-manipulation text-center"
                     style={{
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                       letterSpacing: '-0.02em',
                       minHeight: '44px',
                       display: 'flex',
                       alignItems: 'center',
+                      justifyContent: 'center',
                       color: '#ffffff'
                     }}
                   >
@@ -302,13 +286,14 @@ export default function Hero() {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="text-white text-lg font-light py-4 px-4 rounded-lg active:bg-[#0e7888]/80 transition-all touch-manipulation"
+                    className="text-white text-lg font-light py-4 px-4 rounded-lg active:bg-[#0e7888]/80 transition-all touch-manipulation text-center"
                     style={{
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                       letterSpacing: '-0.02em',
                       minHeight: '44px',
                       display: 'flex',
                       alignItems: 'center',
+                      justifyContent: 'center',
                       color: '#ffffff'
                     }}
                   >
@@ -568,7 +553,7 @@ export default function Hero() {
               e.preventDefault();
               setIsContactModalOpen(true);
             }}
-            className="bg-[#0e7888] rounded-lg px-20 py-10 sm:px-24 sm:py-12 lg:px-32 lg:py-16 text-white hover:opacity-90 transition-all duration-300 inline-block text-center w-full sm:w-auto"
+            className="bg-[#0e7888] rounded-lg text-white hover:opacity-90 transition-all duration-300 inline-block text-center w-full sm:w-auto sm:px-24 sm:py-12 lg:px-32 lg:py-16"
             style={{
               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
               fontWeight: 300,
@@ -577,7 +562,7 @@ export default function Hero() {
               fontSize: 'clamp(1rem, 2vw, 1.25rem)',
               border: '1px solid rgba(255, 255, 255, 0.15)',
               boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 2px 10px rgba(14, 120, 136, 0.3)',
-              padding: 'clamp(0.375rem, 0.75vw, 0.75rem) clamp(0.75rem, 1.5vw, 1.5rem)',
+              padding: ctaPadding,
               direction: isRTL ? 'rtl' : 'ltr'
             }}
           >
