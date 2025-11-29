@@ -42,7 +42,7 @@ export default function ServiceGrid() {
         className="md:hidden absolute inset-0 z-0"
         style={{
           backgroundImage: 'url(/mobile_bg.png)',
-          backgroundSize: 'contain',
+          backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           backgroundAttachment: 'fixed',

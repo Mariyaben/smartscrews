@@ -22,15 +22,21 @@ export default function AboutSection() {
     { id: 'why-choose', label: t.about.whyChooseUs },
   ]
 
-  // Detect when About section is in view to enable internal scrolling
+  // Detect when About section is in view to enable internal scrolling (desktop only)
   useEffect(() => {
     if (!aboutSectionRef.current) return
+    
+    // Disable internal scrolling on mobile
+    if (window.innerWidth < 1024) {
+      setEnableInternalScroll(false)
+      return
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // Enable internal scrolling when section is fully visible
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.9) {
+          // Enable internal scrolling when section is fully visible (desktop only)
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.9 && window.innerWidth >= 1024) {
             setEnableInternalScroll(true)
           }
         })
@@ -52,8 +58,16 @@ export default function AboutSection() {
     const el = document.querySelector('[data-right-section]') as HTMLElement
     if (!el) return
 
+    // Only enable internal scroll features on desktop
+    const isDesktop = window.innerWidth >= 1024
+    if (!isDesktop) {
+      // On mobile, ensure internal scroll is disabled
+      setEnableInternalScroll(false)
+    }
+
     const forceReveal = () => {
-      if (lockRef.current) return
+      // Only run on desktop
+      if (!isDesktop || lockRef.current) return
       lockRef.current = true
       el.scrollTo({ top: 0, behavior: 'instant' })
       setTimeout(() => {
@@ -64,7 +78,9 @@ export default function AboutSection() {
       }, 400)
     }
 
-    forceReveal()
+    if (isDesktop) {
+      forceReveal()
+    }
 
     const handleScroll = () => {
       if (lockRef.current) return
@@ -180,6 +196,24 @@ export default function AboutSection() {
       handleScroll()
     }, 500)
 
+    // Handle window resize to toggle internal scroll
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        // Desktop - enable internal scroll if section is in view
+        if (aboutSectionRef.current) {
+          const rect = aboutSectionRef.current.getBoundingClientRect()
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            setEnableInternalScroll(true)
+          }
+        }
+      } else {
+        // Mobile - disable internal scroll
+        setEnableInternalScroll(false)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+
     return () => {
       clearTimeout(timeoutId)
       if (scrollTimeout) clearTimeout(scrollTimeout)
@@ -188,6 +222,7 @@ export default function AboutSection() {
       } else {
         window.removeEventListener('scroll', throttledScroll)
       }
+      window.removeEventListener('resize', handleResize)
       observer.disconnect()
     }
   }, [enableInternalScroll])
@@ -232,7 +267,7 @@ export default function AboutSection() {
         className="md:hidden absolute inset-0 z-0"
         style={{
           backgroundImage: 'url(/mobile_bg.png)',
-          backgroundSize: 'contain',
+          backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           backgroundAttachment: 'fixed',
@@ -328,7 +363,7 @@ export default function AboutSection() {
         {/* Right content section */}
         <div
         data-right-section
-        className="w-full lg:w-2/3 lg:ml-[33.333333%] bg-[#faf9f6]/20 relative scroll-smooth overflow-y-auto lg:overflow-y-auto"
+        className="w-full lg:w-2/3 lg:ml-[33.333333%] bg-[#faf9f6]/20 relative scroll-smooth overflow-visible lg:overflow-y-auto"
         style={{ 
           scrollbarWidth: 'none', 
           msOverflowStyle: 'none',
@@ -517,9 +552,9 @@ export default function AboutSection() {
                         )}
                         <div className={`w-full ${index > 0 ? 'pl-0 md:pl-16 lg:pl-20' : ''}`}>
                           {/* Icon */}
-                          <div className="mb-6">
+                          <div className="mb-6 flex justify-center md:justify-start">
                             <div
-                              className="w-14 h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center mx-auto md:mx-0"
+                              className="w-14 h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center"
                               style={{
                                 background: 'linear-gradient(135deg, rgba(14, 120, 136, 0.15) 0%, rgba(47, 90, 101, 0.15) 100%)',
                               }}
