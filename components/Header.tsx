@@ -70,7 +70,7 @@ export default function Header() {
 
           {/* Desktop Navigation - Right corner with Green background bar */}
           <div className="hidden md:flex items-center" style={{ direction: 'ltr' }}>
-            <nav className="bg-[#0e7888] px-4 sm:px-6 py-2 rounded-lg flex items-center gap-4 sm:gap-6">
+            <nav className="bg-[#0e7888] px-4 sm:px-6 py-2 rounded-xl flex items-center gap-4 sm:gap-6">
               {/* Phone and WhatsApp Group */}
               <div className="flex items-center gap-3">
                 {/* WhatsApp */}

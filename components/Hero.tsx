@@ -104,8 +104,15 @@ export default function Hero() {
       />
 
       {/* Logo - Top Left Corner */}
-      <div className="flex flex-row absolute left-0 z-[100] md:ml-6 lg:ml-8 items-center md:left-0" style={{ top: 'clamp(8px, 1vw, 16px)', direction: 'ltr', right: 'auto', left: '1rem' }}>
-        {/* Mobile Logo */}
+      <div 
+        className="absolute top-0 left-0 right-0 z-[100]"
+        style={{ 
+          top: 'clamp(8px, 1vw, 16px)'
+        }}
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-row items-center" style={{ direction: 'ltr' }}>
+            {/* Mobile Logo */}
         <Image
           src="/Sidetextlogo.svg"
           alt="Smart Screws Logo - Residential and Commercial Maintenance Services"
@@ -150,6 +157,8 @@ export default function Hero() {
           }}
           priority
         />
+          </div>
+        </div>
       </div>
 
       {/* Mobile Hamburger Menu Button - Top Right Corner */}
@@ -351,7 +360,7 @@ export default function Hero() {
       {/* Desktop Navigation Bar - Top Right Corner */}
       <nav className="hidden md:flex absolute top-0 right-0 z-[60] mt-4 mr-4 sm:mr-6 lg:mr-8 items-center" style={{ direction: 'ltr', left: 'auto' }}>
         <div 
-          className="flex items-center gap-4 sm:gap-6 lg:gap-8"
+          className="flex items-center gap-4 sm:gap-6 lg:gap-8 rounded-xl"
           style={{ 
             backgroundColor: '#0e7888',
             color: '#ffffff',
@@ -497,7 +506,7 @@ export default function Hero() {
             lineHeight: 1.2,
             marginTop: 'clamp(40px, 6vw, 80px)',
             direction: isRTL ? 'rtl' : 'ltr',
-            ...(isMobile && { fontSize: '2.5rem' })
+            ...(isMobile && { fontSize: '3rem' })
           }}
         >
           {isMobile ? (
