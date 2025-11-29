@@ -7,7 +7,7 @@ import Footer from '@/components/Footer';
 import FloatingActionButton from '@/components/FloatingActionButton';
 
 export const metadata = {
-  title: 'Smartscrews - Professional Building & Maintenance Services',
+  title: 'SmartScrews - Professional Building & Maintenance Services',
   description: 'Trusted craftsmanship for your home and business. From carpentry to HVAC, we deliver quality solutions with attention to detail and professional service.',
 };
 

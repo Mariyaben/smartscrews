@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Header() {
@@ -39,13 +40,14 @@ export default function Header() {
             onClick={(e) => handleNavClick(e, '/#hero')}
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
           >
-            {/* Green square outline with abstract shape */}
-            <div className="w-8 h-8 border-2 border-[#0e7888] rounded flex items-center justify-center">
-              <div className="w-4 h-4 border border-[#0e7888] rounded-sm rotate-45" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-lg font-medium text-white leading-tight">Smartscrews</span>
-            </div>
+            <Image
+              src="/NEWNEWLOGO.svg"
+              alt="Smartscrews Logo"
+              width={120}
+              height={61}
+              className="h-8 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation - Right corner with Green background bar */}

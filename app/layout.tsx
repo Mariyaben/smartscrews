@@ -21,6 +21,16 @@ export const metadata: Metadata = {
   description: "Trusted craftsmanship for your home and business. From carpentry to HVAC, we deliver quality solutions with attention to detail and professional service.",
   keywords: ["building services", "maintenance", "carpentry", "plumbing", "HVAC", "tiling", "painting"],
   authors: [{ name: "Smartscrews" }],
+  icons: {
+    icon: [
+      { url: "/NEWNEWLOGO.svg", sizes: "any" },
+      { url: "/icon.svg", sizes: "512x512", type: "image/svg+xml" },
+    ],
+    shortcut: "/NEWNEWLOGO.svg",
+    apple: [
+      { url: "/NEWNEWLOGO.svg", sizes: "180x180" },
+    ],
+  },
   openGraph: {
     type: "website",
     locale: "en_US",

@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import { motion } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import { services } from '@/lib/data';
 
 interface FormData {
@@ -78,37 +79,43 @@ export default function ContactForm() {
     setSubmitStatus('idle');
 
     try {
-      const formDataToSend = new FormData();
-      formDataToSend.append('name', formData.name);
-      formDataToSend.append('email', formData.email);
-      formDataToSend.append('phone', formData.phone);
-      formDataToSend.append('service', formData.service);
-      formDataToSend.append('message', formData.message);
-      if (formData.file) {
-        formDataToSend.append('file', formData.file);
-      }
+      // EmailJS service configuration
+      // You'll need to set these up in your EmailJS account
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'your_service_id';
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'your_template_id';
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'your_public_key';
 
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        body: formDataToSend,
+      // Prepare email template parameters
+      const templateParams = {
+        to_email: 'mariyaben02@gmail.com',
+        from_name: formData.name,
+        from_email: formData.email,
+        phone: formData.phone,
+        service: formData.service,
+        message: formData.message,
+        reply_to: formData.email,
+      };
+
+      // Send email using EmailJS
+      await emailjs.send(
+        serviceId,
+        templateId,
+        templateParams,
+        publicKey
+      );
+
+      setSubmitStatus('success');
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        service: '',
+        message: '',
+        file: null,
       });
-
-      if (response.ok) {
-        setSubmitStatus('success');
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          service: '',
-          message: '',
-          file: null,
-        });
-        setErrors({});
-      } else {
-        setSubmitStatus('error');
-      }
+      setErrors({});
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error('Error sending email:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);

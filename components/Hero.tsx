@@ -21,7 +21,10 @@ export default function Hero() {
       <div 
         className="absolute inset-0 z-10 pointer-events-none"
         style={{
-          background: 'linear-gradient(to right, rgba(42, 42, 42, 0.95) 0%, rgba(42, 42, 42, 0.85) 30%, rgba(42, 42, 42, 0.5) 50%, rgba(42, 42, 42, 0.2) 70%, transparent 100%)'
+          background: `
+            radial-gradient(ellipse 650px 300px at top left, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0.05) 60%, transparent 80%),
+            linear-gradient(to right, rgba(42, 42, 42, 0.95) 0%, rgba(42, 42, 42, 0.85) 30%, rgba(42, 42, 42, 0.5) 50%, rgba(42, 42, 42, 0.2) 70%, transparent 100%)
+          `
         }}
       />
 

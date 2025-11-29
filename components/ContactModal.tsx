@@ -204,13 +204,15 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
               <div style={{ padding: '2rem 3rem' }}>
                 <h2
-                  className="text-3xl font-light mb-6 text-[#faf9f6] text-center"
+                  className="text-3xl mb-6 text-center"
                   style={{
                     fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+                    fontWeight: 300,
                     letterSpacing: '-0.02em',
+                    color: '#ffffff',
                   }}
                 >
-                  Get In Touch
+                  Contact Us
                 </h2>
 
                 {isSubmitted ? (
