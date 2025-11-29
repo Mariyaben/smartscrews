@@ -14,6 +14,12 @@ export default function AboutSection() {
   const [enableInternalScroll, setEnableInternalScroll] = useState(false)
   const aboutSectionRef = useRef<HTMLElement>(null)
 
+  // Consistent font styling for all content text (not titles)
+  const contentTextStyle = {
+    fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+    fontWeight: 300 as const,
+  }
+
   const sections = [
     { id: 'about', label: t.about.about },
     { id: 'story', label: t.about.ourStory },
@@ -140,7 +146,7 @@ export default function AboutSection() {
 
     // Use Intersection Observer as backup method
     const observerOptions = {
-      root: el,
+      root: enableInternalScroll ? el : null, // Use viewport on mobile, container on desktop
       rootMargin: '-30% 0px -50% 0px', // Trigger when section is in middle-upper portion
       threshold: [0, 0.25, 0.5, 0.75, 1.0]
     }
@@ -152,7 +158,24 @@ export default function AboutSection() {
       handleScroll()
     }, observerOptions)
 
-    // Wait for refs to be set, then observe
+    // Use scroll handler - throttled for performance
+    let scrollTimeout: NodeJS.Timeout | null = null
+    const throttledScroll = () => {
+      if (scrollTimeout) return
+      scrollTimeout = setTimeout(() => {
+        handleScroll()
+        scrollTimeout = null
+      }, 100) // Check every 100ms
+    }
+    
+    // Listen to appropriate scroll event
+    if (enableInternalScroll) {
+      el.addEventListener('scroll', throttledScroll, { passive: true })
+    } else {
+      window.addEventListener('scroll', throttledScroll, { passive: true })
+    }
+    
+    // Wait for refs to be set, then observe and check
     const timeoutId = setTimeout(() => {
       // Verify all refs are set
       const allRefsSet = sectionRefs.current.every(ref => ref !== null)
@@ -173,28 +196,11 @@ export default function AboutSection() {
         }, 300)
       }
     }, 500)
-
-    // Use scroll handler - throttled for performance
-    let scrollTimeout: NodeJS.Timeout | null = null
-    const throttledScroll = () => {
-      if (scrollTimeout) return
-      scrollTimeout = setTimeout(() => {
-        handleScroll()
-        scrollTimeout = null
-      }, 100) // Check every 100ms
-    }
     
-    // Listen to appropriate scroll event
-    if (enableInternalScroll) {
-      el.addEventListener('scroll', throttledScroll, { passive: true })
-    } else {
-      window.addEventListener('scroll', throttledScroll, { passive: true })
-    }
-    
-    // Initial check after refs are set
-    setTimeout(() => {
+    // Also do an immediate check after a short delay to catch initial state
+    const immediateCheck = setTimeout(() => {
       handleScroll()
-    }, 500)
+    }, 100)
 
     // Handle window resize to toggle internal scroll
     const handleResize = () => {
@@ -216,6 +222,7 @@ export default function AboutSection() {
 
     return () => {
       clearTimeout(timeoutId)
+      clearTimeout(immediateCheck)
       if (scrollTimeout) clearTimeout(scrollTimeout)
       if (enableInternalScroll) {
         el.removeEventListener('scroll', throttledScroll)
@@ -410,8 +417,7 @@ export default function AboutSection() {
                   <motion.p
                     className="text-base sm:text-lg text-[rgba(33,63,81,0.75)] leading-relaxed"
                     style={{
-                      fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                      fontWeight: 300,
+                      ...contentTextStyle,
                       lineHeight: 1.8,
                       direction: isRTL ? 'rtl' : 'ltr'
                     }}
@@ -423,10 +429,9 @@ export default function AboutSection() {
                     {t.about.aboutDescription1}
                   </motion.p>
                   <motion.p
-                    className="text-lg text-[rgba(33,63,81,0.75)] leading-relaxed"
+                    className="text-base sm:text-lg text-[rgba(33,63,81,0.75)] leading-relaxed"
                     style={{
-                      fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                      fontWeight: 300,
+                      ...contentTextStyle,
                       lineHeight: 1.8,
                       direction: isRTL ? 'rtl' : 'ltr'
                     }}
@@ -472,8 +477,7 @@ export default function AboutSection() {
                   <motion.p
                     className="text-base sm:text-lg text-[rgba(33,63,81,0.75)] leading-relaxed"
                     style={{
-                      fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                      fontWeight: 300,
+                      ...contentTextStyle,
                       lineHeight: 1.8,
                       direction: isRTL ? 'rtl' : 'ltr'
                     }}
@@ -486,10 +490,9 @@ export default function AboutSection() {
                   </motion.p>
 
                   <motion.p
-                    className="text-lg text-[rgba(33,63,81,0.75)] leading-relaxed"
+                    className="text-base sm:text-lg text-[rgba(33,63,81,0.75)] leading-relaxed"
                     style={{
-                      fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                      fontWeight: 300,
+                      ...contentTextStyle,
                       lineHeight: 1.8,
                       direction: isRTL ? 'rtl' : 'ltr'
                     }}
@@ -586,8 +589,7 @@ export default function AboutSection() {
                           <p
                             className="text-sm lg:text-base text-[rgba(33,63,81,0.7)] leading-relaxed text-center md:text-left"
                             style={{
-                              fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                              fontWeight: 300,
+                              ...contentTextStyle,
                               lineHeight: 1.7,
                               direction: isRTL ? 'rtl' : 'ltr'
                             }}
@@ -631,10 +633,9 @@ export default function AboutSection() {
 
                 <div className="space-y-6">
                   <p
-                    className="text-lg text-[rgba(33,63,81,0.75)] leading-relaxed italic"
+                    className="text-base sm:text-lg text-[rgba(33,63,81,0.75)] leading-relaxed italic"
                     style={{
-                      fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                      fontWeight: 300,
+                      ...contentTextStyle,
                       lineHeight: 1.8,
                       direction: isRTL ? 'rtl' : 'ltr'
                     }}
@@ -642,10 +643,9 @@ export default function AboutSection() {
                     &ldquo;{t.about.approachQuote}&rdquo;
                   </p>
                   <p
-                    className="text-lg text-[rgba(33,63,81,0.75)] leading-relaxed"
+                    className="text-base sm:text-lg text-[rgba(33,63,81,0.75)] leading-relaxed"
                     style={{
-                      fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                      fontWeight: 300,
+                      ...contentTextStyle,
                       lineHeight: 1.8,
                       direction: isRTL ? 'rtl' : 'ltr'
                     }}
@@ -684,10 +684,9 @@ export default function AboutSection() {
                 </motion.h3>
 
                 <motion.p
-                  className="text-sm sm:text-base text-[rgba(33,63,81,0.7)] mb-8 sm:mb-12 lg:mb-16 max-w-3xl"
+                  className="text-base sm:text-lg text-[rgba(33,63,81,0.7)] mb-8 sm:mb-12 lg:mb-16 max-w-3xl"
                   style={{
-                    fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                    fontWeight: 300,
+                    ...contentTextStyle,
                     lineHeight: 1.6,
                     direction: isRTL ? 'rtl' : 'ltr'
                   }}
@@ -779,8 +778,7 @@ export default function AboutSection() {
                               <p
                                 className="text-sm text-[rgba(33,63,81,0.7)] leading-relaxed"
                                 style={{
-                                  fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                                  fontWeight: 300,
+                                  ...contentTextStyle,
                                   lineHeight: 1.6,
                                   direction: isRTL ? 'rtl' : 'ltr'
                                 }}
@@ -950,8 +948,7 @@ export default function AboutSection() {
                               <p
                                 className="text-sm text-[rgba(33,63,81,0.7)] leading-relaxed"
                                 style={{
-                                  fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                                  fontWeight: 300,
+                                  ...contentTextStyle,
                                   lineHeight: 1.6,
                                   direction: isRTL ? 'rtl' : 'ltr'
                                 }}
