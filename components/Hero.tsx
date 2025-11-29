@@ -58,7 +58,7 @@ export default function Hero() {
         {/* Desktop Background Image */}
         <Image
           src="/hero.png"
-          alt="Professional workshop with team members"
+          alt="Smart Screws - Professional Building & Maintenance Services - Expert Carpentry, Plumbing, HVAC, Tiling, Painting, and Kitchen Renovation Services"
           fill
           className="object-cover hidden md:block"
           priority
@@ -66,7 +66,7 @@ export default function Hero() {
         {/* Mobile Background Image */}
         <Image
           src="/hero_mobile.png"
-          alt="Professional workshop with team members"
+          alt="Smart Screws - Professional Building & Maintenance Services - Expert Carpentry, Plumbing, HVAC, Tiling, Painting, and Kitchen Renovation Services"
           fill
           className="object-cover md:hidden"
           priority
@@ -88,7 +88,7 @@ export default function Hero() {
       <div className="flex flex-row absolute left-0 z-[100] ml-4 sm:ml-6 lg:ml-8 items-center" style={{ top: 'clamp(8px, 1vw, 16px)', direction: 'ltr', right: 'auto' }}>
         <Image
           src="/NEWNEWLOGO.svg"
-          alt="Company Logo"
+          alt="Smart Screws Logo - Professional Building & Maintenance Services"
           width={120}
           height={61}
           className="w-auto h-auto"
@@ -102,7 +102,7 @@ export default function Hero() {
         />
         <Image
           src="/TEXTLOGO.svg"
-          alt="Company Text"
+          alt="Smart Screws - Building & Maintenance Services Company"
           width={600}
           height={120}
           className="w-auto h-auto mobile-text-logo-spacing"

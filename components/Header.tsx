@@ -49,7 +49,7 @@ export default function Header() {
           >
             <Image
               src="/NEWNEWLOGO.svg"
-              alt="Smartscrews Logo"
+              alt="Smart Screws Logo - Professional Building & Maintenance Services"
               width={120}
               height={61}
               className="h-6 sm:h-7 md:h-8 w-auto"
