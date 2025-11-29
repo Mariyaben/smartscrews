@@ -4,6 +4,7 @@ import AboutSection from '@/components/AboutSection';
 import ContactSection from '@/components/ContactSection';
 import ScrollingBanner from '@/components/ScrollingBanner';
 import Footer from '@/components/Footer';
+import FloatingActionButton from '@/components/FloatingActionButton';
 
 export const metadata = {
   title: 'Smartscrews - Professional Building & Maintenance Services',
@@ -22,6 +23,7 @@ export default function Home() {
         <ContactSection />
       </main>
       <Footer />
+      <FloatingActionButton />
     </>
   );
 }

@@ -159,7 +159,21 @@ export default function RootLayout({
                     "@type": "Offer",
                     "itemOffered": {
                       "@type": "Service",
-                      "name": "Painting Contracting"
+                      "name": "Painting and Finishing Works"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Kitchen Renovation Works"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Architectural Drawing and Design Services"
                     }
                   }
                 ]
