@@ -53,8 +53,8 @@ export const metadata = {
     'architectural design', 'professional contractors', '24/7 maintenance uae', 'emergency maintenance uae'
   ],
   openGraph: {
-    title: 'Smart Screws - Professional Building & Maintenance Services',
-    description: 'Expert building and maintenance services. Carpentry, plumbing, HVAC, tiling, painting, and more. Quality craftsmanship for your home and business.',
+    title: 'Smart Screws - Residential and Commercial Maintenance Services',
+    description: 'Expert maintenance services. Carpentry, plumbing, HVAC, tiling, painting, and more. Quality craftsmanship for your home and business.',
     url: 'https://www.smartscrews.ae',
     siteName: 'Smart Screws - SmartScrews',
     images: [
@@ -62,7 +62,7 @@ export const metadata = {
         url: 'https://www.smartscrews.ae/hero.png',
         width: 1200,
         height: 630,
-        alt: 'Smart Screws - Professional Building & Maintenance Services',
+        alt: 'Smart Screws - Residential and Commercial Maintenance Services',
       },
     ],
     locale: 'en_US',

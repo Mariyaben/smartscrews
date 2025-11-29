@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Smart Screws - Professional Building & Maintenance Services | SmartScrews",
+    default: "Smart Screws - Residential and Commercial Maintenance Services | SmartScrews",
     template: "%s | Smart Screws - SmartScrews",
   },
   description: "Smart Screws - Residential and commercial maintenance services in UAE and Dubai. The best maintenance, electrical, carpentry, plumbing, HVAC, tiling, painting, and construction services. Top-rated professional building and maintenance company offering expert carpentry, plumbing, air conditioning, kitchen renovation, and architectural design. Quality craftsmanship for your home and business. Smart Screws delivers smart solutions for all your construction and maintenance needs.",
@@ -255,20 +255,20 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://www.smartscrews.ae",
     siteName: "Smart Screws - SmartScrews",
-    title: "Smart Screws - Professional Building & Maintenance Services | SmartScrews",
+    title: "Smart Screws - Residential and Commercial Maintenance Services | SmartScrews",
     description: "Smart Screws - Residential and commercial maintenance services in UAE and Dubai. The best maintenance, electrical, carpentry, plumbing, HVAC, tiling, painting, and construction services. Top-rated professional building and maintenance company. Quality craftsmanship for your home and business.",
     images: [
       {
         url: "https://www.smartscrews.ae/hero.png",
         width: 1200,
         height: 630,
-        alt: "Smart Screws - Professional Building & Maintenance Services",
+        alt: "Smart Screws - Residential and Commercial Maintenance Services",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Smart Screws - Professional Building & Maintenance Services",
+    title: "Smart Screws - Residential and Commercial Maintenance Services",
     description: "The best maintenance, electrical, carpentry, plumbing, HVAC, tiling, painting, and construction services in UAE and Dubai. Top-rated professional building and maintenance company. Quality craftsmanship for your home and business.",
     images: ["https://www.smartscrews.ae/hero.png"],
   },

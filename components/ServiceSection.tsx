@@ -51,7 +51,7 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
                 {service.imagePath && !imageError ? (
                   <Image
                     src={service.imagePath}
-                    alt={`Smart Screws - ${service.title} - Professional Building & Maintenance Services`}
+                    alt={`Smart Screws - ${service.title} - Residential and Commercial Maintenance Services`}
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 50vw"
