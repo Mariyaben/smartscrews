@@ -316,12 +316,12 @@ export default function Hero() {
       {/* Desktop Navigation Bar - Top Right Corner */}
       <nav className="hidden md:flex absolute top-0 right-0 z-[60] mt-4 mr-4 sm:mr-6 lg:mr-8 items-center" style={{ direction: 'ltr', left: 'auto' }}>
         <div 
-          className="flex items-center gap-8 sm:gap-12 lg:gap-16"
+          className="flex items-center gap-4 sm:gap-6 lg:gap-8"
           style={{ 
             backgroundColor: '#0e7888',
             color: '#ffffff',
-            paddingLeft: 'clamp(4rem, 10vw, 8rem)',
-            paddingRight: 'clamp(2rem, 6vw, 5rem)',
+            paddingLeft: 'clamp(2rem, 6vw, 4rem)',
+            paddingRight: 'clamp(1.5rem, 4vw, 3rem)',
             paddingTop: 'clamp(0.5rem, 1vw, 1rem)',
             paddingBottom: 'clamp(0.5rem, 1vw, 1rem)',
             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5), 0 0 60px rgba(42, 42, 42, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
@@ -368,7 +368,7 @@ export default function Hero() {
           </div>
           <a 
             href="#about" 
-            className="text-sm sm:text-base lg:text-lg hover:opacity-80 transition-opacity whitespace-nowrap ml-4 sm:ml-6 lg:ml-8"
+            className="text-sm sm:text-base lg:text-lg hover:opacity-80 transition-opacity whitespace-nowrap"
             style={{ 
               color: '#ffffff',
               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',

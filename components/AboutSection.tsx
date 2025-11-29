@@ -702,7 +702,7 @@ export default function AboutSection() {
                 {/* Central Icon with Feature Boxes */}
                 <div className="relative w-full min-h-[400px] sm:min-h-[500px] lg:h-[700px] flex flex-col lg:flex-row items-center justify-center lg:justify-center">
                   {/* Mobile: Stack boxes vertically */}
-                  <div className="lg:hidden w-full space-y-4 sm:space-y-6 mb-6 sm:mb-8">
+                  <div className="lg:hidden w-full space-y-8 sm:space-y-10 mb-6 sm:mb-8">
                     {[
                       {
                         position: 'top-left',
@@ -747,13 +747,13 @@ export default function AboutSection() {
                     ].map((item, index) => (
                       <motion.div
                         key={item.position}
-                        className="w-full"
+                        className="w-full mb-6 sm:mb-8"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
                       >
-                        <div className="bg-gray-100 rounded-lg p-6 shadow-sm">
+                        <div className="bg-gray-100 rounded-lg p-6 sm:p-8 shadow-sm">
                           <div className="flex items-start gap-4">
                             <div
                               className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center"
@@ -916,7 +916,7 @@ export default function AboutSection() {
                     return (
                     <motion.div
                         key={item.position}
-                        className={`relative lg:absolute ${positions[item.position]} w-full max-w-[280px] lg:w-[320px] mx-auto lg:mx-0 mb-6 lg:mb-0 z-20`}
+                        className={`hidden lg:block relative lg:absolute ${positions[item.position]} w-full max-w-[280px] lg:w-[320px] mx-auto lg:mx-0 mb-6 lg:mb-0 z-20`}
                         initial={{ opacity: 0, scale: 0.8 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
