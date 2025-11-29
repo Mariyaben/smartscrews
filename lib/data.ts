@@ -129,7 +129,7 @@ export const services: Service[] = [
     shortDescription: 'Expert plastering services for smooth, durable wall and ceiling finishes.',
     longDescription: 'Achieve flawless surfaces with our professional plastering services. We handle everything from repair work to complete new installations.',
     animationPath: '/assets/animations/plaster.json',
-    imagePath: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1600&h=900&fit=crop&q=80',
+    imagePath: '/plaster.png',
     serviceCategory: 'Construction',
     processSteps: [
       'Surface assessment and preparation',
@@ -148,7 +148,7 @@ export const services: Service[] = [
     shortDescription: 'Professional installation and maintenance of electromechanical systems.',
     longDescription: 'Ensure your electromechanical systems operate efficiently with our expert installation and maintenance services. We work with various equipment types and brands.',
     animationPath: '/assets/animations/electromechanical.json',
-    imagePath: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=1600&h=900&fit=crop&q=80',
+    imagePath: '/electro.png',
     serviceCategory: 'Maintenance',
     processSteps: [
       'System assessment and planning',
@@ -167,7 +167,7 @@ export const services: Service[] = [
     shortDescription: 'Complete plumbing and sanitary solutions for residential and commercial properties.',
     longDescription: 'Reliable plumbing services from installation to repair. We handle all aspects of plumbing and sanitary systems with professional expertise.',
     animationPath: '/assets/animations/plumbing.json',
-    imagePath: 'https://images.unsplash.com/photo-1621921298484-4a38e81547de?w=1600&h=900&fit=crop&q=80',
+    imagePath: '/plumbing.png',
     serviceCategory: 'Maintenance',
     processSteps: [
       'System design and planning',
@@ -186,7 +186,7 @@ export const services: Service[] = [
     shortDescription: 'Complete HVAC solutions including installation, maintenance, and air quality systems.',
     longDescription: 'Maintain optimal indoor air quality and comfort with our comprehensive HVAC services. From installation to regular maintenance, we keep your systems running efficiently.',
     animationPath: '/assets/animations/air-conditioning.json',
-    imagePath: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1600&h=900&fit=crop&q=80',
+    imagePath: '/air_conditioning.png',
     serviceCategory: 'Maintenance',
     processSteps: [
       'System assessment and load calculation',
@@ -205,7 +205,7 @@ export const services: Service[] = [
     shortDescription: 'Professional interior and exterior painting services with premium finishes.',
     longDescription: 'Transform your space with our expert painting services. We use high-quality materials and techniques to deliver lasting, beautiful results.',
     animationPath: '/assets/animations/painting.json',
-    imagePath: 'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=1600&h=900&fit=crop&q=80',
+    imagePath: '/paint.png',
     serviceCategory: 'Decorative',
     processSteps: [
       'Surface preparation and repair',
