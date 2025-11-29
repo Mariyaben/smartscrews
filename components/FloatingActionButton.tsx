@@ -26,8 +26,8 @@ function FloatingActionButton() {
       <div
         style={{
           position: 'fixed',
-          bottom: '32px',
-          right: '32px',
+          bottom: 'clamp(16px, 4vw, 32px)',
+          right: 'clamp(16px, 4vw, 32px)',
           zIndex: 99999,
         }}
       >
@@ -35,8 +35,10 @@ function FloatingActionButton() {
           onClick={handleClick}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center justify-center w-16 h-16 rounded-full shadow-lg cursor-pointer transition-all duration-300 border-none"
+          className="flex items-center justify-center rounded-full shadow-lg cursor-pointer transition-all duration-300 border-none"
           style={{
+            width: 'clamp(56px, 8vw, 64px)',
+            height: 'clamp(56px, 8vw, 64px)',
             background: 'linear-gradient(135deg, #0e7888 0%, #2f5a65 100%)',
             boxShadow: '0 4px 20px rgba(14, 120, 136, 0.4), 0 0 40px rgba(14, 120, 136, 0.2)',
           }}
@@ -46,7 +48,11 @@ function FloatingActionButton() {
           transition={{ duration: 0.3 }}
         >
           <MessageCircle 
-            className="w-7 h-7 text-white" 
+            className="text-white" 
+            style={{
+              width: 'clamp(24px, 4vw, 28px)',
+              height: 'clamp(24px, 4vw, 28px)'
+            }}
             strokeWidth={2}
           />
         </motion.button>

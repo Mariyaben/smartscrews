@@ -82,9 +82,9 @@ export default function ServiceGrid() {
         </div>
       </div>
 
-      <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 pb-16 lg:pb-24 z-20">
+      <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16 lg:pb-24 z-20">
         {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-3 lg:gap-4 pb-8 lg:pb-12">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 lg:gap-4 pb-6 sm:pb-8 lg:pb-12">
           {serviceCategories.map((category) => {
             const isSelected = selectedCategory === category;
             const IconComponent = categoryIcons[category as keyof typeof categoryIcons] || Grid3x3;
@@ -98,8 +98,8 @@ export default function ServiceGrid() {
                 key={category}
                 onClick={() => setSelectedCategory(category)}
                 className={`
-                  group relative flex items-center gap-2.5 lg:gap-3 pl-10 lg:pl-12 pr-6 lg:pr-8 py-7 lg:py-8 
-                  rounded-xl font-medium transition-all duration-300 ease-out
+                  group relative flex items-center gap-2 sm:gap-2.5 lg:gap-3 pl-6 sm:pl-8 lg:pl-12 pr-4 sm:pr-6 lg:pr-8 py-3 sm:py-4 lg:py-7 xl:py-8 
+                  rounded-lg sm:rounded-xl font-medium transition-all duration-300 ease-out
                   focus:outline-none focus:ring-2 focus:ring-[#0e7888] focus:ring-offset-2 focus:ring-offset-transparent
                   transform hover:scale-105 active:scale-100
                   ${isSelected 
@@ -114,18 +114,18 @@ export default function ServiceGrid() {
                 }}
                 aria-pressed={isSelected}
               >
-                <div className="w-2 lg:w-3"></div>
+                <div className="w-1.5 sm:w-2 lg:w-3"></div>
                 <IconComponent 
-                  className={`w-5 h-5 lg:w-5 lg:h-5 transition-all duration-300 ${
+                  className={`w-4 h-4 sm:w-5 sm:h-5 lg:w-5 lg:h-5 transition-all duration-300 ${
                     isSelected 
                       ? 'text-white/85' 
                       : 'text-[#0e7888]/70 group-hover:text-[#0e7888]/90 group-hover:scale-110'
                   }`} 
                   strokeWidth={isSelected ? 2.5 : 2}
                 />
-                <span className="text-sm lg:text-base">{categoryLabel}</span>
+                <span className="text-xs sm:text-sm lg:text-base whitespace-nowrap">{categoryLabel}</span>
                 <ChevronDown 
-                  className={`w-4 h-4 transition-all duration-300 ${
+                  className={`w-3 h-3 sm:w-4 sm:h-4 transition-all duration-300 ${
                     isSelected 
                       ? 'text-white/80 rotate-180' 
                       : 'text-[#213f51]/40 group-hover:text-[#0e7888]/80 group-hover:rotate-180'
@@ -133,7 +133,7 @@ export default function ServiceGrid() {
                   strokeWidth={2}
                 />
                 {isSelected && (
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
                 )}
               </button>
             );
@@ -145,7 +145,7 @@ export default function ServiceGrid() {
 
         {/* Services Sections - Alternating Image + Card Layout */}
         {filteredServices.map((service, index) => (
-          <div key={service.id} className={index > 0 ? "mt-24 lg:mt-32" : ""}>
+          <div key={service.id} className={index > 0 ? "mt-16 sm:mt-20 lg:mt-24 xl:mt-32" : ""}>
             <ServiceSection service={service} index={index} />
           </div>
         ))}

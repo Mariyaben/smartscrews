@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/NEWNEWLOGO.svg", sizes: "any" },
-      { url: "/icon.svg", sizes: "512x512", type: "image/svg+xml" },
+      { url: "/NEWNEWLOGO.svg", sizes: "512x512", type: "image/svg+xml" },
     ],
     shortcut: "/NEWNEWLOGO.svg",
     apple: [
@@ -54,6 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

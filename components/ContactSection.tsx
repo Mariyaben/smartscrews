@@ -275,9 +275,9 @@ export default function ContactSection() {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(500px, 1fr))',
-          gap: isMobile ? '32px' : '48px',
-          marginBottom: isMobile ? '60px' : '80px'
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(400px, 1fr))',
+          gap: isMobile ? '24px' : '48px',
+          marginBottom: isMobile ? '40px' : '80px'
         }}>
           {/* Contact Form */}
           <motion.div
@@ -372,14 +372,14 @@ export default function ContactSection() {
               <form onSubmit={handleSubmit} style={{ position: 'relative', zIndex: 10 }}>
                 <div style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                  gap: '24px',
-                  marginBottom: '24px'
+                  gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(200px, 1fr))',
+                  gap: isMobile ? '16px' : '24px',
+                  marginBottom: isMobile ? '16px' : '24px'
                 }}>
                   <div>
-                    <label style={{
+                    <label                     style={{
                       display: 'block',
-                      fontSize: '14px',
+                      fontSize: isMobile ? '13px' : '14px',
                       fontWeight: 400,
                       color: 'rgba(250, 249, 246, 0.9)',
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
@@ -397,13 +397,13 @@ export default function ContactSection() {
                       suppressHydrationWarning
                       style={{
                         width: '100%',
-                        padding: '16px',
+                        padding: isMobile ? '12px' : '16px',
                         background: 'rgba(250, 249, 246, 0.1)',
                         border: '1px solid rgba(14, 120, 136, 0.3)',
-                        borderRadius: '12px',
+                        borderRadius: isMobile ? '8px' : '12px',
                         color: '#faf9f6',
                         fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                        fontSize: '16px',
+                        fontSize: isMobile ? '14px' : '16px',
                         transition: 'all 0.3s ease'
                       }}
                       placeholder="John"
@@ -503,13 +503,13 @@ export default function ContactSection() {
                       suppressHydrationWarning
                       style={{
                         width: '100%',
-                        padding: '16px',
+                        padding: isMobile ? '12px' : '16px',
                         background: 'rgba(250, 249, 246, 0.1)',
                         border: '1px solid rgba(14, 120, 136, 0.3)',
-                        borderRadius: '12px',
+                        borderRadius: isMobile ? '8px' : '12px',
                         color: '#faf9f6',
                         fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                        fontSize: '16px',
+                        fontSize: isMobile ? '14px' : '16px',
                         transition: 'all 0.3s ease'
                       }}
                       placeholder="+1 (555) 123-4567"
@@ -517,10 +517,10 @@ export default function ContactSection() {
                   </div>
                 </div>
 
-                <div style={{ marginBottom: '24px' }}>
+                <div style={{ marginBottom: isMobile ? '16px' : '24px' }}>
                   <label style={{
                     display: 'block',
-                    fontSize: '14px',
+                    fontSize: isMobile ? '13px' : '14px',
                     fontWeight: '500',
                     color: '#D8CFBC',
                     marginBottom: '8px',
@@ -536,22 +536,22 @@ export default function ContactSection() {
                     suppressHydrationWarning
                     style={{
                       width: '100%',
-                      padding: '16px',
+                      padding: isMobile ? '12px' : '16px',
                       background: 'rgba(17, 18, 13, 0.5)',
                       border: '1px solid rgba(86, 84, 73, 0.3)',
-                      borderRadius: '12px',
+                      borderRadius: isMobile ? '8px' : '12px',
                       color: '#FFFBF4',
-                      fontSize: '16px',
+                      fontSize: isMobile ? '14px' : '16px',
                       transition: 'all 0.3s ease'
                     }}
                     placeholder="Your Company Name"
                   />
                 </div>
 
-                <div style={{ marginBottom: '24px' }}>
+                <div style={{ marginBottom: isMobile ? '16px' : '24px' }}>
                   <label style={{
                     display: 'block',
-                    fontSize: '14px',
+                    fontSize: isMobile ? '13px' : '14px',
                     fontWeight: '500',
                     color: '#D8CFBC',
                     marginBottom: '8px',
@@ -567,12 +567,12 @@ export default function ContactSection() {
                     suppressHydrationWarning
                     style={{
                       width: '100%',
-                      padding: '16px',
+                      padding: isMobile ? '12px' : '16px',
                       background: 'rgba(17, 18, 13, 0.5)',
                       border: '1px solid rgba(86, 84, 73, 0.3)',
-                      borderRadius: '12px',
+                      borderRadius: isMobile ? '8px' : '12px',
                       color: '#FFFBF4',
-                      fontSize: '16px',
+                      fontSize: isMobile ? '14px' : '16px',
                       transition: 'all 0.3s ease'
                     }}
                   >
@@ -585,10 +585,10 @@ export default function ContactSection() {
                   </select>
                 </div>
 
-                <div style={{ marginBottom: '32px' }}>
+                <div style={{ marginBottom: isMobile ? '20px' : '32px' }}>
                   <label style={{
                     display: 'block',
-                    fontSize: '14px',
+                    fontSize: isMobile ? '13px' : '14px',
                     fontWeight: '500',
                     color: '#D8CFBC',
                     marginBottom: '8px',
@@ -598,18 +598,18 @@ export default function ContactSection() {
                   </label>
                   <textarea
                     name="message"
-                    rows={4}
+                    rows={isMobile ? 3 : 4}
                     required
                     value={formData.message}
                     onChange={handleInputChange}
                     style={{
                       width: '100%',
-                      padding: '16px',
+                      padding: isMobile ? '12px' : '16px',
                       background: 'rgba(17, 18, 13, 0.5)',
                       border: '1px solid rgba(86, 84, 73, 0.3)',
-                      borderRadius: '12px',
+                      borderRadius: isMobile ? '8px' : '12px',
                       color: '#FFFBF4',
-                      fontSize: '16px',
+                      fontSize: isMobile ? '14px' : '16px',
                       transition: 'all 0.3s ease',
                       resize: 'none',
                       fontFamily: 'inherit'
@@ -626,13 +626,13 @@ export default function ContactSection() {
                   suppressHydrationWarning
                   style={{
                     width: '100%',
-                    padding: '20px',
+                    padding: isMobile ? '16px' : '20px',
                       background: 'linear-gradient(to right, #0e7888, #2f5a65)',
                       color: '#faf9f6',
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                       fontWeight: 400,
-                    fontSize: '18px',
-                    borderRadius: '12px',
+                    fontSize: isMobile ? '16px' : '18px',
+                    borderRadius: isMobile ? '8px' : '12px',
                     border: 'none',
                     cursor: isSubmitting ? 'not-allowed' : 'pointer',
                     transition: 'all 0.3s ease',
@@ -678,16 +678,16 @@ export default function ContactSection() {
           >
             {/* Contact Details */}
             <div style={{
-              padding: isMobile ? '24px 20px' : '32px',
-              borderRadius: '20px',
+              padding: isMobile ? '20px 16px' : '32px',
+              borderRadius: isMobile ? '16px' : '20px',
               background: 'rgba(250, 249, 246, 0.05)',
               backdropFilter: 'blur(20px)',
               border: '1px solid rgba(14, 120, 136, 0.2)'
             }}>
               <h3 style={{
-                fontSize: isMobile ? '20px' : '24px',
+                fontSize: isMobile ? '18px' : '24px',
                 fontWeight: 300,
-                marginBottom: '24px',
+                marginBottom: isMobile ? '16px' : '24px',
                 color: '#faf9f6',
                 fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                 letterSpacing: '-0.02em',
@@ -767,16 +767,16 @@ export default function ContactSection() {
 
             {/* Social Links */}
             <div style={{
-              padding: '32px',
-              borderRadius: '20px',
+              padding: isMobile ? '20px 16px' : '32px',
+              borderRadius: isMobile ? '16px' : '20px',
               background: 'rgba(250, 249, 246, 0.05)',
               backdropFilter: 'blur(20px)',
               border: '1px solid rgba(14, 120, 136, 0.2)'
             }}>
               <h3 style={{
-                fontSize: '24px',
+                fontSize: isMobile ? '18px' : '24px',
                 fontWeight: 300,
-                marginBottom: '16px',
+                marginBottom: isMobile ? '12px' : '16px',
                 color: '#faf9f6',
                 fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                 letterSpacing: '-0.02em',
@@ -833,17 +833,17 @@ export default function ContactSection() {
 
             {/* Quick Response */}
             <div style={{
-              padding: '32px',
-              borderRadius: '20px',
+              padding: isMobile ? '20px 16px' : '32px',
+              borderRadius: isMobile ? '16px' : '20px',
               background: 'linear-gradient(135deg, rgba(14, 120, 136, 0.1), rgba(47, 90, 101, 0.1))',
               backdropFilter: 'blur(20px)',
               border: '1px solid rgba(14, 120, 136, 0.2)',
               textAlign: 'center'
             }}>
               <h3 style={{
-                fontSize: '20px',
+                fontSize: isMobile ? '16px' : '20px',
                 fontWeight: 300,
-                marginBottom: '16px',
+                marginBottom: isMobile ? '12px' : '16px',
                 color: '#faf9f6',
                 fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                 letterSpacing: '-0.02em',

@@ -35,9 +35,9 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
   };
 
   return (
-    <div className="w-full pt-32 lg:pt-48 pb-16 lg:pb-24">
+    <div className="w-full pt-16 sm:pt-24 lg:pt-32 xl:pt-48 pb-12 sm:pb-16 lg:pb-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`flex flex-col ${imageOnLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 lg:gap-12 items-center`}>
+        <div className={`flex flex-col ${imageOnLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-6 sm:gap-8 lg:gap-12 items-center`}>
           {/* Image Section */}
           <div className="w-full lg:w-1/2 relative">
             <motion.div
@@ -93,7 +93,7 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
             >
               {/* Title */}
               <h2 
-                className="text-3xl sm:text-4xl lg:text-5xl font-light text-white mb-5 drop-shadow-lg"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-white mb-4 sm:mb-5 drop-shadow-lg"
                 style={{
                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                   fontWeight: 300,
@@ -107,7 +107,7 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
 
               {/* Description */}
               <p 
-                className="text-lg text-white/90 mb-8 leading-relaxed drop-shadow-md"
+                className="text-base sm:text-lg text-white/90 mb-6 sm:mb-8 leading-relaxed drop-shadow-md"
                 style={{
                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                   fontWeight: 300,
@@ -120,18 +120,18 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
 
               {/* Expandable Service List */}
               {translatedService.processSteps && translatedService.processSteps.length > 0 && (
-                <div className="space-y-3 mb-8">
+                <div className="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
                   {translatedService.processSteps.map((step, stepIndex) => {
                     const isExpanded = expandedItems.has(stepIndex);
                     return (
-                      <div key={stepIndex} className="border-b border-white/20 last:border-b-0 pb-3 last:pb-0">
+                      <div key={stepIndex} className="border-b border-white/20 last:border-b-0 pb-2 sm:pb-3 last:pb-0">
                         <button
                           onClick={() => toggleExpand(stepIndex)}
                           className="w-full flex items-center justify-between text-left group"
                           suppressHydrationWarning
                         >
                           <span 
-                            className="text-lg text-white pr-6 drop-shadow-md"
+                            className="text-base sm:text-lg text-white pr-4 sm:pr-6 drop-shadow-md"
                             style={{
                               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                               fontWeight: 300,
@@ -161,7 +161,7 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
                               className="overflow-hidden"
                             >
                               <p 
-                                className="text-base text-white/80 mt-3 leading-relaxed pt-3 border-t border-white/10 drop-shadow-sm"
+                                className="text-sm sm:text-base text-white/80 mt-2 sm:mt-3 leading-relaxed pt-2 sm:pt-3 border-t border-white/10 drop-shadow-sm"
                                 style={{
                                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                                   fontWeight: 300,

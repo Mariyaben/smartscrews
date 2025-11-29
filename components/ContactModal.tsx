@@ -20,6 +20,7 @@ const projectTypes = [
 
 export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -36,6 +37,12 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
   useEffect(() => {
     setMounted(true);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   useEffect(() => {
@@ -180,7 +187,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 position: 'relative',
                 width: '100%',
                 maxWidth: '42rem',
-                maxHeight: '90vh',
+                maxHeight: '95vh',
                 overflowY: 'auto',
                 backgroundColor: 'rgba(33, 63, 81, 0.98)',
                 backdropFilter: 'blur(20px)',
@@ -196,15 +203,15 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
               {/* Close Button */}
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-[#2f5a65]/50 hover:bg-[#2f5a65] text-white transition-colors"
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-[#2f5a65]/50 hover:bg-[#2f5a65] text-white transition-colors"
                 aria-label="Close"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
 
-              <div style={{ padding: '2rem 3rem' }}>
+              <div style={{ padding: isMobile ? '1.5rem 1.25rem' : '2rem 3rem' }}>
                 <h2
-                  className="text-3xl mb-6 text-center"
+                  className="text-2xl sm:text-3xl mb-4 sm:mb-6 text-center"
                   style={{
                     fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                     fontWeight: 300,
@@ -240,9 +247,9 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                     </p>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                  <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? '1rem' : '1.5rem' }}>
                     {/* First Name & Last Name */}
-                    <div className="grid grid-cols-2" style={{ gap: '1.5rem' }}>
+                    <div className={`grid ${isMobile ? 'grid-cols-1' : 'grid-cols-2'}`} style={{ gap: isMobile ? '1rem' : '1.5rem' }}>
                       <div>
                         <label
                           className="block text-sm font-medium text-[#faf9f6]/90 mb-2"
@@ -265,7 +272,8 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                           placeholder="John"
                           style={{
                             fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                            padding: '16px 20px',
+                            padding: isMobile ? '12px 16px' : '16px 20px',
+                            fontSize: isMobile ? '14px' : '16px',
                           }}
                         />
                         {errors.firstName && (
@@ -294,7 +302,8 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                           placeholder="Doe"
                           style={{
                             fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                            padding: '16px 20px',
+                            padding: isMobile ? '12px 16px' : '16px 20px',
+                            fontSize: isMobile ? '14px' : '16px',
                           }}
                         />
                         {errors.lastName && (
@@ -304,7 +313,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                     </div>
 
                     {/* Email & Phone */}
-                    <div className="grid grid-cols-2" style={{ gap: '1.5rem' }}>
+                    <div className={`grid ${isMobile ? 'grid-cols-1' : 'grid-cols-2'}`} style={{ gap: isMobile ? '1rem' : '1.5rem' }}>
                       <div>
                         <label
                           className="block text-sm font-medium text-[#faf9f6]/90 mb-2"
@@ -327,7 +336,8 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                           placeholder="john@company.com"
                           style={{
                             fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                            padding: '16px 20px',
+                            padding: isMobile ? '12px 16px' : '16px 20px',
+                            fontSize: isMobile ? '14px' : '16px',
                           }}
                         />
                         {errors.email && (
@@ -352,7 +362,8 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                           placeholder="+1 (555) 123-4567"
                           style={{
                             fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                            padding: '16px 20px',
+                            padding: isMobile ? '12px 16px' : '16px 20px',
+                            fontSize: isMobile ? '14px' : '16px',
                           }}
                         />
                       </div>
@@ -430,7 +441,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                       </label>
                       <textarea
                         name="message"
-                        rows={4}
+                        rows={isMobile ? 3 : 4}
                         value={formData.message}
                         onChange={handleInputChange}
                         className={`w-full rounded-lg border transition-colors resize-none ${
@@ -441,7 +452,8 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                         placeholder="Tell us about your project, goals, and timeline..."
                         style={{
                           fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
-                          padding: '16px 20px',
+                          padding: isMobile ? '12px 16px' : '16px 20px',
+                          fontSize: isMobile ? '14px' : '16px',
                         }}
                       />
                       {errors.message && (

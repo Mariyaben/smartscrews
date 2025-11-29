@@ -52,7 +52,7 @@ export default function Header() {
               alt="Smartscrews Logo"
               width={120}
               height={61}
-              className="h-8 w-auto"
+              className="h-6 sm:h-7 md:h-8 w-auto"
               priority
             />
           </Link>
@@ -88,10 +88,14 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-white"
+            className="md:hidden p-2 text-white hover:opacity-80 transition-opacity"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
             aria-expanded={isMobileMenuOpen}
+            style={{
+              backgroundColor: isMobileMenuOpen ? 'rgba(14, 120, 136, 0.2)' : 'transparent',
+              borderRadius: '8px'
+            }}
           >
             <svg
               className="h-6 w-6"
@@ -119,9 +123,10 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white/95 backdrop-blur-sm border-t border-gray-200"
+            className="md:hidden bg-white/98 backdrop-blur-md border-t border-gray-200 shadow-lg"
+            style={{ maxHeight: 'calc(100vh - 64px)', overflowY: 'auto' }}
           >
-            <div className="container mx-auto px-4 py-4 space-y-4">
+            <div className="container mx-auto px-4 py-6 space-y-3">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -130,7 +135,7 @@ export default function Header() {
                     handleNavClick(e, link.href);
                     setIsMobileMenuOpen(false);
                   }}
-                  className="block text-[#213f51] hover:text-[#0e7888] transition-colors py-2"
+                  className="block text-[#213f51] hover:text-[#0e7888] transition-colors py-3 px-2 text-base font-medium rounded-lg hover:bg-[#0e7888]/5"
                 >
                   {link.label}
                 </Link>
@@ -141,7 +146,7 @@ export default function Header() {
                   handleNavClick(e, '/#contact');
                   setIsMobileMenuOpen(false);
                 }}
-                className="block px-4 py-2 text-sm font-normal text-[#213f51] border border-gray-300 rounded-lg hover:border-[#0e7888] hover:text-[#0e7888] transition-colors text-center"
+                className="block px-4 py-3 text-base font-medium text-white bg-[#0e7888] border border-[#0e7888] rounded-lg hover:bg-[#0e7888]/90 hover:border-[#0e7888]/90 transition-colors text-center mt-4"
               >
                 {t.nav.contactUs}
               </Link>
@@ -150,13 +155,13 @@ export default function Header() {
                   toggleLanguage();
                   setIsMobileMenuOpen(false);
                 }}
-                className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-normal text-[#213f51] border border-gray-300 rounded-lg hover:border-[#0e7888] hover:text-[#0e7888] transition-colors"
+                className="flex items-center justify-center gap-2 px-4 py-3 text-base font-medium text-[#213f51] border-2 border-gray-300 rounded-lg hover:border-[#0e7888] hover:text-[#0e7888] hover:bg-[#0e7888]/5 transition-colors w-full mt-2"
                 aria-label={language === 'en' ? 'Switch to Arabic' : 'Switch to English'}
               >
                 {language === 'en' ? (
-                  <span style={{ fontSize: '16px', direction: 'rtl', fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif', fontWeight: 500 }}>ع</span>
+                  <span style={{ fontSize: '18px', direction: 'rtl', fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif', fontWeight: 500 }}>ع</span>
                 ) : (
-                  <span style={{ fontSize: '14px', fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif', fontWeight: 500 }}>EN</span>
+                  <span style={{ fontSize: '16px', fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif', fontWeight: 500 }}>EN</span>
                 )}
                 <span>{language === 'en' ? 'العربية' : 'English'}</span>
               </button>

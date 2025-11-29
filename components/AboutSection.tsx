@@ -228,16 +228,17 @@ export default function AboutSection() {
         {/* Left navigation section */}
       <div 
       className="
+      hidden lg:flex
       lg:sticky lg:top-0 lg:h-screen
       w-full lg:w-1/3
-      flex flex-col justify-center
+      flex-col justify-start lg:justify-center
       bg-[#faf9f6]/20
-      pr-8 lg:pr-12
-      py-20
+      px-4 sm:px-6 lg:pr-12
+      py-8 sm:py-12 lg:py-20
       z-10 relative self-start
-      space-y-12
+      space-y-6 sm:space-y-8 lg:space-y-12
       "
-      style={{ paddingLeft: '3rem' }}
+      style={{ paddingLeft: 'clamp(1rem, 3vw, 3rem)' }}
       >
           <div className="absolute inset-0 opacity-5">
             <div className="absolute top-20 left-10 w-40 h-40 border-2 border-[#0e7888] rounded-full" />
@@ -272,13 +273,13 @@ export default function AboutSection() {
 
                   <div 
                     style={{ 
-                      paddingTop: '1.5rem',
-                      paddingBottom: '1.5rem',
-                      paddingLeft: '1.5rem'
+                      paddingTop: 'clamp(0.75rem, 2vw, 1.5rem)',
+                      paddingBottom: 'clamp(0.75rem, 2vw, 1.5rem)',
+                      paddingLeft: 'clamp(0.5rem, 2vw, 1.5rem)'
                     }}
                   >
                     <span
-                      className={`text-2xl lg:text-3xl transition-colors duration-300 ${
+                      className={`text-lg sm:text-xl md:text-2xl lg:text-3xl transition-colors duration-300 ${
                         activeSection === index
                           ? 'text-[#0e7888]'
                           : 'text-[#213f51]/60 group-hover:text-[#213f51]'
@@ -312,15 +313,15 @@ export default function AboutSection() {
         {/* Right content section */}
         <div
         data-right-section
-        className="w-full lg:w-2/3 lg:ml-[33.333333%] bg-[#faf9f6]/20 relative scroll-smooth overflow-y-auto"
+        className="w-full lg:w-2/3 lg:ml-[33.333333%] bg-[#faf9f6]/20 relative scroll-smooth overflow-y-auto lg:overflow-y-auto"
         style={{ 
           scrollbarWidth: 'none', 
           msOverflowStyle: 'none',
-          height: enableInternalScroll ? '100vh' : 'auto',
-          maxHeight: enableInternalScroll ? '100vh' : 'none'
+          height: enableInternalScroll ? 'auto' : 'auto',
+          maxHeight: enableInternalScroll ? 'none' : 'none'
         }}
         >
-          <div className="max-w-4xl mx-auto px-8 lg:px-16 py-0">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 lg:px-16 py-0">
 
             {/* About */}
             <motion.div
@@ -329,11 +330,11 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="relative min-h-screen flex items-center py-32"
+              className="relative min-h-[60vh] sm:min-h-screen flex items-center py-12 sm:py-20 lg:py-32"
             >
               <div className="w-full max-w-3xl">
                 <motion.h2
-                  className="text-4xl sm:text-5xl lg:text-6xl font-light text-[#213f51] mb-16"
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-[#213f51] mb-8 sm:mb-12 lg:mb-16"
                   style={{
                     fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                     fontWeight: 300,
@@ -349,9 +350,9 @@ export default function AboutSection() {
                   {t.about.aboutTitle}
                 </motion.h2>
 
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   <motion.p
-                    className="text-lg text-[rgba(33,63,81,0.75)] leading-relaxed"
+                    className="text-base sm:text-lg text-[rgba(33,63,81,0.75)] leading-relaxed"
                     style={{
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                       fontWeight: 300,
@@ -391,11 +392,11 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="relative min-h-screen flex items-center py-32"
+              className="relative min-h-[60vh] sm:min-h-screen flex items-center py-12 sm:py-20 lg:py-32"
             >
               <div className="w-full max-w-3xl">
                 <motion.h3
-                  className="text-4xl sm:text-5xl lg:text-6xl font-light text-[#213f51] mb-16"
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-[#213f51] mb-8 sm:mb-12 lg:mb-16"
                   style={{
                     fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                     fontWeight: 300,
@@ -411,9 +412,9 @@ export default function AboutSection() {
                   {t.about.storyTitle}
                 </motion.h3>
 
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   <motion.p
-                    className="text-lg text-[rgba(33,63,81,0.75)] leading-relaxed"
+                    className="text-base sm:text-lg text-[rgba(33,63,81,0.75)] leading-relaxed"
                     style={{
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                       fontWeight: 300,
@@ -454,11 +455,11 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="relative min-h-screen flex items-center py-32"
+              className="relative min-h-[60vh] sm:min-h-screen flex items-center py-12 sm:py-20 lg:py-32"
             >
               <div className="w-full max-w-5xl">
                 <motion.h3
-                  className="text-4xl sm:text-5xl lg:text-6xl font-light text-[#213f51] mb-20"
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-[#213f51] mb-8 sm:mb-12 lg:mb-20"
                   style={{
                     fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                     fontWeight: 300,
@@ -474,7 +475,7 @@ export default function AboutSection() {
                   {t.about.valuesTitle}
                 </motion.h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-0">
                   {[
                     { title: t.about.qualityFirst, description: t.about.qualityFirstDesc, icon: Award },
                     { title: t.about.integrity, description: t.about.integrityDesc, icon: Shield },
@@ -488,12 +489,12 @@ export default function AboutSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: index * 0.1 }}
-                        className={`relative min-w-0 ${index === 0 ? 'px-0 md:px-8 lg:px-12' : 'pr-8 lg:pr-12'}`}
+                        className={`relative min-w-0 ${index === 0 ? 'px-0 md:px-8 lg:px-12' : 'pr-0 md:pr-8 lg:pr-12'}`}
                       >
                         {index > 0 && (
                           <div className="absolute left-0 top-0 bottom-0 w-px bg-[#2f5a65]/10 hidden md:block" />
                         )}
-                        <div className={`w-full ${index > 0 ? 'pl-12 md:pl-16 lg:pl-20' : ''}`}>
+                        <div className={`w-full ${index > 0 ? 'pl-0 md:pl-16 lg:pl-20' : ''}`}>
                           {/* Icon */}
                           <div className="mb-6">
                             <div
@@ -552,11 +553,11 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="relative min-h-screen flex items-center py-32"
+              className="relative min-h-[60vh] sm:min-h-screen flex items-center py-12 sm:py-20 lg:py-32"
             >
               <div className="w-full max-w-3xl">
                 <motion.h3
-                  className="text-4xl sm:text-5xl lg:text-6xl font-light text-[#213f51] mb-16"
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-[#213f51] mb-8 sm:mb-12 lg:mb-16"
                   style={{
                     fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                     fontWeight: 300,
@@ -627,7 +628,7 @@ export default function AboutSection() {
                 </motion.h3>
 
                 <motion.p
-                  className="text-base text-[rgba(33,63,81,0.7)] mb-16 max-w-3xl"
+                  className="text-sm sm:text-base text-[rgba(33,63,81,0.7)] mb-8 sm:mb-12 lg:mb-16 max-w-3xl"
                   style={{
                     fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                     fontWeight: 300,
@@ -643,9 +644,9 @@ export default function AboutSection() {
                 </motion.p>
 
                 {/* Central Icon with Feature Boxes */}
-                <div className="relative w-full min-h-[600px] lg:h-[700px] flex flex-col lg:flex-row items-center justify-center lg:justify-center">
+                <div className="relative w-full min-h-[400px] sm:min-h-[500px] lg:h-[700px] flex flex-col lg:flex-row items-center justify-center lg:justify-center">
                   {/* Mobile: Stack boxes vertically */}
-                  <div className="lg:hidden w-full space-y-6 mb-8">
+                  <div className="lg:hidden w-full space-y-4 sm:space-y-6 mb-6 sm:mb-8">
                     {[
                       {
                         position: 'top-left',

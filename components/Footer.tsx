@@ -171,8 +171,8 @@ export default function Footer() {
           <div style={{
             display: 'grid',
             gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))',
-            gap: isMobile ? '32px' : '48px',
-            paddingLeft: isMobile ? '40px' : '0'
+            gap: isMobile ? '24px' : '48px',
+            paddingLeft: isMobile ? '0' : '0'
           }}>
           {/* Company Info */}
             <div style={{ gridColumn: isMobile ? 'span 1' : 'span 2' }}>
@@ -247,14 +247,14 @@ export default function Footer() {
                 transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
                 viewport={{ once: true }}
                 style={{
-                  paddingLeft: isMobile ? '32px' : '0'
+                  paddingLeft: '0'
                 }}
               >
                 <h4 style={{
                   fontSize: isMobile ? '16px' : '18px',
                   fontWeight: 400,
                   color: '#faf9f6',
-                  marginBottom: '24px',
+                  marginBottom: isMobile ? '16px' : '24px',
                   textTransform: 'capitalize',
                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                   direction: isRTL ? 'rtl' : 'ltr'
@@ -381,10 +381,11 @@ export default function Footer() {
               }}>
                 <div style={{
                   display: 'flex',
-                  gap: '16px',
-                  flexWrap: 'wrap'
+                  gap: isMobile ? '12px' : '16px',
+                  flexWrap: 'wrap',
+                  flexDirection: isMobile ? 'column' : 'row'
                 }}>
-              <input
+                  <input
                 type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -393,13 +394,13 @@ export default function Footer() {
                     suppressHydrationWarning
                     style={{
                       flex: '1',
-                      minWidth: '250px',
-                      padding: '16px',
+                      minWidth: isMobile ? '100%' : '250px',
+                      padding: isMobile ? '12px' : '16px',
                       background: 'rgba(250, 249, 246, 0.1)',
                       border: '1px solid rgba(14, 120, 136, 0.3)',
-                      borderRadius: '12px',
+                      borderRadius: isMobile ? '8px' : '12px',
                       color: '#faf9f6',
-                      fontSize: '16px',
+                      fontSize: isMobile ? '14px' : '16px',
                       transition: 'all 0.3s ease',
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif'
                     }}
@@ -411,18 +412,19 @@ export default function Footer() {
                     disabled={isSubscribing}
                     suppressHydrationWarning
                     style={{
-                      padding: '16px 32px',
+                      padding: isMobile ? '12px 24px' : '16px 32px',
                       background: 'linear-gradient(to right, #0e7888, #2f5a65)',
                       color: '#faf9f6',
                       fontWeight: 400,
-                      fontSize: '16px',
-                      borderRadius: '12px',
+                      fontSize: isMobile ? '14px' : '16px',
+                      borderRadius: isMobile ? '8px' : '12px',
                       border: 'none',
                       cursor: isSubscribing ? 'not-allowed' : 'pointer',
                       transition: 'all 0.3s ease',
                       whiteSpace: 'nowrap',
                       opacity: isSubscribing ? 0.7 : 1,
-                      fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif'
+                      fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+                      width: isMobile ? '100%' : 'auto'
                     }}
                   >
                     {isSubscribing ? (
