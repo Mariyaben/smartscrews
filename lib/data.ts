@@ -10,6 +10,7 @@ export interface Service {
   longDescription: string;
   animationPath: string;
   imagePath: string;
+  imagePaths?: string[]; // Optional array for carousel images
   serviceCategory: string;
   processSteps: string[];
   testimonials: Array<{
@@ -29,6 +30,7 @@ export const services: Service[] = [
     longDescription: 'Our skilled carpenters deliver precision craftsmanship in custom woodwork, cabinetry, and flooring. We work with a variety of wood species and finishes to create beautiful, durable solutions that enhance your space.',
     animationPath: '/assets/animations/carpentry.json',
     imagePath: '/carpentry.png',
+    imagePaths: ['/carpentry1.png', '/carpentry2.png', '/carpentry3.png'],
     serviceCategory: 'Construction',
     processSteps: [
       'Initial consultation and material selection',
@@ -54,6 +56,7 @@ export const services: Service[] = [
     longDescription: 'Professional cleaning services tailored to your needs. From regular maintenance to deep cleaning, we ensure your property maintains a pristine appearance.',
     animationPath: '/assets/animations/cleaning.json',
     imagePath: '/cleaning.png',
+    imagePaths: ['/cleaning1.png', '/cleaning2.png', '/cleaning3.png'],
     serviceCategory: 'Maintenance',
     processSteps: [
       'Assessment of cleaning requirements',
@@ -73,6 +76,7 @@ export const services: Service[] = [
     longDescription: 'Transform your spaces with our expert tiling services. We handle everything from design consultation to final grouting, ensuring perfect alignment and lasting results.',
     animationPath: '/assets/animations/tiling.json',
     imagePath: '/floor_tiling.png',
+    imagePaths: ['/tiling1.png', '/tiling2.png', '/tiling3.png'],
     serviceCategory: 'Construction',
     processSteps: [
       'Surface preparation and leveling',
@@ -92,6 +96,7 @@ export const services: Service[] = [
     longDescription: 'Create elegant spaces with our false ceiling and partition installation services. We offer various materials and designs to match your aesthetic and functional requirements.',
     animationPath: '/assets/animations/ceiling.json',
     imagePath: '/alse.png',
+    imagePaths: ['/false_ceiling1.png', '/false_celing2.png', '/false_ceiling3.png'],
     serviceCategory: 'Construction',
     processSteps: [
       'Design consultation and planning',
@@ -111,6 +116,7 @@ export const services: Service[] = [
     longDescription: 'Transform your walls with our expert wallpaper installation services. We ensure perfect alignment, smooth application, and lasting results.',
     animationPath: '/assets/animations/wallpaper.json',
     imagePath: '/wallpaper.png',
+    imagePaths: ['/wallpaper1.png', '/wallpaper2.png', '/wallpaper3.png'],
     serviceCategory: 'Decorative',
     processSteps: [
       'Wall preparation and priming',
@@ -130,6 +136,7 @@ export const services: Service[] = [
     longDescription: 'Achieve flawless surfaces with our professional plastering services. We handle everything from repair work to complete new installations.',
     animationPath: '/assets/animations/plaster.json',
     imagePath: '/plaster.png',
+    imagePaths: ['/plaster1.png', '/plaster2.png', '/plaster3.png'],
     serviceCategory: 'Construction',
     processSteps: [
       'Surface assessment and preparation',
@@ -149,6 +156,7 @@ export const services: Service[] = [
     longDescription: 'Ensure your electromechanical systems operate efficiently with our expert installation and maintenance services. We work with various equipment types and brands.',
     animationPath: '/assets/animations/electromechanical.json',
     imagePath: '/electro.png',
+    imagePaths: ['/electro1.png', '/electro2.png', '/electro3.png'],
     serviceCategory: 'Maintenance',
     processSteps: [
       'System assessment and planning',
@@ -168,6 +176,7 @@ export const services: Service[] = [
     longDescription: 'Reliable plumbing services from installation to repair. We handle all aspects of plumbing and sanitary systems with professional expertise.',
     animationPath: '/assets/animations/plumbing.json',
     imagePath: '/plumbing.png',
+    imagePaths: ['/plumbing1.png', '/plumbing2.png', '/plumbing3.png'],
     serviceCategory: 'Maintenance',
     processSteps: [
       'System design and planning',
@@ -187,6 +196,7 @@ export const services: Service[] = [
     longDescription: 'Maintain optimal indoor air quality and comfort with our comprehensive HVAC services. From installation to regular maintenance, we keep your systems running efficiently.',
     animationPath: '/assets/animations/air-conditioning.json',
     imagePath: '/air_conditioning.png',
+    imagePaths: ['/air_cond1.png', '/air_cond2.png', '/air_cond3.png'],
     serviceCategory: 'Maintenance',
     processSteps: [
       'System assessment and load calculation',
@@ -206,6 +216,7 @@ export const services: Service[] = [
     longDescription: 'Transform your space with our expert painting services. We use high-quality materials and techniques to deliver lasting, beautiful results.',
     animationPath: '/assets/animations/painting.json',
     imagePath: '/paint.png',
+    imagePaths: ['/paint1.png', '/paint2.png', '/paint3.png'],
     serviceCategory: 'Decorative',
     processSteps: [
       'Surface preparation and repair',
@@ -225,6 +236,7 @@ export const services: Service[] = [
     longDescription: 'Transform your kitchen into a beautiful and functional space with our comprehensive renovation services. From design consultation to final installation, we handle everything including cabinetry, countertops, flooring, tiling, plumbing, and electrical work to create your dream kitchen.',
     animationPath: '/assets/animations/kitchen.json',
     imagePath: '/kitchen.png',
+    imagePaths: ['/kitchen1.png', '/kitchen2.png', '/kitchen3.png'],
     serviceCategory: 'Construction',
     processSteps: [
       'Design consultation and space planning',
@@ -246,6 +258,7 @@ export const services: Service[] = [
     longDescription: 'Transform your vision into reality with our comprehensive drawing and design services. We provide both two-dimensional and three-dimensional design solutions including architectural drawings, interior design plans, 3D visualizations, and detailed technical drawings for construction and renovation projects.',
     animationPath: '/assets/animations/design.json',
     imagePath: '/design.png',
+    imagePaths: ['/arch1.png', '/arch2.png', '/arch3.png'],
     serviceCategory: 'Decorative',
     processSteps: [
       'Initial consultation and requirement analysis',
@@ -256,6 +269,46 @@ export const services: Service[] = [
       'Design refinement and client approval',
       'Final detailed drawings and specifications',
       'Project documentation and handover'
+    ],
+    testimonials: [],
+    galleryImages: [],
+  },
+  {
+    id: 'fit-out-gypsum',
+    title: 'Fit Out Works - Soft Wall Gypsum Construction',
+    shortDescription: 'Professional fit out services with soft wall gypsum construction for modern interior spaces.',
+    longDescription: 'Transform your interior spaces with our expert fit out and gypsum construction services. We specialize in soft wall gypsum construction, creating elegant and functional partitions, walls, and decorative elements that enhance your space while maintaining flexibility and durability.',
+    animationPath: '/assets/animations/ceiling.json',
+    imagePath: '/alse.png',
+    imagePaths: ['/fit_out1.png', '/fit_out2.png', '/fit_out3.png'],
+    serviceCategory: 'Construction',
+    processSteps: [
+      'Initial consultation and space planning',
+      'Design and material selection',
+      'Framework installation for gypsum walls',
+      'Gypsum board installation and finishing',
+      'Soft wall construction and detailing',
+      'Final inspection and quality assurance'
+    ],
+    testimonials: [],
+    galleryImages: [],
+  },
+  {
+    id: 'move-in-move-out',
+    title: 'Move In and Move Out Services',
+    shortDescription: 'Professional moving services for residential and commercial relocations.',
+    longDescription: 'Experience seamless transitions with our comprehensive move in and move out services. We handle everything from packing and transportation to unpacking and setup, ensuring your belongings are safely relocated with care and efficiency. Our professional team provides end-to-end moving solutions tailored to your needs.',
+    animationPath: '/assets/animations/cleaning.json',
+    imagePath: '/cleaning.png',
+    imagePaths: ['/move1.png', '/move2.png', '/move3.png'],
+    serviceCategory: 'Maintenance',
+    processSteps: [
+      'Initial consultation and inventory assessment',
+      'Packing and protection of belongings',
+      'Safe transportation and logistics',
+      'Unpacking and placement',
+      'Setup and arrangement',
+      'Final inspection and handover'
     ],
     testimonials: [],
     galleryImages: [],

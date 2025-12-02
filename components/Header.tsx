@@ -38,7 +38,7 @@ export default function Header() {
   };
 
   return (
-    <header className="absolute top-0 left-0 right-0 z-50 w-full bg-transparent" style={{ direction: 'ltr' }}>
+    <header className="absolute top-0 left-0 right-0 z-[100] w-full bg-transparent" style={{ direction: 'ltr' }}>
       <div className="w-full px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center justify-between h-16" style={{ direction: 'ltr' }}>
           {/* Logo - Left corner */}
@@ -69,8 +69,8 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation - Right corner with Green background bar */}
-          <div className="hidden md:flex items-center" style={{ direction: 'ltr' }}>
-            <nav className="bg-[#0e7888] px-4 sm:px-6 py-2 rounded-xl flex items-center gap-4 sm:gap-6">
+          <div className="hidden md:flex items-center relative z-[101]" style={{ direction: 'ltr' }}>
+            <nav className="bg-[#0e7888] px-4 sm:px-6 py-2 rounded-xl flex items-center gap-4 sm:gap-6" style={{ pointerEvents: 'auto' }}>
               {/* Phone and WhatsApp Group */}
               <div className="flex items-center gap-3">
                 {/* WhatsApp */}
@@ -104,7 +104,8 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="text-white hover:text-white/80 transition-colors text-sm font-normal"
+                  className="text-white hover:text-white/80 transition-colors text-sm font-normal cursor-pointer"
+                  style={{ pointerEvents: 'auto' }}
                 >
                   {link.label}
                 </Link>

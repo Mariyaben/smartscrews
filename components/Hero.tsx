@@ -79,10 +79,11 @@ export default function Hero() {
       <div className="absolute inset-0 z-0">
         {/* Desktop Background Image */}
         <Image
-          src="/hero.png"
+          src="/new_hero.png"
           alt="Smart Screws - Residential and Commercial Maintenance Services - Expert Carpentry, Plumbing, HVAC, Tiling, Painting, and Kitchen Renovation Services"
           fill
           className="object-cover hidden md:block"
+          style={{ objectPosition: '60% 30%' }}
           priority
         />
         {/* Mobile Background Image */}
@@ -135,36 +136,23 @@ export default function Hero() {
           }}
           priority
         />
-        {/* Desktop Logos */}
+        {/* Desktop Logo */}
+        <div className="hidden md:block" style={{ marginLeft: 0, paddingLeft: 0, marginRight: 0, paddingRight: 0 }}>
         <Image
-          src="/NEWNEWLOGO.svg"
+          src="/Sidetextlogo.svg"
           alt="Smart Screws Logo - Residential and Commercial Maintenance Services"
-          width={120}
-          height={61}
-          className="hidden md:block w-auto h-auto"
+          width={957}
+          height={223}
+          className="w-auto h-auto"
           style={{
-            height: 'clamp(36px, 5vw, 72px)',
+            height: 'clamp(36px, 5vw, 60px)',
             width: 'auto',
             position: 'relative',
             zIndex: 101
           }}
           priority
         />
-        <Image
-          src="/TEXTLOGO.svg"
-          alt="Smart Screws - Building & Maintenance Services Company"
-          width={600}
-          height={120}
-          className="hidden md:block w-auto h-auto mobile-text-logo-spacing"
-          style={{
-            height: 'clamp(24px, 3vw, 48px)',
-            width: 'auto',
-            marginLeft: '-80px',
-            position: 'relative',
-            zIndex: 101
-          }}
-          priority
-        />
+        </div>
           </div>
         </div>
       </div>
@@ -343,9 +331,9 @@ export default function Hero() {
       </AnimatePresence>
 
       {/* Desktop Navigation Bar - Top Right Corner */}
-      <nav className="hidden md:flex absolute top-0 right-0 z-[60] mt-4 mr-4 sm:mr-6 lg:mr-8 items-center" style={{ direction: 'ltr', left: 'auto' }}>
+      <nav className="hidden md:flex absolute top-0 right-0 z-[110] mt-4 mr-4 sm:mr-6 lg:mr-8 items-center" style={{ direction: 'ltr', left: 'auto', pointerEvents: 'auto' }}>
         <div 
-          className="flex items-center gap-4 sm:gap-6 lg:gap-8 rounded-xl"
+          className="flex items-center gap-4 sm:gap-6 lg:gap-8 rounded-xl relative"
           style={{ 
             backgroundColor: '#0e7888',
             color: '#ffffff',
@@ -354,7 +342,9 @@ export default function Hero() {
             paddingTop: 'clamp(0.5rem, 1vw, 1rem)',
             paddingBottom: 'clamp(0.5rem, 1vw, 1rem)',
             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5), 0 0 60px rgba(42, 42, 42, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-            direction: 'ltr'
+            direction: 'ltr',
+            pointerEvents: 'auto',
+            zIndex: 110
           }}
         >
           {/* Phone and WhatsApp Group */}
@@ -364,9 +354,10 @@ export default function Hero() {
               href="https://wa.me/971529804784"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center hover:opacity-80 transition-opacity"
+              className="flex items-center hover:opacity-80 transition-opacity cursor-pointer"
               style={{ 
                 color: '#ffffff',
+                pointerEvents: 'auto'
               }}
               aria-label="Contact us on WhatsApp"
             >
@@ -381,13 +372,14 @@ export default function Hero() {
             {/* Phone Number */}
             <a 
               href="tel:+971529804784"
-              className="flex items-center gap-2 text-sm sm:text-base lg:text-lg hover:opacity-80 transition-opacity whitespace-nowrap"
+              className="flex items-center gap-2 text-sm sm:text-base lg:text-lg hover:opacity-80 transition-opacity whitespace-nowrap cursor-pointer"
               style={{ 
                 color: '#ffffff',
                 fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                 fontWeight: 300,
                 letterSpacing: '-0.02em',
-                lineHeight: 1.2
+                lineHeight: 1.2,
+                pointerEvents: 'auto'
               }}
               aria-label="Call us at +971 52 980 4784"
             >
@@ -397,13 +389,14 @@ export default function Hero() {
           </div>
           <a 
             href="#about" 
-            className="text-sm sm:text-base lg:text-lg hover:opacity-80 transition-opacity whitespace-nowrap"
+            className="text-sm sm:text-base lg:text-lg hover:opacity-80 transition-opacity whitespace-nowrap cursor-pointer"
             style={{ 
               color: '#ffffff',
               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
               fontWeight: 300,
               letterSpacing: '-0.02em',
-              lineHeight: 1.2
+              lineHeight: 1.2,
+              pointerEvents: 'auto'
             }}
             onClick={(e) => {
               e.preventDefault();
@@ -417,13 +410,14 @@ export default function Hero() {
           </a>
           <a 
             href="#services" 
-            className="text-sm sm:text-base lg:text-lg hover:opacity-80 transition-opacity whitespace-nowrap"
+            className="text-sm sm:text-base lg:text-lg hover:opacity-80 transition-opacity whitespace-nowrap cursor-pointer"
             style={{ 
               color: '#ffffff',
               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
               fontWeight: 300,
               letterSpacing: '-0.02em',
-              lineHeight: 1.2
+              lineHeight: 1.2,
+              pointerEvents: 'auto'
             }}
             onClick={(e) => {
               e.preventDefault();
@@ -437,13 +431,14 @@ export default function Hero() {
           </a>
           <a 
             href="#contact" 
-            className="text-sm sm:text-base lg:text-lg hover:opacity-80 transition-opacity whitespace-nowrap"
+            className="text-sm sm:text-base lg:text-lg hover:opacity-80 transition-opacity whitespace-nowrap cursor-pointer"
             style={{ 
               color: '#ffffff',
               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
               fontWeight: 300,
               letterSpacing: '-0.02em',
-              lineHeight: 1.2
+              lineHeight: 1.2,
+              pointerEvents: 'auto'
             }}
             onClick={(e) => {
               e.preventDefault();
@@ -566,7 +561,7 @@ export default function Hero() {
               direction: isRTL ? 'rtl' : 'ltr'
             }}
           >
-            <div className="leading-tight">BOOK A FREE CONSULTATION</div>
+            <div className="leading-tight">{t.hero.bookFreeConsultation}</div>
           </motion.button>
         </div>
       </div>

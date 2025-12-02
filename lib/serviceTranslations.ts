@@ -171,6 +171,32 @@ export const serviceTranslations: Record<Language, ServiceTranslations> = {
         'Final detailed drawings and specifications',
         'Project documentation and handover'
       ]
+    },
+    'fit-out-gypsum': {
+      title: 'Fit Out Works - Soft Wall Gypsum Construction',
+      shortDescription: 'Professional fit out services with soft wall gypsum construction for modern interior spaces.',
+      longDescription: 'Transform your interior spaces with our expert fit out and gypsum construction services. We specialize in soft wall gypsum construction, creating elegant and functional partitions, walls, and decorative elements that enhance your space while maintaining flexibility and durability.',
+      processSteps: [
+        'Initial consultation and space planning',
+        'Design and material selection',
+        'Framework installation for gypsum walls',
+        'Gypsum board installation and finishing',
+        'Soft wall construction and detailing',
+        'Final inspection and quality assurance'
+      ]
+    },
+    'move-in-move-out': {
+      title: 'Move In and Move Out Services',
+      shortDescription: 'Professional moving services for residential and commercial relocations.',
+      longDescription: 'Experience seamless transitions with our comprehensive move in and move out services. We handle everything from packing and transportation to unpacking and setup, ensuring your belongings are safely relocated with care and efficiency. Our professional team provides end-to-end moving solutions tailored to your needs.',
+      processSteps: [
+        'Initial consultation and inventory assessment',
+        'Packing and protection of belongings',
+        'Safe transportation and logistics',
+        'Unpacking and placement',
+        'Setup and arrangement',
+        'Final inspection and handover'
+      ]
     }
   },
   ar: {
@@ -332,6 +358,32 @@ export const serviceTranslations: Record<Language, ServiceTranslations> = {
         'تحسين التصميم وموافقة العميل',
         'الرسومات التفصيلية النهائية والمواصفات',
         'توثيق المشروع والتسليم'
+      ]
+    },
+    'fit-out-gypsum': {
+      title: 'أعمال التشطيب - بناء جدران الجبس الناعمة',
+      shortDescription: 'خدمات تشطيب احترافية مع بناء جدران الجبس الناعمة للمساحات الداخلية الحديثة.',
+      longDescription: 'حول مساحاتك الداخلية مع خدمات التشطيب وبناء الجبس الخبيرة. نتخصص في بناء جدران الجبس الناعمة، مما يخلق قواطع وجدران وعناصر زخرفية أنيقة ووظيفية تعزز مساحتك مع الحفاظ على المرونة والمتانة.',
+      processSteps: [
+        'الاستشارة الأولية وتخطيط المساحة',
+        'التصميم واختيار المواد',
+        'تركيب الإطار لجدران الجبس',
+        'تركيب ألواح الجبس والتشطيب',
+        'بناء الجدران الناعمة والتفاصيل',
+        'التفتيش النهائي وضمان الجودة'
+      ]
+    },
+    'move-in-move-out': {
+      title: 'خدمات الانتقال الداخلي والخارجي',
+      shortDescription: 'خدمات نقل احترافية للانتقالات السكنية والتجارية.',
+      longDescription: 'استمتع بانتقالات سلسة مع خدمات الانتقال الداخلي والخارجي الشاملة. نتعامل مع كل شيء من التعبئة والنقل إلى فك التعبئة والإعداد، مما يضمن نقل ممتلكاتك بأمان مع العناية والكفاءة. يوفر فريقنا المحترف حلول نقل شاملة مصممة حسب احتياجاتك.',
+      processSteps: [
+        'الاستشارة الأولية وتقييم المخزون',
+        'تعبئة وحماية الممتلكات',
+        'النقل الآمن والخدمات اللوجستية',
+        'فك التعبئة والوضع',
+        'الإعداد والترتيب',
+        'التفتيش النهائي والتسليم'
       ]
     }
   }

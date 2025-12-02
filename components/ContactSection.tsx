@@ -104,15 +104,15 @@ export default function ContactSection() {
     {
       icon: Phone,
       title: t.contact.contactInfo.phone,
-      value: "+971-52-2917742",
-      link: "tel:+971522917742",
+      value: "+971 52 980 4784",
+      link: "tel:+971529804784",
       description: t.contact.contactInfo.phoneDesc,
       delay: 0.2
     },
     {
       icon: MapPin,
       title: t.contact.contactInfo.location,
-      value: "P.O. Box 531-501, Dubai, UAE",
+      value: "DUBAI INDUSTRIAL CITY (G 27)",
       link: "#",
       delay: 0.3
     },

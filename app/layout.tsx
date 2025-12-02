@@ -259,7 +259,7 @@ export const metadata: Metadata = {
     description: "Smart Screws - Residential and commercial maintenance services in UAE and Dubai. The best maintenance, electrical, carpentry, plumbing, HVAC, tiling, painting, and construction services. Top-rated professional building and maintenance company. Quality craftsmanship for your home and business.",
     images: [
       {
-        url: "https://www.smartscrews.ae/hero.png",
+        url: "https://www.smartscrews.ae/new_hero.png",
         width: 1200,
         height: 630,
         alt: "Smart Screws - Residential and Commercial Maintenance Services",
@@ -327,11 +327,11 @@ export default function RootLayout({
               "url": "https://www.smartscrews.ae",
               "logo": "https://www.smartscrews.ae/NEWNEWLOGO.svg",
               "image": "https://www.smartscrews.ae/hero.png",
-              "telephone": "+971-52-2917742",
+              "telephone": "+971 52 980 4784",
               "email": "hello@smartscrews.ae",
               "address": {
                 "@type": "PostalAddress",
-                "postOfficeBoxNumber": "531-501",
+                "streetAddress": "DUBAI INDUSTRIAL CITY (G 27)",
                 "addressLocality": "Dubai",
                 "addressRegion": "Dubai",
                 "addressCountry": "AE"

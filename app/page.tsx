@@ -59,7 +59,7 @@ export const metadata = {
     siteName: 'Smart Screws - SmartScrews',
     images: [
       {
-        url: 'https://www.smartscrews.ae/hero.png',
+        url: 'https://www.smartscrews.ae/new_hero.png',
         width: 1200,
         height: 630,
         alt: 'Smart Screws - Residential and Commercial Maintenance Services',

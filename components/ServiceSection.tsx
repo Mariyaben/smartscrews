@@ -7,6 +7,7 @@ import { ChevronDown } from 'lucide-react';
 import type { Service } from '@/lib/data';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getTranslatedService } from '@/lib/serviceTranslations';
+import ServiceImageCarousel from './ServiceImageCarousel';
 
 interface ServiceSectionProps {
   service: Service;
@@ -48,10 +49,15 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
               transition={{ duration: 0.6 }}
             >
               <div className="aspect-[4/3] lg:aspect-square relative">
-                {service.imagePath && !imageError ? (
+                {service.imagePaths && service.imagePaths.length > 0 ? (
+                  <ServiceImageCarousel
+                    images={service.imagePaths}
+                    alt={`Smart Screws - ${translatedService.title} - Residential and Commercial Maintenance Services`}
+                  />
+                ) : service.imagePath && !imageError ? (
                   <Image
                     src={service.imagePath}
-                    alt={`Smart Screws - ${service.title} - Residential and Commercial Maintenance Services`}
+                    alt={`Smart Screws - ${translatedService.title} - Residential and Commercial Maintenance Services`}
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 50vw"
@@ -74,7 +80,7 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
                           d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" 
                         />
                       </svg>
-                      <p className="text-lg font-medium">{service.title}</p>
+                      <p className="text-lg font-medium">{translatedService.title}</p>
                     </div>
                   </div>
                 )}
