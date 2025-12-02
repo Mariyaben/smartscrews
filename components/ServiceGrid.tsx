@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Grid3x3, Hammer, Wrench, Palette, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import ServiceSection from './ServiceSection';
@@ -18,6 +18,12 @@ const categoryIcons = {
 export default function ServiceGrid() {
   const { t, isRTL, language } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
+
+  // Preload background image immediately
+  useEffect(() => {
+    const img = new window.Image();
+    img.src = '/about_bg.png';
+  }, []);
 
   const allServices = getTranslatedServices(services, language);
   const filteredServices = selectedCategory === 'All'

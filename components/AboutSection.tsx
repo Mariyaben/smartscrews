@@ -28,6 +28,12 @@ export default function AboutSection() {
     { id: 'why-choose', label: t.about.whyChooseUs },
   ]
 
+  // Preload background image immediately
+  useEffect(() => {
+    const img = new window.Image();
+    img.src = '/about_bg.png';
+  }, []);
+
   // Detect when About section is in view to enable internal scrolling (desktop only)
   useEffect(() => {
     if (!aboutSectionRef.current) return

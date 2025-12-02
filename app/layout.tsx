@@ -498,6 +498,7 @@ export default function RootLayout({
             }),
           }}
         />
+        <link rel="preload" href="/about_bg.png" as="image" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
