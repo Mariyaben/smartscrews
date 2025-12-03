@@ -135,9 +135,13 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
           setErrors({});
           onClose();
         }, 2000);
+      } else {
+        const errorData = await response.json().catch(() => ({ error: 'Failed to send message. Please try again.' }));
+        setErrors({ submit: errorData.error || 'Failed to send message. Please try again.' });
       }
     } catch (error) {
       console.error('Error submitting form:', error);
+      setErrors({ submit: 'Network error. Please check your connection and try again.' });
     } finally {
       setIsSubmitting(false);
     }
@@ -510,6 +514,18 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                         <p className="mt-1 text-sm text-[#d9534f]">{errors.message}</p>
                       )}
                     </div>
+
+                    {/* Submit Error */}
+                    {errors.submit && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="p-4 bg-[#d9534f]/10 border border-[#d9534f] rounded-lg text-[#d9534f]"
+                        role="alert"
+                      >
+                        <p className="text-sm font-medium">{errors.submit}</p>
+                      </motion.div>
+                    )}
 
                     {/* Submit Button */}
                     <motion.button

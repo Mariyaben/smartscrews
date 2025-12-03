@@ -42,17 +42,23 @@ export default function ContactSection() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
+    // Clear error when user starts typing
+    if (submitError) {
+      setSubmitError(null);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError(null);
     
     try {
       const response = await fetch('/api/contact', {
@@ -84,9 +90,13 @@ export default function ContactSection() {
             message: ''
           });
         }, 3000);
+      } else {
+        const errorData = await response.json().catch(() => ({ error: 'Failed to send message. Please try again.' }));
+        setSubmitError(errorData.error || 'Failed to send message. Please try again.');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
+      setSubmitError('Network error. Please check your connection and try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -617,6 +627,25 @@ export default function ContactSection() {
                     placeholder="Tell us about your project, goals, and timeline..."
                   />
                 </div>
+
+                {submitError && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    style={{
+                      padding: '16px',
+                      background: 'rgba(217, 83, 79, 0.1)',
+                      border: '1px solid rgba(217, 83, 79, 0.5)',
+                      borderRadius: '8px',
+                      color: '#d9534f',
+                      fontSize: isMobile ? '14px' : '16px',
+                      fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
+                    }}
+                    role="alert"
+                  >
+                    {submitError}
+                  </motion.div>
+                )}
 
                 <motion.button
                   whileHover={{ scale: 1.02, boxShadow: '0 15px 35px rgba(14, 120, 136, 0.3)' }}

@@ -93,6 +93,22 @@ export default function ServiceImageCarousel({ images, alt }: ServiceImageCarous
           );
         })}
       </AnimatePresence>
+      
+      {/* Carousel indicators */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
+        {images.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            className={`transition-all duration-300 rounded-full ${
+              index === currentIndex
+                ? 'w-2.5 h-2.5 bg-white'
+                : 'w-2 h-2 bg-white/60 hover:bg-white/80'
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
     </div>
   );
 }
