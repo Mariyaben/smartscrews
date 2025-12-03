@@ -226,7 +226,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 <div className="flex flex-col items-center gap-3 mb-6 sm:mb-8">
                   {/* Email */}
                   <a
-                    href="mailto:riyas@smartscrews.ae"
+                    href="mailto:hello@smartscrews.ae"
                     className="flex items-center gap-2 text-[#faf9f6]/90 hover:text-[#0e7888] transition-colors"
                     style={{
                       fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
@@ -234,7 +234,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                     }}
                   >
                     <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
-                    <span><strong>Email:</strong> riyas@smartscrews.ae</span>
+                    <span><strong>Email:</strong> hello@smartscrews.ae</span>
                   </a>
                   
                   {/* Phone */}

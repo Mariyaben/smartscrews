@@ -34,8 +34,7 @@ export const serviceTranslations: Record<Language, ServiceTranslations> = {
         'Custom cleaning plan development',
         'Eco-friendly cleaning solution application',
         'Thorough cleaning execution',
-        'Quality inspection',
-        'Follow-up maintenance scheduling'
+        'Quality inspection'
       ]
     },
     'floor-wall-tiling': {
@@ -222,8 +221,7 @@ export const serviceTranslations: Record<Language, ServiceTranslations> = {
         'تطوير خطة تنظيف مخصصة',
         'تطبيق حلول تنظيف صديقة للبيئة',
         'تنفيذ التنظيف الشامل',
-        'تفتيش الجودة',
-        'جدولة متابعة الصيانة'
+        'تفتيش الجودة'
       ]
     },
     'floor-wall-tiling': {

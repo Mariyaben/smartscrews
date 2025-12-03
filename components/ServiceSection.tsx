@@ -89,17 +89,27 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
           </div>
 
           {/* Content Section */}
-          <div className="w-full lg:w-1/2">
+          <div className="w-full lg:w-1/2 relative z-30">
             <motion.div
-              className="w-full"
+              className="w-full relative"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
+              {/* Background protection for text readability */}
+              <div 
+                className="absolute inset-0 rounded-xl -z-10 pointer-events-none"
+                style={{
+                  background: imageOnLeft 
+                    ? 'linear-gradient(to left, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%)'
+                    : 'linear-gradient(to right, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%)',
+                  backdropFilter: 'blur(1px)'
+                }}
+              />
               {/* Title */}
               <h2 
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-white mb-4 sm:mb-5 drop-shadow-lg"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-gray-700 mb-4 sm:mb-5 drop-shadow-lg"
                 style={{
                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                   fontWeight: 300,
@@ -113,7 +123,7 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
 
               {/* Description */}
               <p 
-                className="text-base sm:text-lg text-white/90 mb-6 sm:mb-8 leading-relaxed drop-shadow-md"
+                className="text-base sm:text-lg text-gray-700 mb-6 sm:mb-8 leading-relaxed drop-shadow-md"
                 style={{
                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                   fontWeight: 300,
@@ -137,7 +147,7 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
                           suppressHydrationWarning
                         >
                           <span 
-                            className="text-base sm:text-lg text-white pr-4 sm:pr-6 drop-shadow-md"
+                            className="text-base sm:text-lg text-gray-700 pr-4 sm:pr-6 drop-shadow-md"
                             style={{
                               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                               fontWeight: 300,
@@ -152,7 +162,7 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
                             className="flex-shrink-0"
                           >
                             <ChevronDown 
-                              className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" 
+                              className="w-5 h-5 text-gray-700 group-hover:text-gray-700 transition-colors" 
                               strokeWidth={2}
                             />
                           </motion.div>
@@ -167,7 +177,7 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
                               className="overflow-hidden"
                             >
                               <p 
-                                className="text-sm sm:text-base text-white/80 mt-2 sm:mt-3 leading-relaxed pt-2 sm:pt-3 border-t border-white/10 drop-shadow-sm"
+                                className="text-sm sm:text-base text-gray-700 mt-2 sm:mt-3 leading-relaxed pt-2 sm:pt-3 border-t border-white/10 drop-shadow-sm"
                                 style={{
                                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                                   fontWeight: 300,

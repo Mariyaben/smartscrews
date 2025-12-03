@@ -63,8 +63,7 @@ export const services: Service[] = [
       'Custom cleaning plan development',
       'Eco-friendly cleaning solution application',
       'Thorough cleaning execution',
-      'Quality inspection',
-      'Follow-up maintenance scheduling'
+      'Quality inspection'
     ],
     testimonials: [],
     galleryImages: [],

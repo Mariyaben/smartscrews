@@ -71,7 +71,7 @@ export default function ServiceGrid() {
         
         <div className="relative z-20 w-full flex flex-col items-center px-4 sm:px-6 lg:px-8">
           <h2 
-            className="text-3xl sm:text-4xl lg:text-5xl text-white mb-6 drop-shadow-lg"
+            className="text-3xl sm:text-4xl lg:text-5xl text-gray-700 mb-6 drop-shadow-lg"
             style={{
               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
               fontWeight: 300,
@@ -85,7 +85,7 @@ export default function ServiceGrid() {
             {t.services.title}
           </h2>
           <p 
-            className="text-lg text-white/90 max-w-3xl leading-relaxed drop-shadow-md"
+            className="text-lg text-gray-700 max-w-3xl leading-relaxed drop-shadow-md"
             style={{
               fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
               fontWeight: 300,

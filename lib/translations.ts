@@ -155,7 +155,7 @@ export const translations: Record<Language, Translations> = {
       description: 'Excellence is the foundation upon which we build. Our maintenance services company stands for unwavering quality and the creation of solutions that embody strength and longevity.',
       ctaButton: 'Ready to Transform?',
       ctaButtonSubtext: 'Contact us now!',
-      bookFreeConsultation: 'BOOK A FREE CONSULTATION',
+      bookFreeConsultation: 'GET YOUR FREE QUOTE',
     },
     banner: {
       certifiedProfessionals: 'CERTIFIED PROFESSIONALS',
@@ -281,7 +281,7 @@ export const translations: Record<Language, Translations> = {
       description: 'التميز هو الأساس الذي نبني عليه. تلتزم شركتنا للبناء بجودة ثابتة وإنشاء هياكل تجسد القوة والمتانة.',
       ctaButton: 'جاهز للتحول؟',
       ctaButtonSubtext: 'اتصل بنا الآن!',
-      bookFreeConsultation: 'احجز استشارة مجانية',
+      bookFreeConsultation: 'احصل على عرض سعر مجاني',
     },
     banner: {
       certifiedProfessionals: 'مهنيون معتمدون',
