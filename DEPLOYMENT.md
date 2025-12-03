@@ -57,19 +57,34 @@ Your site will be live at `https://your-project.vercel.app`
 
 ## Environment Variables
 
-No environment variables required for basic functionality.
+### Required: Resend API Key for Contact Form
 
-### Optional: Email Service Integration
+The contact form uses Resend to send emails to `hello@smartscrews.ae`. You need to set up a Resend API key:
 
-If you want to send real emails from the contact form:
+1. **Create a Resend account:**
+   - Go to [resend.com](https://resend.com) and sign up
+   - Verify your email address
 
-1. Choose an email service (SendGrid, Resend, Nodemailer, etc.)
+2. **Get your API key:**
+   - Go to the Resend dashboard
+   - Navigate to API Keys section
+   - Create a new API key
+   - Copy the API key (starts with `re_`)
 
-2. Add environment variable in Vercel:
+3. **Set up environment variable locally:**
+   - Create a `.env.local` file in the project root
+   - Add: `RESEND_API_KEY=re_your_api_key_here`
+
+4. **Set up environment variable in Vercel:**
    - Go to Project Settings → Environment Variables
-   - Add your API key (e.g., `SENDGRID_API_KEY`)
+   - Add: `RESEND_API_KEY` with your API key value
+   - Make sure to add it for Production, Preview, and Development environments
 
-3. Update `app/api/contact/route.ts` to use the email service
+5. **Domain verification (optional but recommended):**
+   - In Resend dashboard, go to Domains
+   - Add and verify your domain (e.g., `smartscrews.ae`)
+   - Update the `from` field in `app/api/contact/route.ts` to use your verified domain
+   - Currently using `onboarding@resend.dev` for testing (works without domain verification)
 
 ## Custom Domain
 
