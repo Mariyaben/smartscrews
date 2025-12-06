@@ -185,16 +185,14 @@ export const serviceTranslations: Record<Language, ServiceTranslations> = {
       ]
     },
     'move-in-move-out': {
-      title: 'Move In and Move Out Services',
-      shortDescription: 'Professional moving services for residential and commercial relocations.',
-      longDescription: 'Experience seamless transitions with our comprehensive move in and move out services. We handle everything from packing and transportation to unpacking and setup, ensuring your belongings are safely relocated with care and efficiency. Our professional team provides end-to-end moving solutions tailored to your needs.',
+      title: 'Move-In and Move-Out Services',
+      shortDescription: 'Inspection • Detailed Reporting • Rectification',
+      longDescription: 'Inspection • Detailed Reporting • Rectification \nEnsure a smooth transition with our comprehensive Move-In and Move-Out Services, designed to protect your property, reduce disputes, and maintain high living standards.',
       processSteps: [
-        'Initial consultation and inventory assessment',
-        'Packing and protection of belongings',
-        'Safe transportation and logistics',
-        'Unpacking and placement',
-        'Setup and arrangement',
-        'Final inspection and handover'
+        'Thorough Property Inspection',
+        'Professional Inspection Report',
+        'Rectification & Repairs',
+        'Final Re-Inspection'
       ]
     }
   },
@@ -405,4 +403,3 @@ export function getTranslatedService(service: Service, language: Language): Serv
 export function getTranslatedServices(services: Service[], language: Language): Service[] {
   return services.map(service => getTranslatedService(service, language));
 }
-

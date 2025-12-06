@@ -35,6 +35,35 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
     });
   };
 
+  // Get detailed content for move-in-move-out service steps
+  const getStepDetailedContent = (serviceId: string, stepIndex: number): string | null => {
+    if (serviceId !== 'move-in-move-out') {
+      return null;
+    }
+
+    const detailedContent: Record<number, { en: string; ar: string }> = {
+      0: {
+        en: 'Our trained inspectors conduct a room-by-room assessment covering:\n\n• Walls, flooring, ceilings\n• Electrical fixtures & appliances\n• Plumbing, bathrooms & kitchens\n• Doors, windows & locks\n• Pest, mold, and safety checks\n• Furniture & inventory (if applicable)',
+        ar: 'يقوم مفتشونا المدربون بإجراء تقييم غرفة بغرفة يشمل:\n\n• الجدران والأرضيات والأسقف\n• التركيبات والأجهزة الكهربائية\n• السباكة والحمامات والمطابخ\n• الأبواب والنوافذ والأقفال\n• فحوصات الآفات والعفن والسلامة\n• الأثاث والمخزون (إن وجد)'
+      },
+      1: {
+        en: 'You receive a well-structured, photo-supported report, including:\n\n• Condition summary\n• Issues found\n• Classification of damages (wear & tear vs. tenant-caused)\n• Repair recommendations\n• Cost estimates (if requested)',
+        ar: 'ستتلقى تقريراً منسقاً يدعمه الصور، يتضمن:\n\n• ملخص الحالة\n• المشاكل الموجودة\n• تصنيف الأضرار (البلى الطبيعي مقابل الأضرار التي سببها المستأجر)\n• توصيات الإصلاح\n• تقديرات التكلفة (عند الطلب)'
+      },
+      2: {
+        en: 'We provide or arrange all necessary repair work, such as:\n\n• Painting & patching\n• Cleaning & deep cleaning\n• Electrical & plumbing fixes\n• Furniture repair\n• Appliance servicing\n• Minor carpentry\n• Pest control (optional)',
+        ar: 'نوفر أو نرتب جميع أعمال الإصلاح اللازمة، مثل:\n\n• الطلاء والترقيع\n• التنظيف والتنظيف العميق\n• إصلاحات الكهرباء والسباكة\n• إصلاح الأثاث\n• صيانة الأجهزة\n• أعمال النجارة البسيطة\n• مكافحة الآفات (اختياري)'
+      },
+      3: {
+        en: 'After rectification, a final inspection ensures the property meets required standards and is ready for the next tenant or handover.',
+        ar: 'بعد التصحيح، يضمن التفتيش النهائي أن العقار يلبي المعايير المطلوبة ويكون جاهزاً للمستأجر التالي أو التسليم.'
+      }
+    };
+
+    const content = detailedContent[stepIndex];
+    return content ? (language === 'en' ? content.en : content.ar) : null;
+  };
+
   return (
     <div className="w-full pt-16 sm:pt-24 lg:pt-32 xl:pt-48 pb-16 sm:pb-16 lg:pb-24" style={{ marginBottom: 'clamp(3rem, 8vw, 4rem)' }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -123,7 +152,7 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
 
               {/* Description */}
               <p 
-                className="text-base sm:text-lg text-gray-700 mb-6 sm:mb-8 leading-relaxed drop-shadow-md"
+                className={`text-base sm:text-lg text-gray-700 mb-6 sm:mb-8 leading-relaxed drop-shadow-md ${service.id === 'move-in-move-out' ? 'whitespace-pre-line' : ''}`}
                 style={{
                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
                   fontWeight: 300,
@@ -131,7 +160,9 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
                   direction: isRTL ? 'rtl' : 'ltr'
                 }}
               >
-                {translatedService.shortDescription}
+                {service.id === 'move-in-move-out' && translatedService.longDescription 
+                  ? translatedService.longDescription 
+                  : translatedService.shortDescription}
               </p>
 
               {/* Expandable Service List */}
@@ -176,7 +207,7 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
                               transition={{ duration: 0.3 }}
                               className="overflow-hidden"
                             >
-                              <p 
+                              <div 
                                 className="text-sm sm:text-base text-gray-700 mt-2 sm:mt-3 leading-relaxed pt-2 sm:pt-3 border-t border-white/10 drop-shadow-sm"
                                 style={{
                                   fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
@@ -185,11 +216,29 @@ export default function ServiceSection({ service, index }: ServiceSectionProps) 
                                   direction: isRTL ? 'rtl' : 'ltr'
                                 }}
                               >
-                                {language === 'en' 
-                                  ? `${step} is executed with precision and expertise. We ensure consistency across all touchpoints to create lasting results and build customer trust through quality execution and attention to detail.`
-                                  : `يتم تنفيذ ${step} بدقة وخبرة. نضمن الاتساق عبر جميع نقاط الاتصال لإنشاء نتائج دائمة وبناء ثقة العملاء من خلال التنفيذ عالي الجودة والاهتمام بالتفاصيل.`
-                                }
-                              </p>
+                                {(() => {
+                                  const detailedContent = getStepDetailedContent(service.id, stepIndex);
+                                  if (detailedContent) {
+                                    return (
+                                      <div className="whitespace-pre-line">
+                                        {detailedContent.split('\n').map((line, idx) => (
+                                          <p key={idx} className={line.startsWith('•') ? 'ml-4' : ''}>
+                                            {line}
+                                          </p>
+                                        ))}
+                                      </div>
+                                    );
+                                  }
+                                  return (
+                                    <p>
+                                      {language === 'en' 
+                                        ? `${step} is executed with precision and expertise. We ensure consistency across all touchpoints to create lasting results and build customer trust through quality execution and attention to detail.`
+                                        : `يتم تنفيذ ${step} بدقة وخبرة. نضمن الاتساق عبر جميع نقاط الاتصال لإنشاء نتائج دائمة وبناء ثقة العملاء من خلال التنفيذ عالي الجودة والاهتمام بالتفاصيل.`
+                                      }
+                                    </p>
+                                  );
+                                })()}
+                              </div>
                             </motion.div>
                           )}
                         </AnimatePresence>

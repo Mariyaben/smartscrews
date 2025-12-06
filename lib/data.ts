@@ -295,7 +295,7 @@ export const services: Service[] = [
   {
     id: 'move-in-move-out',
     title: 'Move In and Move Out Services',
-    shortDescription: 'Professional moving services for residential and commercial relocations.',
+    shortDescription: 'Ensure a smooth transition with our comprehensive Move-In and Move-Out Services, designed to protect your property, reduce disputes, and maintain high living standards.',
     longDescription: 'Experience seamless transitions with our comprehensive move in and move out services. We handle everything from packing and transportation to unpacking and setup, ensuring your belongings are safely relocated with care and efficiency. Our professional team provides end-to-end moving solutions tailored to your needs.',
     animationPath: '/assets/animations/cleaning.json',
     imagePath: '/cleaning.png',
